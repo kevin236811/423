@@ -1,0 +1,10 @@
+{
+  "name": "大学葡萄牙语 1 · 随身点读与精读",
+  "short_name": "大学葡语1",
+  "description": "《大学葡萄牙语 1》手机端图文点读与精读学习应用",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#047857",
+  "orientation": "portrait"
+}

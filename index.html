@@ -1,0 +1,1485 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#065f46" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="大学葡语1" />
+  <link rel="manifest" href="manifest.json" />
+  <title>大学葡萄牙语 1 · 随身精读与点读</title>
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --surface: #ffffff;
+      --surface-alt: #f1f5f9;
+      --text: #0f172a;
+      --text-muted: #64748b;
+      --primary: #047857;
+      --primary-light: #ecfdf5;
+      --primary-border: #a7f3d0;
+      --accent: #d97706;
+      --accent-light: #fffbeb;
+      --danger: #dc2626;
+      --border: #e2e8f0;
+      --shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.08);
+      --radius: 16px;
+      --safe-bottom: env(safe-area-inset-bottom, 0px);
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      padding-bottom: calc(185px + var(--safe-bottom));
+    }
+
+    /* Top Sticky Header */
+    .app-header {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      padding: 10px 14px 8px;
+    }
+
+    .header-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    .unit-selector-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--surface-alt);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 7px 12px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+      cursor: pointer;
+      flex: 1;
+      min-width: 0;
+      text-align: left;
+    }
+
+    .unit-badge {
+      background: var(--primary);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 6px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .unit-title-truncate {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      flex: 1;
+    }
+
+    .mode-switch {
+      display: flex;
+      background: var(--surface-alt);
+      padding: 3px;
+      border-radius: 11px;
+      border: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+
+    .mode-btn {
+      border: none;
+      background: transparent;
+      padding: 5px 10px;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--text-muted);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .mode-btn.active {
+      background: var(--surface);
+      color: var(--primary);
+      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    }
+
+    /* Sub-bar: Audio tracks pills for current unit */
+    .tracks-strip {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding: 8px 0 2px;
+      max-width: 760px;
+      margin: 0 auto;
+      scrollbar-width: none;
+    }
+    .tracks-strip::-webkit-scrollbar { display: none; }
+
+    .track-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 5px 11px;
+      border-radius: 999px;
+      font-size: 12.5px;
+      font-weight: 500;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text);
+      white-space: nowrap;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .track-chip.playing {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+      box-shadow: 0 2px 8px rgba(4, 120, 87, 0.28);
+    }
+
+    .track-chip .dur {
+      font-size: 11px;
+      opacity: 0.75;
+    }
+
+    /* Main Container */
+    .main-container {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 14px;
+    }
+
+    /* Unit Banner Card */
+    .unit-hero {
+      background: linear-gradient(135deg, #065f46 0%, #047857 60%, #0f766e 100%);
+      color: #fff;
+      border-radius: var(--radius);
+      padding: 16px;
+      margin-bottom: 14px;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .unit-hero-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+      font-size: 12px;
+      opacity: 0.9;
+    }
+
+    .unit-hero h1 {
+      margin: 0 0 4px;
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -0.2px;
+    }
+
+    .unit-hero p {
+      margin: 0;
+      font-size: 14px;
+      opacity: 0.92;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .hero-btn {
+      background: rgba(255, 255, 255, 0.18);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: #fff;
+      padding: 5px 11px;
+      border-radius: 9px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .hero-btn:active {
+      background: rgba(255, 255, 255, 0.3);
+    }
+
+    /* Section Card */
+    .section-card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      padding: 15px;
+      margin-bottom: 14px;
+      box-shadow: var(--shadow);
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--surface-alt);
+    }
+
+    .section-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin: 0;
+    }
+
+    .small-action-btn {
+      background: var(--surface-alt);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 4px 9px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+    }
+
+    /* Dialogue Items */
+    .dialogue-group-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--primary);
+      background: var(--primary-light);
+      padding: 5px 10px;
+      border-radius: 8px;
+      margin: 12px 0 8px;
+      display: inline-block;
+    }
+    .dialogue-group-title:first-child {
+      margin-top: 0;
+    }
+
+    .dialogue-line {
+      padding: 11px 12px;
+      border-radius: 12px;
+      background: var(--bg);
+      border: 1px solid transparent;
+      margin-bottom: 8px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      position: relative;
+    }
+
+    .dialogue-line:hover, .dialogue-line:active {
+      border-color: var(--primary-border);
+      background: var(--primary-light);
+    }
+
+    .dialogue-line.speaking {
+      border-color: var(--primary);
+      background: var(--primary-light);
+    }
+
+    .line-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .speaker-tag {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      margin-bottom: 2px;
+      display: block;
+    }
+
+    .pt-sentence {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.45;
+    }
+
+    .tts-btn {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 13px;
+      color: var(--primary);
+      cursor: pointer;
+    }
+
+    .zh-sentence {
+      font-size: 13.5px;
+      color: var(--text-muted);
+      margin-top: 5px;
+      transition: opacity 0.2s ease;
+    }
+
+    body.hide-zh .zh-sentence,
+    body.hide-zh .vocab-zh {
+      filter: blur(6px);
+      user-select: none;
+    }
+    body.hide-zh .dialogue-line:active .zh-sentence,
+    body.hide-zh .vocab-item:active .vocab-zh {
+      filter: none;
+    }
+
+    /* Vocabulary List */
+    .vocab-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 8px;
+    }
+    @media (min-width: 540px) {
+      .vocab-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .vocab-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 12px;
+      background: var(--bg);
+      border-radius: 11px;
+      border: 1px solid var(--border);
+      cursor: pointer;
+      gap: 8px;
+    }
+
+    .vocab-item:active {
+      background: var(--primary-light);
+      border-color: var(--primary-border);
+    }
+
+    .vocab-pt {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .vocab-pos {
+      font-size: 11px;
+      color: var(--accent);
+      background: var(--accent-light);
+      padding: 1px 6px;
+      border-radius: 5px;
+      margin-left: 6px;
+      font-style: italic;
+    }
+
+    .vocab-zh {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .star-btn {
+      background: none;
+      border: none;
+      font-size: 18px;
+      cursor: pointer;
+      padding: 4px;
+      line-height: 1;
+      color: #cbd5e1;
+    }
+    .star-btn.starred {
+      color: #f59e0b;
+    }
+
+    /* Grammar Points */
+    .grammar-list {
+      margin: 0;
+      padding-left: 18px;
+      font-size: 14px;
+      color: var(--text);
+    }
+    .grammar-list li {
+      margin-bottom: 7px;
+      line-height: 1.55;
+    }
+
+    /* Book Scan Viewer */
+    .book-viewer {
+      background: var(--surface);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      margin-bottom: 14px;
+    }
+
+    .book-Jump-bar {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding: 10px 12px;
+      background: var(--surface-alt);
+      border-bottom: 1px solid var(--border);
+      scrollbar-width: none;
+    }
+    .book-Jump-bar::-webkit-scrollbar { display: none; }
+
+    .jump-pill {
+      padding: 4px 10px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      white-space: nowrap;
+      cursor: pointer;
+    }
+    .jump-pill.active {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+
+    .page-nav-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--border);
+      gap: 8px;
+    }
+
+    .page-btn {
+      background: var(--surface-alt);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 7px 13px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+      cursor: pointer;
+    }
+    .page-btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    .page-indicator {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: 12.5px;
+      font-weight: 600;
+    }
+    .page-indicator small {
+      font-size: 11px;
+      color: var(--text-muted);
+      font-weight: 400;
+    }
+
+    .page-canvas-wrap {
+      position: relative;
+      background: #e2e8f0;
+      min-height: 420px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: auto;
+      touch-action: pan-x pan-y pinch-zoom;
+    }
+
+    .page-img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: width 0.15s ease;
+    }
+    .page-img.zoomed {
+      width: 175%;
+      max-width: none;
+    }
+
+    /* Notes textarea */
+    .notes-area {
+      width: 100%;
+      min-height: 90px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px;
+      font-size: 14px;
+      font-family: inherit;
+      background: var(--bg);
+      color: var(--text);
+      resize: vertical;
+    }
+
+    /* Bottom Fixed Audio Player */
+    .audio-dock {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 50;
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      color: #fff;
+      padding: 10px 14px calc(12px + var(--safe-bottom));
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 -8px 25px rgba(0, 0, 0, 0.22);
+    }
+
+    .dock-inner {
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    .dock-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+
+    .now-playing-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: #e2e8f0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      flex: 1;
+    }
+
+    .time-readout {
+      font-size: 12px;
+      font-variant-numeric: tabular-nums;
+      color: #94a3b8;
+      flex-shrink: 0;
+    }
+
+    .progress-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .seek-slider {
+      flex: 1;
+      accent-color: #10b981;
+      height: 5px;
+      cursor: pointer;
+    }
+
+    .dock-controls {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+    }
+
+    .ctrl-group {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .ctrl-btn {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      color: #fff;
+      border-radius: 10px;
+      padding: 6px 10px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+    }
+    .ctrl-btn:active {
+      background: rgba(255, 255, 255, 0.22);
+    }
+    .ctrl-btn.active {
+      background: #f59e0b;
+      border-color: #f59e0b;
+      color: #0f172a;
+    }
+
+    .play-main-btn {
+      background: #10b981;
+      border: none;
+      color: #064e3b;
+      font-weight: 800;
+      padding: 8px 18px;
+      border-radius: 12px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    /* Drawer Modal for Unit Selection */
+    .drawer-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.55);
+      z-index: 80;
+      display: none;
+      align-items: flex-end;
+      justify-content: center;
+    }
+    .drawer-backdrop.open {
+      display: flex;
+    }
+
+    .drawer-sheet {
+      background: var(--surface);
+      width: 100%;
+      max-width: 760px;
+      max-height: 82vh;
+      border-radius: 20px 20px 0 0;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      padding-bottom: var(--safe-bottom);
+    }
+
+    .drawer-header {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-weight: 700;
+      font-size: 16px;
+    }
+
+    .drawer-list {
+      overflow-y: auto;
+      padding: 10px 14px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .unit-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      cursor: pointer;
+      gap: 10px;
+    }
+    .unit-item.current {
+      border-color: var(--primary);
+      background: var(--primary-light);
+    }
+
+    .unit-item-left {
+      min-width: 0;
+      flex: 1;
+    }
+    .unit-item-pt {
+      font-weight: 700;
+      font-size: 14.5px;
+      color: var(--text);
+    }
+    .unit-item-zh {
+      font-size: 12.5px;
+      color: var(--text-muted);
+    }
+    .unit-done-check {
+      font-size: 12px;
+      padding: 3px 8px;
+      border-radius: 99px;
+      background: #e2e8f0;
+      color: #475569;
+      flex-shrink: 0;
+    }
+    .unit-done-check.done {
+      background: #d1fae5;
+      color: #065f46;
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Sticky Navigation -->
+  <header class="app-header">
+    <div class="header-top">
+      <button class="unit-selector-btn" id="openUnitDrawerBtn" title="切换课程单元">
+        <span class="unit-badge" id="currentUnitBadge">Unidade 1</span>
+        <span class="unit-title-truncate" id="currentUnitTitle">Bom dia. Como te chamas?</span>
+        <span>▾</span>
+      </button>
+
+      <div class="mode-switch">
+        <button class="mode-btn active" data-mode="dual">双模</button>
+        <button class="mode-btn" data-mode="study">精读</button>
+        <button class="mode-btn" data-mode="book">原书</button>
+      </div>
+    </div>
+
+    <!-- Audio tracks bar for current unit -->
+    <div class="tracks-strip" id="unitTracksStrip"></div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main-container">
+    <!-- Unit Hero Card -->
+    <section class="unit-hero">
+      <div class="unit-hero-top">
+        <span id="heroPageRange">课本 P.1–14 (PDF 第 14–27 页)</span>
+        <label style="display:inline-flex;align-items:center;gap:4px;cursor:pointer;">
+          <input type="checkbox" id="unitCompletedCheck" /> 已学完本课
+        </label>
+      </div>
+      <h1 id="heroTitlePt">Bom dia. Como te chamas?</h1>
+      <p id="heroTitleZh">早上好！你叫什么名字？</p>
+      <div class="hero-actions">
+        <button class="hero-btn" id="toggleZhBtn">👁️ 隐藏/显示中文</button>
+        <button class="hero-btn" id="openStarredModalBtn">⭐ 生词本 (<span id="starredCount">0</span>)</button>
+        <button class="hero-btn" id="prevUnitBtn">⬅ 上一课</button>
+        <button class="hero-btn" id="nextUnitBtn">下一课 ➡</button>
+      </div>
+    </section>
+
+    <!-- Structured Study View -->
+    <div id="studyViewContainer">
+      <!-- Dialogues / Texto -->
+      <section class="section-card" id="dialogueCard">
+        <div class="section-header">
+          <h2 class="section-title">🎧 课文精读与点读 (Texto)</h2>
+          <button class="small-action-btn" id="playUnitTextoBtn">▶ 播放课文录音</button>
+        </div>
+        <div style="font-size:12px;color:var(--text-muted);margin-bottom:10px;">
+          💡 点击任意葡语句子可调用葡语语音朗读（慢速跟读），长按或点击右上角可隐藏中文自测。
+        </div>
+        <div id="dialoguesList"></div>
+      </section>
+
+      <!-- Vocabulary -->
+      <section class="section-card" id="vocabCard">
+        <div class="section-header">
+          <h2 class="section-title">📖 核心词汇表 (Vocabulário)</h2>
+          <button class="small-action-btn" id="playUnitVocabBtn">▶ 播放单词录音</button>
+        </div>
+        <div class="vocab-grid" id="vocabList"></div>
+      </section>
+
+      <!-- Grammar Points -->
+      <section class="section-card" id="grammarCard">
+        <div class="section-header">
+          <h2 class="section-title">🧭 本课语法与发音要点</h2>
+        </div>
+        <ul class="grammar-list" id="grammarList"></ul>
+      </section>
+    </div>
+
+    <!-- Scanned Book View -->
+    <div id="bookViewContainer">
+      <section class="book-viewer">
+        <div class="book-Jump-bar" id="sectionJumpBar"></div>
+
+        <div class="page-nav-bar">
+          <button class="page-btn" id="prevPageBtn">◀ 上一页</button>
+          <div class="page-indicator">
+            <span id="pageIndicatorMain">课本第 2 页</span>
+            <small id="pageIndicatorSub">PDF 15 / 311 · 点击图片放大</small>
+          </div>
+          <div style="display:flex;gap:6px;">
+            <button class="page-btn" id="zoomPageBtn" title="放大/还原">🔍</button>
+            <button class="page-btn" id="nextPageBtn">下一页 ▶</button>
+          </div>
+        </div>
+
+        <div class="page-canvas-wrap" id="pageCanvasWrap">
+          <img id="bookPageImg" class="page-img" src="pages/book1/page_015.jpg" alt="教材扫描页" />
+        </div>
+      </section>
+    </div>
+
+    <!-- Personal Notes -->
+    <section class="section-card">
+      <div class="section-header">
+        <h2 class="section-title">📝 本课学习笔记 (自动保存)</h2>
+        <span style="font-size:11.5px;color:var(--text-muted);" id="noteSaveStatus">已保存在手机本地</span>
+      </div>
+      <textarea class="notes-area" id="unitNotesInput" placeholder="在这里记录本课的发音难点、变位口诀或错题笔记……"></textarea>
+    </section>
+  </main>
+
+  <!-- Fixed Bottom Audio Player -->
+  <footer class="audio-dock">
+    <div class="dock-inner">
+      <div class="dock-top">
+        <div class="now-playing-title" id="nowPlayingLabel">🎵 请选择上方音频开始播放</div>
+        <div class="time-readout"><span id="curTime">00:00</span> / <span id="totTime">00:00</span></div>
+      </div>
+
+      <div class="progress-row">
+        <input type="range" class="seek-slider" id="seekSlider" min="0" max="100" value="0" step="0.1" />
+      </div>
+
+      <div class="dock-controls">
+        <div class="ctrl-group">
+          <button class="ctrl-btn" id="rw3Btn" title="快退 3 秒">⏪ -3s</button>
+          <button class="play-main-btn" id="playPauseBtn">▶ 播放</button>
+          <button class="ctrl-btn" id="ff3Btn" title="快进 3 秒">+3s ⏩</button>
+        </div>
+
+        <div class="ctrl-group">
+          <button class="ctrl-btn" id="abLoopBtn" title="设置 A-B 区间复读">🔁 A-B</button>
+          <button class="ctrl-btn" id="speedBtn" title="切换播放倍速">1.0x</button>
+          <button class="ctrl-btn" id="loopTrackBtn" title="单曲循环">🔂</button>
+        </div>
+      </div>
+    </div>
+    <audio id="audioElement" preload="metadata"></audio>
+  </footer>
+
+  <!-- Unit Selection Drawer -->
+  <div class="drawer-backdrop" id="unitDrawer">
+    <div class="drawer-sheet">
+      <div class="drawer-header">
+        <span>📚 选择学习单元 (全书 14 课 + 测验)</span>
+        <button class="small-action-btn" id="closeUnitDrawerBtn">关闭 ✕</button>
+      </div>
+      <div class="drawer-list" id="unitDrawerList"></div>
+    </div>
+  </div>
+
+  <!-- Starred Vocab Drawer -->
+  <div class="drawer-backdrop" id="starredDrawer">
+    <div class="drawer-sheet">
+      <div class="drawer-header">
+        <span>⭐ 我的葡语生词本</span>
+        <button class="small-action-btn" id="closeStarredDrawerBtn">关闭 ✕</button>
+      </div>
+      <div class="drawer-list" id="starredVocabList"></div>
+    </div>
+  </div>
+
+  <script src="course_data.js"></script>
+  <script>
+    (function() {
+      const DATA = window.COURSE_DATA;
+      const STORAGE_KEY = "pt_univ_vol1_state_v1";
+
+      // Load persisted state
+      let state = {
+        unitId: "u1",
+        mode: "dual", // "dual" | "study" | "book"
+        pdfPage: 15,
+        hideZh: false,
+        completedUnits: {},
+        starredWords: {},
+        notes: {},
+        playbackRate: 1.0,
+        loopSingle: false
+      };
+
+      try {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) {
+          state = Object.assign(state, JSON.parse(saved));
+        }
+      } catch (e) {}
+
+      function saveState() {
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+        } catch (e) {}
+      }
+
+      // DOM Elements
+      const currentUnitBadge = document.getElementById("currentUnitBadge");
+      const currentUnitTitle = document.getElementById("currentUnitTitle");
+      const unitTracksStrip = document.getElementById("unitTracksStrip");
+      const heroPageRange = document.getElementById("heroPageRange");
+      const heroTitlePt = document.getElementById("heroTitlePt");
+      const heroTitleZh = document.getElementById("heroTitleZh");
+      const unitCompletedCheck = document.getElementById("unitCompletedCheck");
+      const starredCount = document.getElementById("starredCount");
+
+      const studyViewContainer = document.getElementById("studyViewContainer");
+      const bookViewContainer = document.getElementById("bookViewContainer");
+      const dialogueCard = document.getElementById("dialogueCard");
+      const vocabCard = document.getElementById("vocabCard");
+      const dialoguesList = document.getElementById("dialoguesList");
+      const vocabList = document.getElementById("vocabList");
+      const grammarList = document.getElementById("grammarList");
+
+      const sectionJumpBar = document.getElementById("sectionJumpBar");
+      const pageIndicatorMain = document.getElementById("pageIndicatorMain");
+      const pageIndicatorSub = document.getElementById("pageIndicatorSub");
+      const bookPageImg = document.getElementById("bookPageImg");
+      const prevPageBtn = document.getElementById("prevPageBtn");
+      const nextPageBtn = document.getElementById("nextPageBtn");
+      const zoomPageBtn = document.getElementById("zoomPageBtn");
+      const unitNotesInput = document.getElementById("unitNotesInput");
+
+      // Audio Elements
+      const audio = document.getElementById("audioElement");
+      const nowPlayingLabel = document.getElementById("nowPlayingLabel");
+      const curTimeEl = document.getElementById("curTime");
+      const totTimeEl = document.getElementById("totTime");
+      const seekSlider = document.getElementById("seekSlider");
+      const playPauseBtn = document.getElementById("playPauseBtn");
+      const rw3Btn = document.getElementById("rw3Btn");
+      const ff3Btn = document.getElementById("ff3Btn");
+      const abLoopBtn = document.getElementById("abLoopBtn");
+      const speedBtn = document.getElementById("speedBtn");
+      const loopTrackBtn = document.getElementById("loopTrackBtn");
+
+      let currentTrackId = null;
+      let abState = { mode: 0, a: 0, b: 0 }; // 0: off, 1: A set, 2: A-B active
+
+      function getCurrentUnit() {
+        return DATA.units.find(u => u.id === state.unitId) || DATA.units[1];
+      }
+
+      function formatTime(sec) {
+        if (!sec || isNaN(sec)) return "00:00";
+        const m = Math.floor(sec / 60);
+        const s = Math.floor(sec % 60);
+        return String(m).padStart(2, "0") + ":" + String(s).padStart(2, "0");
+      }
+
+      // Speak Portuguese phrase via Web Speech API
+      function speakPortuguese(text, lineEl) {
+        if (!("speechSynthesis" in window)) return;
+        window.speechSynthesis.cancel();
+        const utter = new SpeechSynthesisUtterance(text);
+        const voices = window.speechSynthesis.getVoices();
+        // Prefer European Portuguese (pt-PT) to match textbook, fallback to pt-BR / pt
+        const ptVoice = voices.find(v => v.lang.includes("pt-PT") || v.lang.includes("pt_PT"))
+                     || voices.find(v => v.lang.startsWith("pt"));
+        if (ptVoice) utter.voice = ptVoice;
+        utter.lang = ptVoice ? ptVoice.lang : "pt-PT";
+        utter.rate = 0.92;
+        document.querySelectorAll(".dialogue-line.speaking").forEach(el => el.classList.remove("speaking"));
+        if (lineEl) lineEl.classList.add("speaking");
+        utter.onend = () => { if (lineEl) lineEl.classList.remove("speaking"); };
+        window.speechSynthesis.speak(utter);
+      }
+
+      // Render Mode Visibility
+      function applyMode() {
+        document.querySelectorAll(".mode-btn").forEach(btn => {
+          btn.classList.toggle("active", btn.dataset.mode === state.mode);
+        });
+        if (state.mode === "study") {
+          studyViewContainer.style.display = "block";
+          bookViewContainer.style.display = "none";
+        } else if (state.mode === "book") {
+          studyViewContainer.style.display = "none";
+          bookViewContainer.style.display = "block";
+        } else {
+          studyViewContainer.style.display = "block";
+          bookViewContainer.style.display = "block";
+        }
+        document.body.classList.toggle("hide-zh", !!state.hideZh);
+      }
+
+      // Render Book Page
+      function renderBookPage() {
+        const p = Math.max(1, Math.min(DATA.totalPages, state.pdfPage));
+        state.pdfPage = p;
+        const padded = String(p).padStart(3, "0");
+        bookPageImg.src = `pages/book1/page_${padded}.jpg`;
+
+        // Preload next page for instant flip
+        if (p < DATA.totalPages) {
+          const preloadImg = new Image();
+          preloadImg.src = `pages/book1/page_${String(p + 1).padStart(3, "0")}.jpg`;
+        }
+
+        const bookP = p - DATA.pageOffset;
+        pageIndicatorMain.textContent = bookP > 0 ? `课本第 ${bookP} 页` : `前言 / 目录页 (${p})`;
+        pageIndicatorSub.textContent = `PDF ${p} / ${DATA.totalPages} · 点击放大`;
+        prevPageBtn.disabled = p <= 1;
+        nextPageBtn.disabled = p >= DATA.totalPages;
+
+        // Highlight active section pill
+        const unit = getCurrentUnit();
+        let activeSecIdx = -1;
+        unit.sections.forEach((sec, idx) => {
+          if (p >= sec.pdfPage) activeSecIdx = idx;
+        });
+        document.querySelectorAll(".jump-pill").forEach((pill, idx) => {
+          pill.classList.toggle("active", idx === activeSecIdx);
+        });
+        saveState();
+      }
+
+      // Load Track
+      function loadTrack(track, autoPlay = true) {
+        if (!track) return;
+        currentTrackId = track.id;
+        audio.src = track.file;
+        audio.playbackRate = state.playbackRate;
+        nowPlayingLabel.textContent = `🎵 ${track.label}`;
+        resetAbLoop();
+
+        document.querySelectorAll(".track-chip").forEach(chip => {
+          chip.classList.toggle("playing", Number(chip.dataset.id) === track.id);
+        });
+
+        if (track.jumpPage && state.mode === "book") {
+          state.pdfPage = track.jumpPage;
+          renderBookPage();
+        }
+
+        if (autoPlay) {
+          audio.play().catch(() => {});
+        }
+      }
+
+      function updateStarredCount() {
+        starredCount.textContent = Object.keys(state.starredWords || {}).length;
+      }
+
+      // Render full unit
+      function renderUnit(resetPage = false) {
+        const unit = getCurrentUnit();
+        if (resetPage) {
+          state.pdfPage = unit.sections && unit.sections[1] ? unit.sections[1].pdfPage : unit.pdfPages[0];
+        }
+
+        currentUnitBadge.textContent = unit.badge;
+        currentUnitTitle.textContent = `${unit.titlePt} (${unit.titleZh})`;
+        heroTitlePt.textContent = unit.titlePt;
+        heroTitleZh.textContent = unit.titleZh;
+        const bpStart = unit.bookPages[0] > 0 ? `课本 P.${unit.bookPages[0]}–${unit.bookPages[1]} · ` : "";
+        heroPageRange.textContent = `${bpStart}PDF 第 ${unit.pdfPages[0]}–${unit.pdfPages[1]} 页`;
+        unitCompletedCheck.checked = !!state.completedUnits[unit.id];
+
+        // Render Tracks Strip
+        unitTracksStrip.innerHTML = "";
+        if (unit.tracks && unit.tracks.length > 0) {
+          unit.tracks.forEach(t => {
+            const chip = document.createElement("button");
+            chip.className = "track-chip" + (currentTrackId === t.id ? " playing" : "");
+            chip.dataset.id = t.id;
+            chip.innerHTML = `<span>▶ ${t.label}</span><span class="dur">${formatTime(t.duration)}</span>`;
+            chip.addEventListener("click", () => loadTrack(t, true));
+            unitTracksStrip.appendChild(chip);
+          });
+          // Pre-select first track if nothing loaded yet
+          if (!currentTrackId) {
+            loadTrack(unit.tracks[0], false);
+          }
+        } else {
+          unitTracksStrip.innerHTML = `<span style="font-size:12px;color:var(--text-muted);padding:2px 4px;">本单元为综合测验/词表，无单独配套录音</span>`;
+        }
+
+        // Render Dialogues
+        if (unit.dialogues && unit.dialogues.length > 0) {
+          dialogueCard.style.display = "block";
+          dialoguesList.innerHTML = "";
+          unit.dialogues.forEach(group => {
+            const titleEl = document.createElement("div");
+            titleEl.className = "dialogue-group-title";
+            titleEl.textContent = group.section;
+            dialoguesList.appendChild(titleEl);
+
+            group.lines.forEach(line => {
+              const lineEl = document.createElement("div");
+              lineEl.className = "dialogue-line";
+              lineEl.innerHTML = `
+                <div class="line-top">
+                  <div>
+                    <span class="speaker-tag">${line.speaker}</span>
+                    <div class="pt-sentence">${line.pt}</div>
+                  </div>
+                  <button class="tts-btn" title="朗读此句">🔊</button>
+                </div>
+                <div class="zh-sentence">${line.zh}</div>
+              `;
+              lineEl.addEventListener("click", () => speakPortuguese(line.pt, lineEl));
+              dialoguesList.appendChild(lineEl);
+            });
+          });
+        } else {
+          dialogueCard.style.display = "none";
+        }
+
+        // Render Vocab
+        if (unit.vocab && unit.vocab.length > 0) {
+          vocabCard.style.display = "block";
+          vocabList.innerHTML = "";
+          unit.vocab.forEach(v => {
+            const key = `${unit.id}:${v.pt}`;
+            const isStarred = !!state.starredWords[key];
+            const item = document.createElement("div");
+            item.className = "vocab-item";
+            item.innerHTML = `
+              <div style="flex:1;min-width:0;">
+                <div>
+                  <span class="vocab-pt">${v.pt}</span>
+                  <span class="vocab-pos">${v.pos}</span>
+                </div>
+                <div class="vocab-zh">${v.zh}</div>
+              </div>
+              <button class="star-btn ${isStarred ? "starred" : ""}" title="收藏到生词本">★</button>
+            `;
+            item.addEventListener("click", (e) => {
+              if (e.target.classList.contains("star-btn")) return;
+              speakPortuguese(v.pt.replace(/\(.*?\)/g, "").split("/")[0].trim());
+            });
+            const starBtn = item.querySelector(".star-btn");
+            starBtn.addEventListener("click", (e) => {
+              e.stopPropagation();
+              if (state.starredWords[key]) {
+                delete state.starredWords[key];
+                starBtn.classList.remove("starred");
+              } else {
+                state.starredWords[key] = { unitBadge: unit.badge, pt: v.pt, pos: v.pos, zh: v.zh };
+                starBtn.classList.add("starred");
+              }
+              updateStarredCount();
+              saveState();
+            });
+            vocabList.appendChild(item);
+          });
+        } else {
+          vocabCard.style.display = "none";
+        }
+
+        // Render Grammar
+        grammarList.innerHTML = (unit.grammarPoints || []).map(g => `<li>${g}</li>`).join("");
+
+        // Render Book Section Jump Pills
+        sectionJumpBar.innerHTML = "";
+        (unit.sections || []).forEach(sec => {
+          const pill = document.createElement("button");
+          pill.className = "jump-pill";
+          const bp = sec.pdfPage - DATA.pageOffset;
+          pill.textContent = bp > 0 ? `${sec.label} (P.${bp})` : sec.label;
+          pill.addEventListener("click", () => {
+            state.pdfPage = sec.pdfPage;
+            renderBookPage();
+          });
+          sectionJumpBar.appendChild(pill);
+        });
+
+        // Notes
+        unitNotesInput.value = state.notes[unit.id] || "";
+
+        applyMode();
+        renderBookPage();
+        updateStarredCount();
+        saveState();
+      }
+
+      // Event Bindings
+      document.querySelectorAll(".mode-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          state.mode = btn.dataset.mode;
+          applyMode();
+          saveState();
+        });
+      });
+
+      document.getElementById("toggleZhBtn").addEventListener("click", () => {
+        state.hideZh = !state.hideZh;
+        applyMode();
+        saveState();
+      });
+
+      unitCompletedCheck.addEventListener("change", () => {
+        state.completedUnits[state.unitId] = unitCompletedCheck.checked;
+        saveState();
+      });
+
+      document.getElementById("prevUnitBtn").addEventListener("click", () => {
+        const idx = DATA.units.findIndex(u => u.id === state.unitId);
+        if (idx > 0) {
+          state.unitId = DATA.units[idx - 1].id;
+          renderUnit(true);
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+      });
+
+      document.getElementById("nextUnitBtn").addEventListener("click", () => {
+        const idx = DATA.units.findIndex(u => u.id === state.unitId);
+        if (idx < DATA.units.length - 1) {
+          state.unitId = DATA.units[idx + 1].id;
+          renderUnit(true);
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+      });
+
+      document.getElementById("playUnitTextoBtn").addEventListener("click", () => {
+        const u = getCurrentUnit();
+        const t = (u.tracks || []).find(x => x.type === "texto") || (u.tracks || [])[0];
+        if (t) loadTrack(t, true);
+      });
+
+      document.getElementById("playUnitVocabBtn").addEventListener("click", () => {
+        const u = getCurrentUnit();
+        const t = (u.tracks || []).find(x => x.type === "vocab") || (u.tracks || [])[0];
+        if (t) loadTrack(t, true);
+      });
+
+      // Book Page Navigation
+      prevPageBtn.addEventListener("click", () => {
+        if (state.pdfPage > 1) {
+          state.pdfPage--;
+          renderBookPage();
+        }
+      });
+
+      nextPageBtn.addEventListener("click", () => {
+        if (state.pdfPage < DATA.totalPages) {
+          state.pdfPage++;
+          renderBookPage();
+        }
+      });
+
+      function toggleZoom() {
+        bookPageImg.classList.toggle("zoomed");
+      }
+      zoomPageBtn.addEventListener("click", toggleZoom);
+      bookPageImg.addEventListener("click", toggleZoom);
+
+      // Notes saving
+      unitNotesInput.addEventListener("input", () => {
+        state.notes[state.unitId] = unitNotesInput.value;
+        saveState();
+        const st = document.getElementById("noteSaveStatus");
+        st.textContent = "已自动保存 ✓";
+      });
+
+      // Audio Player Controls
+      playPauseBtn.addEventListener("click", () => {
+        if (!audio.src) {
+          const u = getCurrentUnit();
+          if (u.tracks && u.tracks[0]) loadTrack(u.tracks[0], true);
+          return;
+        }
+        if (audio.paused) audio.play();
+        else audio.pause();
+      });
+
+      audio.addEventListener("play", () => { playPauseBtn.textContent = "⏸ 暂停"; });
+      audio.addEventListener("pause", () => { playPauseBtn.textContent = "▶ 播放"; });
+
+      audio.addEventListener("loadedmetadata", () => {
+        totTimeEl.textContent = formatTime(audio.duration);
+        audio.playbackRate = state.playbackRate;
+      });
+
+      audio.addEventListener("timeupdate", () => {
+        if (abState.mode === 2 && audio.currentTime >= abState.b) {
+          audio.currentTime = abState.a;
+        }
+        curTimeEl.textContent = formatTime(audio.currentTime);
+        if (audio.duration) {
+          seekSlider.value = (audio.currentTime / audio.duration) * 100;
+        }
+      });
+
+      audio.addEventListener("ended", () => {
+        if (state.loopSingle) {
+          audio.currentTime = 0;
+          audio.play();
+        }
+      });
+
+      seekSlider.addEventListener("input", () => {
+        if (audio.duration) {
+          audio.currentTime = (seekSlider.value / 100) * audio.duration;
+        }
+      });
+
+      rw3Btn.addEventListener("click", () => {
+        audio.currentTime = Math.max(0, audio.currentTime - 3);
+      });
+
+      ff3Btn.addEventListener("click", () => {
+        if (audio.duration) {
+          audio.currentTime = Math.min(audio.duration, audio.currentTime + 3);
+        }
+      });
+
+      function resetAbLoop() {
+        abState = { mode: 0, a: 0, b: 0 };
+        abLoopBtn.classList.remove("active");
+        abLoopBtn.textContent = "🔁 A-B";
+      }
+
+      abLoopBtn.addEventListener("click", () => {
+        if (abState.mode === 0) {
+          abState.mode = 1;
+          abState.a = audio.currentTime;
+          abLoopBtn.classList.add("active");
+          abLoopBtn.textContent = `A: ${formatTime(abState.a)} → 设B`;
+        } else if (abState.mode === 1) {
+          if (audio.currentTime > abState.a + 0.5) {
+            abState.mode = 2;
+            abState.b = audio.currentTime;
+            abLoopBtn.textContent = `🔁 ${formatTime(abState.a)}-${formatTime(abState.b)}`;
+            audio.currentTime = abState.a;
+          } else {
+            resetAbLoop();
+          }
+        } else {
+          resetAbLoop();
+        }
+      });
+
+      const speeds = [0.75, 0.9, 1.0, 1.15, 1.25, 1.5];
+      speedBtn.textContent = `${state.playbackRate}x`;
+      speedBtn.addEventListener("click", () => {
+        const idx = speeds.indexOf(state.playbackRate);
+        state.playbackRate = speeds[(idx + 1) % speeds.length];
+        audio.playbackRate = state.playbackRate;
+        speedBtn.textContent = `${state.playbackRate}x`;
+        saveState();
+      });
+
+      loopTrackBtn.classList.toggle("active", !!state.loopSingle);
+      loopTrackBtn.addEventListener("click", () => {
+        state.loopSingle = !state.loopSingle;
+        loopTrackBtn.classList.toggle("active", state.loopSingle);
+        saveState();
+      });
+
+      // Unit Drawer Modal
+      const unitDrawer = document.getElementById("unitDrawer");
+      const unitDrawerList = document.getElementById("unitDrawerList");
+      document.getElementById("openUnitDrawerBtn").addEventListener("click", () => {
+        unitDrawerList.innerHTML = "";
+        DATA.units.forEach(u => {
+          const item = document.createElement("div");
+          item.className = "unit-item" + (u.id === state.unitId ? " current" : "");
+          const isDone = !!state.completedUnits[u.id];
+          item.innerHTML = `
+            <div class="unit-item-left">
+              <div class="unit-item-pt"><span class="unit-badge" style="margin-right:6px;">${u.badge}</span>${u.titlePt}</div>
+              <div class="unit-item-zh">${u.titleZh} · 音频 ${u.tracks.length} 段</div>
+            </div>
+            <span class="unit-done-check ${isDone ? "done" : ""}">${isDone ? "✓ 已学" : "学习"}</span>
+          `;
+          item.addEventListener("click", () => {
+            state.unitId = u.id;
+            currentTrackId = null;
+            renderUnit(true);
+            unitDrawer.classList.remove("open");
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          });
+          unitDrawerList.appendChild(item);
+        });
+        unitDrawer.classList.add("open");
+      });
+
+      document.getElementById("closeUnitDrawerBtn").addEventListener("click", () => {
+        unitDrawer.classList.remove("open");
+      });
+      unitDrawer.addEventListener("click", (e) => {
+        if (e.target === unitDrawer) unitDrawer.classList.remove("open");
+      });
+
+      // Starred Words Drawer
+      const starredDrawer = document.getElementById("starredDrawer");
+      const starredVocabList = document.getElementById("starredVocabList");
+      document.getElementById("openStarredModalBtn").addEventListener("click", () => {
+        const entries = Object.entries(state.starredWords || {});
+        if (entries.length === 0) {
+          starredVocabList.innerHTML = `<div style="text-align:center;padding:30px 10px;color:var(--text-muted);">还没有收藏生词哦！点击各课单词右侧的 ★ 即可加入生词本。</div>`;
+        } else {
+          starredVocabList.innerHTML = "";
+          entries.forEach(([key, w]) => {
+            const el = document.createElement("div");
+            el.className = "vocab-item";
+            el.innerHTML = `
+              <div style="flex:1;">
+                <div>
+                  <span class="unit-badge" style="font-size:10px;margin-right:5px;">${w.unitBadge}</span>
+                  <span class="vocab-pt">${w.pt}</span>
+                  <span class="vocab-pos">${w.pos}</span>
+                </div>
+                <div class="vocab-zh">${w.zh}</div>
+              </div>
+              <button class="small-action-btn">移除</button>
+            `;
+            el.addEventListener("click", (e) => {
+              if (e.target.tagName === "BUTTON") {
+                delete state.starredWords[key];
+                el.remove();
+                updateStarredCount();
+                renderUnit(false);
+                saveState();
+              } else {
+                speakPortuguese(w.pt.replace(/\(.*?\)/g, "").split("/")[0].trim());
+              }
+            });
+            starredVocabList.appendChild(el);
+          });
+        }
+        starredDrawer.classList.add("open");
+      });
+
+      document.getElementById("closeStarredDrawerBtn").addEventListener("click", () => {
+        starredDrawer.classList.remove("open");
+      });
+      starredDrawer.addEventListener("click", (e) => {
+        if (e.target === starredDrawer) starredDrawer.classList.remove("open");
+      });
+
+      // Initialize
+      renderUnit(false);
+
+      if ("serviceWorker" in navigator && location.protocol.startsWith("http")) {
+        navigator.serviceWorker.register("./sw.js").catch(() => {});
+      }
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,6 @@
+# Ignore large raw source PDFs and temporary scripts (only deploy web app assets)
+*.pdf
+download_audio.py
+tracks_meta.json
+.DS_Store
+dist.zip
