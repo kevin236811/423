@@ -329,22 +329,229 @@
       font-size: 16px;
       font-weight: 600;
       color: var(--text);
-      line-height: 1.45;
+      line-height: 1.55;
+    }
+
+    .pt-word {
+      display: inline-block;
+      padding: 1px 3px;
+      margin: 0 -1px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.12s ease, color 0.12s ease, transform 0.1s ease;
+    }
+
+    .pt-word:hover,
+    .pt-word:active {
+      background: #d1fae5;
+      color: #065f46;
+    }
+
+    .pt-word.word-speaking {
+      background: var(--primary);
+      color: #ffffff;
+      box-shadow: 0 2px 6px rgba(4, 120, 87, 0.35);
+    }
+
+    .pt-word.word-loading {
+      background: #fef3c7;
+      color: #92400e;
+      animation: dramaPulse 1s infinite alternate;
+    }
+
+    @keyframes dramaPulse {
+      0% { opacity: 0.55; }
+      100% { opacity: 1; }
     }
 
     .tts-btn {
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 8px;
-      width: 30px;
+      padding: 0 8px;
       height: 30px;
-      display: flex;
+      display: inline-flex;
       align-items: center;
       justify-content: center;
+      gap: 4px;
       flex-shrink: 0;
-      font-size: 13px;
+      font-size: 12px;
+      font-weight: 600;
       color: var(--primary);
       cursor: pointer;
+    }
+
+    .tts-btn:active {
+      background: var(--primary-light);
+      border-color: var(--primary);
+    }
+
+    /* Drama-3 TTS Engine Control Card */
+    .drama-bar {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      color: #f8fafc;
+      border-radius: var(--radius);
+      padding: 12px 14px;
+      margin-bottom: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: var(--shadow);
+    }
+
+    .drama-bar-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 8px;
+    }
+
+    .drama-brand {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 13.5px;
+      font-weight: 700;
+      color: #34d399;
+    }
+
+    .drama-badge {
+      background: rgba(52, 211, 153, 0.16);
+      border: 1px solid rgba(52, 211, 153, 0.4);
+      color: #6ee7b7;
+      font-size: 11px;
+      padding: 2px 7px;
+      border-radius: 99px;
+      font-weight: 600;
+    }
+
+    .drama-controls-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .drama-select {
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 9px;
+      padding: 5px 9px;
+      font-size: 12.5px;
+      font-weight: 600;
+      outline: none;
+      cursor: pointer;
+    }
+
+    .drama-select option {
+      background: #0f172a;
+      color: #fff;
+    }
+
+    .drama-test-input-row {
+      display: flex;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    .drama-custom-input {
+      flex: 1;
+      min-width: 0;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 9px;
+      padding: 6px 10px;
+      color: #fff;
+      font-size: 13px;
+      outline: none;
+    }
+
+    .drama-custom-input::placeholder {
+      color: #94a3b8;
+    }
+
+    .drama-speak-btn {
+      background: #10b981;
+      color: #042f2e;
+      border: none;
+      border-radius: 9px;
+      padding: 6px 12px;
+      font-size: 12.5px;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .drama-speak-btn:disabled {
+      opacity: 0.55;
+      cursor: wait;
+    }
+
+    /* Floating Drama-3 Live Toast */
+    .drama-toast {
+      position: fixed;
+      left: 14px;
+      right: 14px;
+      bottom: calc(138px + var(--safe-bottom));
+      max-width: 732px;
+      margin: 0 auto;
+      background: rgba(15, 23, 42, 0.95);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      color: #f8fafc;
+      border: 1px solid rgba(52, 211, 153, 0.45);
+      border-radius: 14px;
+      padding: 10px 12px;
+      z-index: 60;
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.28);
+      font-size: 12.5px;
+    }
+
+    .drama-toast.visible {
+      display: flex;
+    }
+
+    .drama-toast-info {
+      min-width: 0;
+      flex: 1;
+    }
+
+    .drama-toast-word {
+      font-weight: 700;
+      color: #6ee7b7;
+      font-size: 13.5px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .drama-toast-sub {
+      color: #cbd5e1;
+      font-size: 11.5px;
+      margin-top: 2px;
+    }
+
+    .drama-toast-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+
+    .vocab-item.speaking {
+      border-color: var(--primary);
+      background: var(--primary-light);
+      box-shadow: 0 2px 10px rgba(4, 120, 87, 0.16);
+    }
+
+    .vocab-item.loading-tts {
+      border-color: #f59e0b;
+      background: #fffbeb;
     }
 
     .zh-sentence {
@@ -386,6 +593,7 @@
       border: 1px solid var(--border);
       cursor: pointer;
       gap: 8px;
+      transition: all 0.15s ease;
     }
 
     .vocab-item:active {
@@ -790,6 +998,43 @@
 
     <!-- Structured Study View -->
     <div id="studyViewContainer">
+      <!-- Fish Audio Drama-3 AI TTS Bar -->
+      <section class="drama-bar" id="dramaBar">
+        <div class="drama-bar-top">
+          <div class="drama-brand">
+            <span>🎭 Fish Audio Drama-3 语音点读</span>
+            <span class="drama-badge">HuggingFace 实时接入</span>
+          </div>
+          <a href="https://huggingface.co/spaces/fishaudio/Drama-3" target="_blank" rel="noopener" style="font-size:11.5px;color:#93c5fd;text-decoration:none;">
+            打开 Drama-3 Space ↗
+          </a>
+        </div>
+
+        <div class="drama-controls-row">
+          <select class="drama-select" id="ttsEngineSelect" title="选择点读语音引擎">
+            <option value="drama3">🎭 Drama-3 大模型语音 (在线合成)</option>
+            <option value="webspeech">⚡ 系统内置语音 (零延迟离线)</option>
+          </select>
+
+          <select class="drama-select" id="dramaVoiceSelect" title="选择 Drama-3 发音人/口音">
+            <option value="pt-PT">🇵🇹 里斯本标准音 (葡葡 · 课本口音)</option>
+            <option value="pt-BR">🇧🇷 圣保罗标准音 (巴葡 · 对比试听)</option>
+            <option value="clone1">🎙️ Drama-3 预设声线 Clone 1</option>
+            <option value="clone2">🎙️ Drama-3 预设声线 Clone 2</option>
+            <option value="clone3">🎙️ Drama-3 预设声线 Clone 3</option>
+            <option value="surprise">🎲 Surprise (模型自由发挥戏剧感)</option>
+          </select>
+        </div>
+
+        <div class="drama-test-input-row">
+          <input type="text" class="drama-custom-input" id="dramaCustomInput" placeholder="输入任意葡语单词或句子测试 Drama-3（如：Bom dia / chamar-se）" value="chamar-se" />
+          <button class="drama-speak-btn" id="dramaCustomBtn">🔊 Drama-3 朗读</button>
+        </div>
+        <div style="font-size:11.5px;color:#94a3b8;margin-top:6px;">
+          💡 提示：直接点击下方课文中的<strong>任意单个葡语单词</strong>或词汇表中的<strong>任意词条</strong>，即可调用 <code>fishaudio/Drama-3</code> 朗读该单词（已合成单词会自动缓存，二次点击 0 延迟秒播）。
+        </div>
+      </section>
+
       <!-- Dialogues / Texto -->
       <section class="section-card" id="dialogueCard">
         <div class="section-header">
@@ -797,7 +1042,7 @@
           <button class="small-action-btn" id="playUnitTextoBtn">▶ 播放课文录音</button>
         </div>
         <div style="font-size:12px;color:var(--text-muted);margin-bottom:10px;">
-          💡 点击任意葡语句子可调用葡语语音朗读（慢速跟读），长按或点击右上角可隐藏中文自测。
+          💡 <strong>点词即读</strong>：点击句中<strong>任意单词</strong>用 Drama-3 单独读该词；点击右侧 <strong>🔊 整句</strong> 朗读整句。
         </div>
         <div id="dialoguesList"></div>
       </section>
@@ -853,6 +1098,19 @@
     </section>
   </main>
 
+  <!-- Floating Drama-3 Status Toast -->
+  <div class="drama-toast" id="dramaToast">
+    <div class="drama-toast-info">
+      <div class="drama-toast-word" id="dramaToastWord">🎭 Drama-3 准备中…</div>
+      <div class="drama-toast-sub" id="dramaToastSub">正在连接 fishaudio/Drama-3 Space…</div>
+    </div>
+    <div class="drama-toast-actions">
+      <button class="ctrl-btn" id="dramaReplayBtn" title="重播刚才生成的语音" style="display:none;">🔄 重播</button>
+      <button class="ctrl-btn" id="dramaFallbackBtn" title="改用系统语音立即朗读">⚡ 本地读</button>
+      <button class="ctrl-btn" id="dramaCloseToastBtn" title="关闭提示">✕</button>
+    </div>
+  </div>
+
   <!-- Fixed Bottom Audio Player -->
   <footer class="audio-dock">
     <div class="dock-inner">
@@ -880,6 +1138,7 @@
       </div>
     </div>
     <audio id="audioElement" preload="metadata"></audio>
+    <audio id="dramaTtsAudio" preload="auto"></audio>
   </footer>
 
   <!-- Unit Selection Drawer -->
@@ -909,6 +1168,7 @@
     (function() {
       const DATA = window.COURSE_DATA;
       const STORAGE_KEY = "pt_univ_vol1_state_v1";
+      const DRAMA3_SPACE_HOST = "https://fishaudio-drama-3.hf.space";
 
       // Load persisted state
       let state = {
@@ -920,7 +1180,9 @@
         starredWords: {},
         notes: {},
         playbackRate: 1.0,
-        loopSingle: false
+        loopSingle: false,
+        ttsEngine: "drama3", // "drama3" | "webspeech"
+        dramaVoice: "pt-PT"  // "pt-PT" | "pt-BR" | "clone1" | "clone2" | "clone3" | "surprise"
       };
 
       try {
@@ -963,6 +1225,19 @@
       const zoomPageBtn = document.getElementById("zoomPageBtn");
       const unitNotesInput = document.getElementById("unitNotesInput");
 
+      // Drama-3 DOM Elements
+      const ttsEngineSelect = document.getElementById("ttsEngineSelect");
+      const dramaVoiceSelect = document.getElementById("dramaVoiceSelect");
+      const dramaCustomInput = document.getElementById("dramaCustomInput");
+      const dramaCustomBtn = document.getElementById("dramaCustomBtn");
+      const dramaToast = document.getElementById("dramaToast");
+      const dramaToastWord = document.getElementById("dramaToastWord");
+      const dramaToastSub = document.getElementById("dramaToastSub");
+      const dramaReplayBtn = document.getElementById("dramaReplayBtn");
+      const dramaFallbackBtn = document.getElementById("dramaFallbackBtn");
+      const dramaCloseToastBtn = document.getElementById("dramaCloseToastBtn");
+      const dramaTtsAudio = document.getElementById("dramaTtsAudio");
+
       // Audio Elements
       const audio = document.getElementById("audioElement");
       const nowPlayingLabel = document.getElementById("nowPlayingLabel");
@@ -979,6 +1254,20 @@
       let currentTrackId = null;
       let abState = { mode: 0, a: 0, b: 0 }; // 0: off, 1: A set, 2: A-B active
 
+      // Sync Drama-3 selects with state
+      ttsEngineSelect.value = state.ttsEngine || "drama3";
+      dramaVoiceSelect.value = state.dramaVoice || "pt-PT";
+
+      ttsEngineSelect.addEventListener("change", () => {
+        state.ttsEngine = ttsEngineSelect.value;
+        saveState();
+      });
+
+      dramaVoiceSelect.addEventListener("change", () => {
+        state.dramaVoice = dramaVoiceSelect.value;
+        saveState();
+      });
+
       function getCurrentUnit() {
         return DATA.units.find(u => u.id === state.unitId) || DATA.units[1];
       }
@@ -990,22 +1279,387 @@
         return String(m).padStart(2, "0") + ":" + String(s).padStart(2, "0");
       }
 
-      // Speak Portuguese phrase via Web Speech API
-      function speakPortuguese(text, lineEl) {
+      function clearSpeakingHighlights() {
+        document.querySelectorAll(".speaking, .loading-tts, .word-speaking, .word-loading").forEach(el => {
+          el.classList.remove("speaking", "loading-tts", "word-speaking", "word-loading");
+        });
+      }
+
+      // Speak Portuguese phrase via Web Speech API (instant local fallback)
+      function speakWebSpeech(text, targetEl) {
         if (!("speechSynthesis" in window)) return;
         window.speechSynthesis.cancel();
+        dramaTtsAudio.pause();
         const utter = new SpeechSynthesisUtterance(text);
         const voices = window.speechSynthesis.getVoices();
-        // Prefer European Portuguese (pt-PT) to match textbook, fallback to pt-BR / pt
-        const ptVoice = voices.find(v => v.lang.includes("pt-PT") || v.lang.includes("pt_PT"))
+        const preferBr = state.dramaVoice === "pt-BR";
+        const ptVoice = voices.find(v => preferBr ? (v.lang.includes("pt-BR") || v.lang.includes("pt_BR")) : (v.lang.includes("pt-PT") || v.lang.includes("pt_PT")))
                      || voices.find(v => v.lang.startsWith("pt"));
         if (ptVoice) utter.voice = ptVoice;
-        utter.lang = ptVoice ? ptVoice.lang : "pt-PT";
+        utter.lang = ptVoice ? ptVoice.lang : (preferBr ? "pt-BR" : "pt-PT");
         utter.rate = 0.92;
-        document.querySelectorAll(".dialogue-line.speaking").forEach(el => el.classList.remove("speaking"));
-        if (lineEl) lineEl.classList.add("speaking");
-        utter.onend = () => { if (lineEl) lineEl.classList.remove("speaking"); };
+        clearSpeakingHighlights();
+        if (targetEl) {
+          targetEl.classList.add(targetEl.classList.contains("pt-word") ? "word-speaking" : "speaking");
+        }
+        utter.onend = () => {
+          if (targetEl) targetEl.classList.remove("speaking", "word-speaking");
+        };
         window.speechSynthesis.speak(utter);
+      }
+
+      // ─── Fish Audio Drama-3 HuggingFace Space Client ──────────────────────────
+      const drama3Cache = new Map(); // key: `${voicePreset}::${text}` -> { url, label }
+      let activeDramaAbort = null;
+      let lastSpokenText = "";
+      let lastReplayUrl = "";
+
+      function getDramaVoiceConfig(preset) {
+        const defaultCloneTranscript = "I'm confused why some people have super short timelines, yet at the same time are bullish on scaling up reinforcement learning atop LLMs. If we're actually close to a human-like learner, then this whole approach of training on verifiable outcomes is doomed.";
+        if (preset === "pt-BR") {
+          return {
+            label: "🇧🇷 巴葡标准音",
+            mode: "Design",
+            voice: "clone1",
+            transcript: defaultCloneTranscript,
+            name: "Professor",
+            description: "clear native Brazilian Portuguese speaker from São Paulo, warm, open vowels, melodic and articulate pronunciation",
+            scene: "a quiet Portuguese language studio in Rio de Janeiro"
+          };
+        }
+        if (preset === "clone1" || preset === "clone2" || preset === "clone3") {
+          return {
+            label: `🎙️ ${preset.toUpperCase()}`,
+            mode: "Clone",
+            voice: preset,
+            transcript: defaultCloneTranscript,
+            name: "Professor",
+            description: "clear native Portuguese speaker, warm and articulate pronunciation",
+            scene: ""
+          };
+        }
+        if (preset === "surprise") {
+          return {
+            label: "🎲 Surprise",
+            mode: "Surprise",
+            voice: "clone1",
+            transcript: defaultCloneTranscript,
+            name: "Professor",
+            description: "clear native Portuguese speaker",
+            scene: ""
+          };
+        }
+        // Default: European Portuguese (pt-PT) matching textbook
+        return {
+          label: "🇵🇹 葡葡标准音",
+          mode: "Design",
+          voice: "clone1",
+          transcript: defaultCloneTranscript,
+          name: "Professor",
+          description: "clear native European Portuguese speaker from Lisbon, warm, articulate and natural pronunciation",
+          scene: "a quiet Portuguese language studio in Lisbon"
+        };
+      }
+
+      function showDramaToast(wordText, subText, replayUrl = "") {
+        dramaToastWord.textContent = wordText;
+        dramaToastSub.textContent = subText;
+        if (replayUrl) {
+          lastReplayUrl = replayUrl;
+          dramaReplayBtn.style.display = "inline-flex";
+        } else {
+          dramaReplayBtn.style.display = "none";
+        }
+        dramaToast.classList.add("visible");
+      }
+
+      dramaCloseToastBtn.addEventListener("click", () => {
+        dramaToast.classList.remove("visible");
+        if (activeDramaAbort) activeDramaAbort.abort();
+        dramaTtsAudio.pause();
+        clearSpeakingHighlights();
+      });
+
+      dramaReplayBtn.addEventListener("click", () => {
+        if (!lastReplayUrl) return;
+        if (!audio.paused) audio.pause();
+        dramaTtsAudio.src = lastReplayUrl;
+        dramaTtsAudio.currentTime = 0;
+        dramaTtsAudio.play().catch(() => {});
+      });
+
+      dramaFallbackBtn.addEventListener("click", () => {
+        if (activeDramaAbort) activeDramaAbort.abort();
+        if (lastSpokenText) {
+          speakWebSpeech(lastSpokenText, null);
+          showDramaToast(`⚡ 本地语音: "${lastSpokenText}"`, "已使用浏览器内置葡语引擎朗读", "");
+        }
+      });
+
+      // Merge multiple 16-bit PCM WAV buffers into a single WAV Blob URL if needed
+      async function mergeWavChunkUrls(urls) {
+        const buffers = await Promise.all(urls.map(u => fetch(u).then(r => r.arrayBuffer())));
+        if (buffers.length === 1) {
+          return URL.createObjectURL(new Blob([buffers[0]], { type: "audio/wav" }));
+        }
+        const pcmParts = buffers.map(b => new Uint8Array(b, Math.min(44, b.byteLength)));
+        const totalPcmBytes = pcmParts.reduce((acc, p) => acc + p.byteLength, 0);
+        const out = new Uint8Array(44 + totalPcmBytes);
+        // Copy header from first WAV and patch sizes
+        out.set(new Uint8Array(buffers[0], 0, 44), 0);
+        const view = new DataView(out.buffer);
+        view.setUint32(4, 36 + totalPcmBytes, true);
+        view.setUint32(40, totalPcmBytes, true);
+        let offset = 44;
+        for (const p of pcmParts) {
+          out.set(p, offset);
+          offset += p.byteLength;
+        }
+        return URL.createObjectURL(new Blob([out], { type: "audio/wav" }));
+      }
+
+      // Call fishaudio/Drama-3 via Gradio SSE API (/gradio_api/call/perform with fallback to /workflow/gradio_api/call/performance)
+      async function callDrama3Space(text, cfg, signal, onStatus) {
+        // Ensure terminal punctuation so Drama-3 finishes short words cleanly
+        const clean = text.trim();
+        const scriptText = /[.!?…]$/.test(clean) ? clean : (clean + ".");
+
+        // Try /gradio_api/call/perform first (provides live queue/actor status + take_id + audio chunks)
+        const postRes = await fetch(`${DRAMA3_SPACE_HOST}/gradio_api/call/perform`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            data: [
+              scriptText,
+              cfg.mode,
+              cfg.voice,
+              cfg.transcript,
+              cfg.name,
+              cfg.description,
+              cfg.scene,
+              0.9,
+              0.9,
+              0
+            ]
+          }),
+          signal
+        });
+
+        if (!postRes.ok) {
+          throw new Error(`HTTP ${postRes.status}`);
+        }
+        const { event_id } = await postRes.json();
+        if (!event_id) throw new Error("未获取到 Drama-3 event_id");
+
+        const streamRes = await fetch(`${DRAMA3_SPACE_HOST}/gradio_api/call/perform/${event_id}`, { signal });
+        if (!streamRes.ok || !streamRes.body) {
+          throw new Error(`Stream HTTP ${streamRes.status}`);
+        }
+
+        const reader = streamRes.body.getReader();
+        const decoder = new TextDecoder();
+        let buffer = "";
+        const chunkUrls = [];
+        let takeId = null;
+        let finalMetrics = "";
+
+        while (true) {
+          const { value, done } = await reader.read();
+          if (done) break;
+          buffer += decoder.decode(value, { stream: true });
+
+          while (buffer.includes("\n\n")) {
+            const idx = buffer.indexOf("\n\n");
+            const rawEvent = buffer.slice(0, idx);
+            buffer = buffer.slice(idx + 2);
+
+            let eventType = "message";
+            let dataStr = "";
+            for (const line of rawEvent.split("\n")) {
+              if (line.startsWith("event:")) eventType = line.slice(6).trim();
+              else if (line.startsWith("data:")) dataStr += line.slice(5).trim();
+            }
+
+            if (!dataStr || dataStr === "null") continue;
+            if (eventType === "error") {
+              let errMsg = dataStr;
+              try {
+                const parsedErr = JSON.parse(dataStr);
+                errMsg = parsedErr?.message || parsedErr || dataStr;
+              } catch (_) {}
+              throw new Error(typeof errMsg === "string" ? errMsg : "Drama-3 合成失败");
+            }
+
+            let parsed;
+            try {
+              parsed = JSON.parse(dataStr);
+            } catch (_) {
+              continue;
+            }
+
+            if (!Array.isArray(parsed)) continue;
+            const [audioChunk, metricsOrStatus, slateDropdown] = parsed;
+
+            if (audioChunk && typeof audioChunk === "object" && audioChunk.url) {
+              const fullChunkUrl = audioChunk.url.startsWith("http")
+                ? audioChunk.url
+                : `${DRAMA3_SPACE_HOST}${audioChunk.url}`;
+              if (!chunkUrls.includes(fullChunkUrl)) {
+                chunkUrls.push(fullChunkUrl);
+              }
+            }
+
+            if (typeof metricsOrStatus === "string" && metricsOrStatus.trim()) {
+              const cleanStatus = metricsOrStatus.replace(/\*\*/g, "").split("\n")[0];
+              if (eventType === "generating") {
+                onStatus(cleanStatus);
+              } else if (eventType === "complete") {
+                finalMetrics = cleanStatus;
+              }
+            }
+
+            if (slateDropdown && typeof slateDropdown === "object") {
+              if (slateDropdown.value) {
+                takeId = slateDropdown.value;
+              } else if (Array.isArray(slateDropdown.choices) && slateDropdown.choices.length > 0) {
+                const lastChoice = slateDropdown.choices[slateDropdown.choices.length - 1];
+                if (Array.isArray(lastChoice) && lastChoice[1]) takeId = lastChoice[1];
+              }
+            }
+          }
+        }
+
+        // Prefer merging the CORS-enabled Gradio WAV chunks into a local Blob URL for instant replay,
+        // or use /api/takes/{take_id}.wav directly
+        if (chunkUrls.length > 0) {
+          try {
+            const blobUrl = await mergeWavChunkUrls(chunkUrls);
+            return { url: blobUrl, metrics: finalMetrics || "合成完成" };
+          } catch (_) {}
+        }
+        if (takeId) {
+          return {
+            url: `${DRAMA3_SPACE_HOST}/api/takes/${encodeURIComponent(takeId)}.wav`,
+            metrics: finalMetrics || "合成完成"
+          };
+        }
+        throw new Error("未收到有效音频片段");
+      }
+
+      async function speakPortuguese(text, targetEl) {
+        const cleanText = (text || "").replace(/\s+/g, " ").trim();
+        if (!cleanText) return;
+        lastSpokenText = cleanText;
+
+        // If user selected local Web Speech API, speak immediately
+        if (state.ttsEngine === "webspeech") {
+          speakWebSpeech(cleanText, targetEl);
+          return;
+        }
+
+        // Cancel any in-flight Drama-3 request
+        if (activeDramaAbort) {
+          activeDramaAbort.abort();
+          activeDramaAbort = null;
+        }
+        if ("speechSynthesis" in window) window.speechSynthesis.cancel();
+        dramaTtsAudio.pause();
+        clearSpeakingHighlights();
+
+        const isWordEl = targetEl && targetEl.classList && targetEl.classList.contains("pt-word");
+        const cfg = getDramaVoiceConfig(state.dramaVoice);
+        const cacheKey = `${state.dramaVoice}::${cleanText.toLowerCase()}`;
+
+        // Play immediately if cached
+        if (drama3Cache.has(cacheKey)) {
+          const cached = drama3Cache.get(cacheKey);
+          if (!audio.paused) audio.pause();
+          if (targetEl) targetEl.classList.add(isWordEl ? "word-speaking" : "speaking");
+          showDramaToast(`🎭 "${cleanText}" (${cfg.label})`, `⚡ 已从缓存秒播 · ${cached.metrics}`, cached.url);
+          dramaTtsAudio.src = cached.url;
+          dramaTtsAudio.currentTime = 0;
+          dramaTtsAudio.onended = () => {
+            if (targetEl) targetEl.classList.remove("speaking", "word-speaking");
+          };
+          dramaTtsAudio.play().catch(() => {});
+          return;
+        }
+
+        // Otherwise synthesize live via fishaudio/Drama-3
+        const abortCtrl = new AbortController();
+        activeDramaAbort = abortCtrl;
+
+        if (targetEl) {
+          targetEl.classList.add(isWordEl ? "word-loading" : "loading-tts");
+        }
+        dramaCustomBtn.disabled = true;
+        showDramaToast(
+          `🎭 Drama-3 正在合成: "${cleanText}"`,
+          `${cfg.label} · 正在呼叫 HuggingFace ZeroGPU…`,
+          ""
+        );
+
+        const t0 = performance.now();
+        try {
+          const result = await callDrama3Space(cleanText, cfg, abortCtrl.signal, (liveStatus) => {
+            showDramaToast(`🎭 Drama-3 正在合成: "${cleanText}"`, `${cfg.label} · ${liveStatus}`, "");
+          });
+          if (abortCtrl.signal.aborted) return;
+
+          const elapsed = ((performance.now() - t0) / 1000).toFixed(1);
+          const summary = result.metrics ? `${result.metrics} (总耗时 ${elapsed}s)` : `合成耗时 ${elapsed}s`;
+          drama3Cache.set(cacheKey, { url: result.url, metrics: summary });
+
+          if (!audio.paused) audio.pause();
+          if (targetEl) {
+            targetEl.classList.remove("loading-tts", "word-loading");
+            targetEl.classList.add(isWordEl ? "word-speaking" : "speaking");
+          }
+          showDramaToast(`🔊 Drama-3 正在朗读: "${cleanText}"`, `${cfg.label} · ${summary}`, result.url);
+
+          dramaTtsAudio.src = result.url;
+          dramaTtsAudio.currentTime = 0;
+          dramaTtsAudio.onended = () => {
+            if (targetEl) targetEl.classList.remove("speaking", "word-speaking");
+          };
+          await dramaTtsAudio.play();
+        } catch (err) {
+          if (abortCtrl.signal.aborted) return;
+          if (targetEl) targetEl.classList.remove("loading-tts", "word-loading");
+          const msg = err && err.message ? err.message : "连接超时";
+          showDramaToast(
+            `⚠️ Drama-3 繁忙，已自动用本地语音朗读`,
+            `原因: ${msg} · 可稍后重试或点击「🔄 重播」`,
+            ""
+          );
+          speakWebSpeech(cleanText, targetEl);
+        } finally {
+          if (activeDramaAbort === abortCtrl) {
+            activeDramaAbort = null;
+            dramaCustomBtn.disabled = false;
+          }
+        }
+      }
+
+      // Custom input test button
+      dramaCustomBtn.addEventListener("click", () => {
+        const val = dramaCustomInput.value.trim();
+        if (val) speakPortuguese(val, null);
+      });
+      dramaCustomInput.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+          e.preventDefault();
+          const val = dramaCustomInput.value.trim();
+          if (val) speakPortuguese(val, null);
+        }
+      });
+
+      // Turn a Portuguese sentence into clickable word spans
+      function renderClickableWordsHtml(sentence) {
+        // Match Portuguese words (including hyphenated reflexive verbs like chamar-se)
+        return sentence.replace(/([A-Za-zÀ-ÖØ-öø-ÿ]+(?:-[A-Za-zÀ-ÖØ-öø-ÿ]+)*)/g, (match) => {
+          return `<span class="pt-word" data-word="${match.replace(/"/g, "&quot;")}" title="点击用 Drama-3 朗读单词: ${match}">${match}</span>`;
+        });
       }
 
       // Render Mode Visibility
@@ -1135,13 +1789,23 @@
                 <div class="line-top">
                   <div>
                     <span class="speaker-tag">${line.speaker}</span>
-                    <div class="pt-sentence">${line.pt}</div>
+                    <div class="pt-sentence">${renderClickableWordsHtml(line.pt)}</div>
                   </div>
-                  <button class="tts-btn" title="朗读此句">🔊</button>
+                  <button class="tts-btn" title="用 Drama-3 朗读整句">🔊 整句</button>
                 </div>
                 <div class="zh-sentence">${line.zh}</div>
               `;
-              lineEl.addEventListener("click", () => speakPortuguese(line.pt, lineEl));
+              lineEl.addEventListener("click", (e) => {
+                const wordSpan = e.target.closest(".pt-word");
+                if (wordSpan && wordSpan.dataset.word) {
+                  e.stopPropagation();
+                  dramaCustomInput.value = wordSpan.dataset.word;
+                  speakPortuguese(wordSpan.dataset.word, wordSpan);
+                  return;
+                }
+                dramaCustomInput.value = line.pt;
+                speakPortuguese(line.pt, lineEl);
+              });
               dialoguesList.appendChild(lineEl);
             });
           });
@@ -1166,11 +1830,16 @@
                 </div>
                 <div class="vocab-zh">${v.zh}</div>
               </div>
-              <button class="star-btn ${isStarred ? "starred" : ""}" title="收藏到生词本">★</button>
+              <div style="display:flex;align-items:center;gap:4px;">
+                <span style="font-size:13px;color:var(--primary);" title="点击用 Drama-3 朗读此单词">🔊</span>
+                <button class="star-btn ${isStarred ? "starred" : ""}" title="收藏到生词本">★</button>
+              </div>
             `;
             item.addEventListener("click", (e) => {
               if (e.target.classList.contains("star-btn")) return;
-              speakPortuguese(v.pt.replace(/\(.*?\)/g, "").split("/")[0].trim());
+              const cleanWord = v.pt.replace(/\(.*?\)/g, "").split("/")[0].trim();
+              dramaCustomInput.value = cleanWord;
+              speakPortuguese(cleanWord, item);
             });
             const starBtn = item.querySelector(".star-btn");
             starBtn.addEventListener("click", (e) => {
@@ -1457,7 +2126,9 @@
                 renderUnit(false);
                 saveState();
               } else {
-                speakPortuguese(w.pt.replace(/\(.*?\)/g, "").split("/")[0].trim());
+                const cleanWord = w.pt.replace(/\(.*?\)/g, "").split("/")[0].trim();
+                dramaCustomInput.value = cleanWord;
+                speakPortuguese(cleanWord, el);
               }
             });
             starredVocabList.appendChild(el);
