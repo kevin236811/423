@@ -623,6 +623,225 @@
       margin-top: 2px;
     }
 
+    .vocab-br-box {
+      margin-top: 6px;
+      padding: 5px 8px;
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      border-radius: 8px;
+      font-size: 12px;
+      color: #1e3a8a;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .vocab-br-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+      font-weight: 700;
+    }
+
+    .vocab-br-note {
+      font-size: 11px;
+      color: #475569;
+      font-weight: 400;
+    }
+
+    .accent-pill-group {
+      display: flex;
+      gap: 6px;
+      margin: 8px 0;
+      flex-wrap: wrap;
+    }
+
+    .accent-pill-btn {
+      flex: 1;
+      min-width: 105px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      color: #e2e8f0;
+      border-radius: 10px;
+      padding: 7px 10px;
+      font-size: 12.5px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      transition: all 0.15s ease;
+    }
+
+    .accent-pill-btn.active-pt {
+      background: #059669;
+      border-color: #34d399;
+      color: #ffffff;
+      box-shadow: 0 2px 10px rgba(5, 150, 105, 0.4);
+    }
+
+    .accent-pill-btn.active-br {
+      background: #2563eb;
+      border-color: #60a5fa;
+      color: #ffffff;
+      box-shadow: 0 2px 10px rgba(37, 99, 235, 0.4);
+    }
+
+    .accent-pill-btn.active-vs {
+      background: linear-gradient(90deg, #059669 0%, #2563eb 100%);
+      border-color: #93c5fd;
+      color: #ffffff;
+      box-shadow: 0 2px 10px rgba(37, 99, 235, 0.35);
+    }
+
+    .mini-accent-btns {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      flex-shrink: 0;
+    }
+
+    .mini-flag-btn {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 7px;
+      padding: 3px 7px;
+      font-size: 11.5px;
+      font-weight: 700;
+      cursor: pointer;
+      color: var(--text);
+      display: inline-flex;
+      align-items: center;
+      gap: 2px;
+      transition: all 0.12s ease;
+    }
+
+    .mini-flag-btn.pt:hover, .mini-flag-btn.pt:active {
+      background: #ecfdf5;
+      border-color: #059669;
+      color: #065f46;
+    }
+
+    .mini-flag-btn.br:hover, .mini-flag-btn.br:active {
+      background: #eff6ff;
+      border-color: #2563eb;
+      color: #1e40af;
+    }
+
+    /* PT-PT vs PT-BR Comparison Card */
+    .diff-item {
+      border: 1px solid var(--border);
+      border-radius: 13px;
+      padding: 12px;
+      background: var(--bg);
+      margin-bottom: 10px;
+    }
+    .diff-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .diff-item-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 8px;
+      flex-wrap: wrap;
+    }
+
+    .diff-tag {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 6px;
+      background: #e0f2fe;
+      color: #0369a1;
+    }
+    .diff-tag.warn {
+      background: #fef2f2;
+      color: #dc2626;
+      border: 1px solid #fecaca;
+    }
+
+    .diff-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text);
+      flex: 1;
+    }
+
+    .diff-vs-btn {
+      background: linear-gradient(90deg, #047857 0%, #1d4ed8 100%);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 4px 10px;
+      font-size: 11.5px;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .diff-cols {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+    @media (min-width: 540px) {
+      .diff-cols {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .diff-box {
+      padding: 9px 11px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      cursor: pointer;
+    }
+
+    .diff-box.pt-box {
+      background: #ecfdf5;
+      border: 1px solid #a7f3d0;
+    }
+
+    .diff-box.br-box {
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+    }
+
+    .diff-box-label {
+      font-size: 11px;
+      font-weight: 700;
+      margin-bottom: 2px;
+      display: block;
+    }
+    .diff-box.pt-box .diff-box-label { color: #047857; }
+    .diff-box.br-box .diff-box-label { color: #1d4ed8; }
+
+    .diff-box-text {
+      font-size: 14.5px;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.4;
+    }
+
+    .diff-note {
+      font-size: 12.5px;
+      color: #475569;
+      background: var(--surface);
+      padding: 7px 10px;
+      border-radius: 8px;
+      border-left: 3px solid #f59e0b;
+      line-height: 1.5;
+    }
+
     .star-btn {
       background: none;
       border: none;
@@ -990,6 +1209,7 @@
       <p id="heroTitleZh">早上好！你叫什么名字？</p>
       <div class="hero-actions">
         <button class="hero-btn" id="toggleZhBtn">👁️ 隐藏/显示中文</button>
+        <button class="hero-btn" id="openPtBrGuideBtn">🇵🇹/🇧🇷 葡巴总表</button>
         <button class="hero-btn" id="openStarredModalBtn">⭐ 生词本 (<span id="starredCount">0</span>)</button>
         <button class="hero-btn" id="prevUnitBtn">⬅ 上一课</button>
         <button class="hero-btn" id="nextUnitBtn">下一课 ➡</button>
@@ -998,41 +1218,67 @@
 
     <!-- Structured Study View -->
     <div id="studyViewContainer">
-      <!-- Fish Audio Drama-3 AI TTS Bar -->
+      <!-- Accent & Voice Bar -->
       <section class="drama-bar" id="dramaBar">
         <div class="drama-bar-top">
           <div class="drama-brand">
-            <span>🎭 Fish Audio Drama-3 语音点读</span>
-            <span class="drama-badge">HuggingFace 实时接入</span>
+            <span>🇵🇹 葡葡 / 🇧🇷 巴葡 发音切换控制台</span>
+            <span class="drama-badge" id="currentAccentBadge">当前：🇵🇹 欧洲葡语</span>
           </div>
-          <a href="https://huggingface.co/spaces/fishaudio/Drama-3" target="_blank" rel="noopener" style="font-size:11.5px;color:#93c5fd;text-decoration:none;">
-            打开 Drama-3 Space ↗
-          </a>
+          <button class="small-action-btn" id="openPtBrGuideBtn2" style="background:rgba(255,255,255,0.12);color:#93c5fd;border-color:rgba(147,197,253,0.3);">
+            📖 葡巴发音与词汇总表
+          </button>
+        </div>
+
+        <!-- One-Tap Accent Mode Switcher -->
+        <div class="accent-pill-group">
+          <button class="accent-pill-btn active-pt" data-accent="pt-PT" id="pillPtPt">
+            🇵🇹 葡葡发音 (课本原音)
+          </button>
+          <button class="accent-pill-btn" data-accent="pt-BR" id="pillPtBr">
+            🇧🇷 巴葡发音 (巴西口音)
+          </button>
+          <button class="accent-pill-btn" data-accent="pt-vs-br" id="pillPtVsBr">
+            🆚 葡巴双音连读对比
+          </button>
         </div>
 
         <div class="drama-controls-row">
           <select class="drama-select" id="ttsEngineSelect" title="选择点读语音引擎">
-            <option value="drama3">🎭 Drama-3 大模型语音 (在线合成)</option>
-            <option value="webspeech">⚡ 系统内置语音 (零延迟离线)</option>
+            <option value="webspeech">⚡ 系统原生葡语语音 (推荐 · 发音纯正零延迟)</option>
+            <option value="drama3">🎭 Drama-3 大模型 (实验性 · 偏英语戏剧腔)</option>
           </select>
 
-          <select class="drama-select" id="dramaVoiceSelect" title="选择 Drama-3 发音人/口音">
-            <option value="pt-PT">🇵🇹 里斯本标准音 (葡葡 · 课本口音)</option>
-            <option value="pt-BR">🇧🇷 圣保罗标准音 (巴葡 · 对比试听)</option>
-            <option value="clone1">🎙️ Drama-3 预设声线 Clone 1</option>
-            <option value="clone2">🎙️ Drama-3 预设声线 Clone 2</option>
-            <option value="clone3">🎙️ Drama-3 预设声线 Clone 3</option>
-            <option value="surprise">🎲 Surprise (模型自由发挥戏剧感)</option>
+          <select class="drama-select" id="dramaVoiceSelect" title="选择发音人/口音">
+            <option value="pt-PT">🇵🇹 里斯本标准音 (pt-PT)</option>
+            <option value="pt-BR">🇧🇷 圣保罗/里约标准音 (pt-BR)</option>
+            <option value="clone1">🎙️ Drama-3 Clone 1</option>
+            <option value="surprise">🎲 Drama-3 Surprise</option>
           </select>
         </div>
 
         <div class="drama-test-input-row">
-          <input type="text" class="drama-custom-input" id="dramaCustomInput" placeholder="输入任意葡语单词或句子测试 Drama-3（如：Bom dia / chamar-se）" value="chamar-se" />
-          <button class="drama-speak-btn" id="dramaCustomBtn">🔊 Drama-3 朗读</button>
+          <input type="text" class="drama-custom-input" id="dramaCustomInput" placeholder="输入任意葡语单词或句子对比 🇵🇹 / 🇧🇷 发音…" value="Bom dia! Como te chamas?" />
+          <button class="drama-speak-btn" id="dramaCustomBtn">🔊 立即朗读</button>
         </div>
-        <div style="font-size:11.5px;color:#94a3b8;margin-top:6px;">
-          💡 提示：直接点击下方课文中的<strong>任意单个葡语单词</strong>或词汇表中的<strong>任意词条</strong>，即可调用 <code>fishaudio/Drama-3</code> 朗读该单词（已合成单词会自动缓存，二次点击 0 延迟秒播）。
+      </section>
+
+      <!-- PT-PT vs PT-BR Comparison Section for Current Unit -->
+      <section class="section-card" id="ptBrDiffCard">
+        <div class="section-header">
+          <h2 class="section-title">🇵🇹 vs 🇧🇷 本课葡葡 / 巴葡词汇与句型对比</h2>
+          <button class="small-action-btn" id="openPtBrGuideBtn3">查看全书总表 ↗</button>
         </div>
+        <div id="ptBrDiffList"></div>
+      </section>
+
+      <!-- Brazilian TV Series Real-Audio Clips Section -->
+      <section class="section-card" id="brTvClipsCard">
+        <div class="section-header">
+          <h2 class="section-title">🎬 巴剧原声实景片段 (匹配本课词汇/句型)</h2>
+          <span style="font-size:11.5px;color:var(--primary);font-weight:600;" id="brClipsCountBadge">支持导入本地巴剧</span>
+        </div>
+        <div id="brTvClipsList"></div>
       </section>
 
       <!-- Dialogues / Texto -->
@@ -1042,7 +1288,7 @@
           <button class="small-action-btn" id="playUnitTextoBtn">▶ 播放课文录音</button>
         </div>
         <div style="font-size:12px;color:var(--text-muted);margin-bottom:10px;">
-          💡 <strong>点词即读</strong>：点击句中<strong>任意单词</strong>用 Drama-3 单独读该词；点击右侧 <strong>🔊 整句</strong> 朗读整句。
+          💡 <strong>点词即读</strong>：点击句中<strong>任意单词</strong>单独读该词；点击右侧 <strong>🇵🇹</strong> / <strong>🇧🇷</strong> 按钮可直接对比整句的葡葡与巴葡读音。
         </div>
         <div id="dialoguesList"></div>
       </section>
@@ -1050,7 +1296,7 @@
       <!-- Vocabulary -->
       <section class="section-card" id="vocabCard">
         <div class="section-header">
-          <h2 class="section-title">📖 核心词汇表 (Vocabulário)</h2>
+          <h2 class="section-title">📖 核心词汇表 (含 🇧🇷 巴葡对照)</h2>
           <button class="small-action-btn" id="playUnitVocabBtn">▶ 播放单词录音</button>
         </div>
         <div class="vocab-grid" id="vocabList"></div>
@@ -1098,11 +1344,11 @@
     </section>
   </main>
 
-  <!-- Floating Drama-3 Status Toast -->
+  <!-- Floating Status Toast -->
   <div class="drama-toast" id="dramaToast">
     <div class="drama-toast-info">
-      <div class="drama-toast-word" id="dramaToastWord">🎭 Drama-3 准备中…</div>
-      <div class="drama-toast-sub" id="dramaToastSub">正在连接 fishaudio/Drama-3 Space…</div>
+      <div class="drama-toast-word" id="dramaToastWord">🔊 语音准备中…</div>
+      <div class="drama-toast-sub" id="dramaToastSub">正在加载语音…</div>
     </div>
     <div class="drama-toast-actions">
       <button class="ctrl-btn" id="dramaReplayBtn" title="重播刚才生成的语音" style="display:none;">🔄 重播</button>
@@ -1163,10 +1409,23 @@
     </div>
   </div>
 
+  <!-- PT-PT vs PT-BR Full Guide Drawer -->
+  <div class="drawer-backdrop" id="ptBrGuideDrawer">
+    <div class="drawer-sheet" style="max-height:86vh;">
+      <div class="drawer-header">
+        <span>🇵🇹 葡葡 vs 🇧🇷 巴葡 发音规律与全书词汇对比</span>
+        <button class="small-action-btn" id="closePtBrGuideBtn">关闭 ✕</button>
+      </div>
+      <div class="drawer-list" id="ptBrGuideBody"></div>
+    </div>
+  </div>
+
   <script src="course_data.js"></script>
+  <script src="br_clips_data.js" onerror="window.BR_CLIPS_DATA = {}"></script>
   <script>
     (function() {
       const DATA = window.COURSE_DATA;
+      const PT_BR = window.PT_BR_DATA || {};
       const STORAGE_KEY = "pt_univ_vol1_state_v1";
       const DRAMA3_SPACE_HOST = "https://fishaudio-drama-3.hf.space";
 
@@ -1181,14 +1440,25 @@
         notes: {},
         playbackRate: 1.0,
         loopSingle: false,
-        ttsEngine: "drama3", // "drama3" | "webspeech"
-        dramaVoice: "pt-PT"  // "pt-PT" | "pt-BR" | "clone1" | "clone2" | "clone3" | "surprise"
+        ttsEngine: "webspeech", // Default to native Portuguese voices (fast & natural)
+        dramaVoice: "pt-PT",    // "pt-PT" | "pt-BR" | "clone1" | "surprise"
+        accentMode: "pt-PT",    // "pt-PT" | "pt-BR" | "pt-vs-br"
+        migratedNativeTtsV2: true
       };
 
       try {
         const saved = localStorage.getItem(STORAGE_KEY);
         if (saved) {
-          state = Object.assign(state, JSON.parse(saved));
+          const parsed = JSON.parse(saved);
+          // Migrate old default "drama3" to "webspeech" so user doesn't get weird English-accented TTS by default
+          if (!parsed.migratedNativeTtsV2) {
+            parsed.ttsEngine = "webspeech";
+            parsed.migratedNativeTtsV2 = true;
+          }
+          if (!parsed.accentMode) {
+            parsed.accentMode = parsed.dramaVoice === "pt-BR" ? "pt-BR" : "pt-PT";
+          }
+          state = Object.assign(state, parsed);
         }
       } catch (e) {}
 
@@ -1210,6 +1480,11 @@
 
       const studyViewContainer = document.getElementById("studyViewContainer");
       const bookViewContainer = document.getElementById("bookViewContainer");
+      const ptBrDiffCard = document.getElementById("ptBrDiffCard");
+      const ptBrDiffList = document.getElementById("ptBrDiffList");
+      const brTvClipsCard = document.getElementById("brTvClipsCard");
+      const brTvClipsList = document.getElementById("brTvClipsList");
+      const brClipsCountBadge = document.getElementById("brClipsCountBadge");
       const dialogueCard = document.getElementById("dialogueCard");
       const vocabCard = document.getElementById("vocabCard");
       const dialoguesList = document.getElementById("dialoguesList");
@@ -1225,7 +1500,11 @@
       const zoomPageBtn = document.getElementById("zoomPageBtn");
       const unitNotesInput = document.getElementById("unitNotesInput");
 
-      // Drama-3 DOM Elements
+      // Accent & Voice DOM Elements
+      const currentAccentBadge = document.getElementById("currentAccentBadge");
+      const pillPtPt = document.getElementById("pillPtPt");
+      const pillPtBr = document.getElementById("pillPtBr");
+      const pillPtVsBr = document.getElementById("pillPtVsBr");
       const ttsEngineSelect = document.getElementById("ttsEngineSelect");
       const dramaVoiceSelect = document.getElementById("dramaVoiceSelect");
       const dramaCustomInput = document.getElementById("dramaCustomInput");
@@ -1254,9 +1533,43 @@
       let currentTrackId = null;
       let abState = { mode: 0, a: 0, b: 0 }; // 0: off, 1: A set, 2: A-B active
 
-      // Sync Drama-3 selects with state
-      ttsEngineSelect.value = state.ttsEngine || "drama3";
-      dramaVoiceSelect.value = state.dramaVoice || "pt-PT";
+      // Sync Accent Pills & Selects
+      function syncAccentUI() {
+        ttsEngineSelect.value = state.ttsEngine || "webspeech";
+        dramaVoiceSelect.value = state.dramaVoice || "pt-PT";
+
+        pillPtPt.className = "accent-pill-btn" + (state.accentMode === "pt-PT" ? " active-pt" : "");
+        pillPtBr.className = "accent-pill-btn" + (state.accentMode === "pt-BR" ? " active-br" : "");
+        pillPtVsBr.className = "accent-pill-btn" + (state.accentMode === "pt-vs-br" ? " active-vs" : "");
+
+        if (state.accentMode === "pt-BR") {
+          currentAccentBadge.textContent = "当前：🇧🇷 巴西葡语";
+        } else if (state.accentMode === "pt-vs-br") {
+          currentAccentBadge.textContent = "当前：🆚 葡巴双音连读";
+        } else {
+          currentAccentBadge.textContent = "当前：🇵🇹 欧洲葡语";
+        }
+      }
+
+      pillPtPt.addEventListener("click", () => {
+        state.accentMode = "pt-PT";
+        state.dramaVoice = "pt-PT";
+        syncAccentUI();
+        saveState();
+      });
+
+      pillPtBr.addEventListener("click", () => {
+        state.accentMode = "pt-BR";
+        state.dramaVoice = "pt-BR";
+        syncAccentUI();
+        saveState();
+      });
+
+      pillPtVsBr.addEventListener("click", () => {
+        state.accentMode = "pt-vs-br";
+        syncAccentUI();
+        saveState();
+      });
 
       ttsEngineSelect.addEventListener("change", () => {
         state.ttsEngine = ttsEngineSelect.value;
@@ -1265,8 +1578,14 @@
 
       dramaVoiceSelect.addEventListener("change", () => {
         state.dramaVoice = dramaVoiceSelect.value;
+        if (state.dramaVoice === "pt-PT" || state.dramaVoice === "pt-BR") {
+          state.accentMode = state.dramaVoice;
+        }
+        syncAccentUI();
         saveState();
       });
+
+      syncAccentUI();
 
       function getCurrentUnit() {
         return DATA.units.find(u => u.id === state.unitId) || DATA.units[1];
@@ -1285,27 +1604,79 @@
         });
       }
 
-      // Speak Portuguese phrase via Web Speech API (instant local fallback)
-      function speakWebSpeech(text, targetEl) {
-        if (!("speechSynthesis" in window)) return;
-        window.speechSynthesis.cancel();
-        dramaTtsAudio.pause();
-        const utter = new SpeechSynthesisUtterance(text);
-        const voices = window.speechSynthesis.getVoices();
-        const preferBr = state.dramaVoice === "pt-BR";
-        const ptVoice = voices.find(v => preferBr ? (v.lang.includes("pt-BR") || v.lang.includes("pt_BR")) : (v.lang.includes("pt-PT") || v.lang.includes("pt_PT")))
-                     || voices.find(v => v.lang.startsWith("pt"));
-        if (ptVoice) utter.voice = ptVoice;
-        utter.lang = ptVoice ? ptVoice.lang : (preferBr ? "pt-BR" : "pt-PT");
-        utter.rate = 0.92;
-        clearSpeakingHighlights();
-        if (targetEl) {
-          targetEl.classList.add(targetEl.classList.contains("pt-word") ? "word-speaking" : "speaking");
-        }
-        utter.onend = () => {
-          if (targetEl) targetEl.classList.remove("speaking", "word-speaking");
-        };
-        window.speechSynthesis.speak(utter);
+      // Find best system voice for pt-PT or pt-BR
+      function pickPortugueseVoice(langCode) {
+        if (!("speechSynthesis" in window)) return null;
+        const voices = window.speechSynthesis.getVoices() || [];
+        const isBr = langCode === "pt-BR";
+        const exact = voices.find(v => {
+          const l = (v.lang || "").replace("_", "-").toLowerCase();
+          return isBr ? l === "pt-br" : l === "pt-pt";
+        });
+        if (exact) return exact;
+        const partial = voices.find(v => {
+          const l = (v.lang || "").replace("_", "-").toLowerCase();
+          return isBr ? l.includes("br") && l.startsWith("pt") : l.includes("pt-pt");
+        });
+        if (partial) return partial;
+        return voices.find(v => (v.lang || "").toLowerCase().startsWith("pt")) || null;
+      }
+
+      // Speak Portuguese phrase via Web Speech API (returns a Promise for sequential dual-accent playback)
+      function speakWebSpeechAsync(text, langCode, targetEl) {
+        return new Promise((resolve) => {
+          if (!("speechSynthesis" in window)) {
+            resolve();
+            return;
+          }
+          window.speechSynthesis.cancel();
+          dramaTtsAudio.pause();
+          const utter = new SpeechSynthesisUtterance(text);
+          const chosenVoice = pickPortugueseVoice(langCode);
+          if (chosenVoice) utter.voice = chosenVoice;
+          utter.lang = langCode || (state.dramaVoice === "pt-BR" ? "pt-BR" : "pt-PT");
+          utter.rate = 0.92;
+
+          clearSpeakingHighlights();
+          if (targetEl) {
+            targetEl.classList.add(targetEl.classList.contains("pt-word") ? "word-speaking" : "speaking");
+          }
+
+          const flagLabel = utter.lang === "pt-BR" ? "🇧🇷 巴葡" : "🇵🇹 葡葡";
+          const voiceName = chosenVoice ? chosenVoice.name : utter.lang;
+          showDramaToast(`${flagLabel}: "${text}"`, `⚡ 原生语音 (${voiceName})`, "");
+
+          let settled = false;
+          const finish = () => {
+            if (settled) return;
+            settled = true;
+            if (targetEl) targetEl.classList.remove("speaking", "word-speaking");
+            resolve();
+          };
+          utter.onend = finish;
+          utter.onerror = finish;
+          // Safety timeout in case mobile browser doesn't fire onend
+          setTimeout(finish, Math.max(2500, text.length * 140));
+          window.speechSynthesis.speak(utter);
+        });
+      }
+
+      function speakWebSpeech(text, targetEl, forcedLang) {
+        const lang = forcedLang || (state.dramaVoice === "pt-BR" ? "pt-BR" : "pt-PT");
+        return speakWebSpeechAsync(text, lang, targetEl);
+      }
+
+      // Sequential comparison playback: plays PT-PT first, pauses 350ms, then plays PT-BR
+      async function speakPtVsBrComparison(ptText, brText, targetEl) {
+        const cleanPt = (ptText || "").split("/")[0].replace(/\(.*?\)/g, "").trim();
+        const cleanBr = (brText || cleanPt).split("/")[0].replace(/\(.*?\)/g, "").trim();
+        if (!cleanPt) return;
+
+        showDramaToast(`🆚 葡巴对比 (1/2) 🇵🇹: "${cleanPt}"`, `正在先读 🇵🇹 欧洲葡语，随后自动读 🇧🇷 巴西葡语…`, "");
+        await speakWebSpeechAsync(cleanPt, "pt-PT", targetEl);
+        await new Promise(r => setTimeout(r, 320));
+        showDramaToast(`🆚 葡巴对比 (2/2) 🇧🇷: "${cleanBr}"`, `🇵🇹 "${cleanPt}"  ➔  🇧🇷 "${cleanBr}"`, "");
+        await speakWebSpeechAsync(cleanBr, "pt-BR", targetEl);
       }
 
       // ─── Fish Audio Drama-3 HuggingFace Space Client ──────────────────────────
@@ -1349,7 +1720,6 @@
             scene: ""
           };
         }
-        // Default: European Portuguese (pt-PT) matching textbook
         return {
           label: "🇵🇹 葡葡标准音",
           mode: "Design",
@@ -1376,6 +1746,7 @@
       dramaCloseToastBtn.addEventListener("click", () => {
         dramaToast.classList.remove("visible");
         if (activeDramaAbort) activeDramaAbort.abort();
+        if ("speechSynthesis" in window) window.speechSynthesis.cancel();
         dramaTtsAudio.pause();
         clearSpeakingHighlights();
       });
@@ -1392,11 +1763,9 @@
         if (activeDramaAbort) activeDramaAbort.abort();
         if (lastSpokenText) {
           speakWebSpeech(lastSpokenText, null);
-          showDramaToast(`⚡ 本地语音: "${lastSpokenText}"`, "已使用浏览器内置葡语引擎朗读", "");
         }
       });
 
-      // Merge multiple 16-bit PCM WAV buffers into a single WAV Blob URL if needed
       async function mergeWavChunkUrls(urls) {
         const buffers = await Promise.all(urls.map(u => fetch(u).then(r => r.arrayBuffer())));
         if (buffers.length === 1) {
@@ -1405,7 +1774,6 @@
         const pcmParts = buffers.map(b => new Uint8Array(b, Math.min(44, b.byteLength)));
         const totalPcmBytes = pcmParts.reduce((acc, p) => acc + p.byteLength, 0);
         const out = new Uint8Array(44 + totalPcmBytes);
-        // Copy header from first WAV and patch sizes
         out.set(new Uint8Array(buffers[0], 0, 44), 0);
         const view = new DataView(out.buffer);
         view.setUint32(4, 36 + totalPcmBytes, true);
@@ -1418,13 +1786,10 @@
         return URL.createObjectURL(new Blob([out], { type: "audio/wav" }));
       }
 
-      // Call fishaudio/Drama-3 via Gradio SSE API (/gradio_api/call/perform with fallback to /workflow/gradio_api/call/performance)
       async function callDrama3Space(text, cfg, signal, onStatus) {
-        // Ensure terminal punctuation so Drama-3 finishes short words cleanly
         const clean = text.trim();
         const scriptText = /[.!?…]$/.test(clean) ? clean : (clean + ".");
 
-        // Try /gradio_api/call/perform first (provides live queue/actor status + take_id + audio chunks)
         const postRes = await fetch(`${DRAMA3_SPACE_HOST}/gradio_api/call/perform`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -1529,8 +1894,6 @@
           }
         }
 
-        // Prefer merging the CORS-enabled Gradio WAV chunks into a local Blob URL for instant replay,
-        // or use /api/takes/{take_id}.wav directly
         if (chunkUrls.length > 0) {
           try {
             const blobUrl = await mergeWavChunkUrls(chunkUrls);
@@ -1546,18 +1909,30 @@
         throw new Error("未收到有效音频片段");
       }
 
-      async function speakPortuguese(text, targetEl) {
+      // Main speak dispatcher supporting forcedLang ("pt-PT" | "pt-BR") or state.accentMode ("pt-vs-br")
+      async function speakPortuguese(text, targetEl, options = {}) {
         const cleanText = (text || "").replace(/\s+/g, " ").trim();
         if (!cleanText) return;
         lastSpokenText = cleanText;
 
-        // If user selected local Web Speech API, speak immediately
-        if (state.ttsEngine === "webspeech") {
-          speakWebSpeech(cleanText, targetEl);
+        const forcedLang = options.lang || null;
+        const brAltText = options.brText || cleanText;
+
+        // If user is in "pt-vs-br" comparison mode and didn't click a single-flag button, play both sequentially!
+        if (!forcedLang && state.accentMode === "pt-vs-br") {
+          await speakPtVsBrComparison(cleanText, brAltText, targetEl);
           return;
         }
 
-        // Cancel any in-flight Drama-3 request
+        const effectiveLang = forcedLang || (state.accentMode === "pt-BR" ? "pt-BR" : "pt-PT");
+
+        // If user selected local Web Speech API (default), speak immediately with native Portuguese voice
+        if (state.ttsEngine === "webspeech") {
+          await speakWebSpeechAsync(cleanText, effectiveLang, targetEl);
+          return;
+        }
+
+        // Otherwise use Drama-3
         if (activeDramaAbort) {
           activeDramaAbort.abort();
           activeDramaAbort = null;
@@ -1567,10 +1942,10 @@
         clearSpeakingHighlights();
 
         const isWordEl = targetEl && targetEl.classList && targetEl.classList.contains("pt-word");
-        const cfg = getDramaVoiceConfig(state.dramaVoice);
-        const cacheKey = `${state.dramaVoice}::${cleanText.toLowerCase()}`;
+        const voicePreset = forcedLang || state.dramaVoice;
+        const cfg = getDramaVoiceConfig(voicePreset);
+        const cacheKey = `${voicePreset}::${cleanText.toLowerCase()}`;
 
-        // Play immediately if cached
         if (drama3Cache.has(cacheKey)) {
           const cached = drama3Cache.get(cacheKey);
           if (!audio.paused) audio.pause();
@@ -1585,7 +1960,6 @@
           return;
         }
 
-        // Otherwise synthesize live via fishaudio/Drama-3
         const abortCtrl = new AbortController();
         activeDramaAbort = abortCtrl;
 
@@ -1629,10 +2003,10 @@
           const msg = err && err.message ? err.message : "连接超时";
           showDramaToast(
             `⚠️ Drama-3 繁忙，已自动用本地语音朗读`,
-            `原因: ${msg} · 可稍后重试或点击「🔄 重播」`,
+            `原因: ${msg}`,
             ""
           );
-          speakWebSpeech(cleanText, targetEl);
+          await speakWebSpeechAsync(cleanText, effectiveLang, targetEl);
         } finally {
           if (activeDramaAbort === abortCtrl) {
             activeDramaAbort = null;
@@ -1656,9 +2030,8 @@
 
       // Turn a Portuguese sentence into clickable word spans
       function renderClickableWordsHtml(sentence) {
-        // Match Portuguese words (including hyphenated reflexive verbs like chamar-se)
         return sentence.replace(/([A-Za-zÀ-ÖØ-öø-ÿ]+(?:-[A-Za-zÀ-ÖØ-öø-ÿ]+)*)/g, (match) => {
-          return `<span class="pt-word" data-word="${match.replace(/"/g, "&quot;")}" title="点击用 Drama-3 朗读单词: ${match}">${match}</span>`;
+          return `<span class="pt-word" data-word="${match.replace(/"/g, "&quot;")}" title="点击点读单词: ${match}">${match}</span>`;
         });
       }
 
@@ -1687,7 +2060,6 @@
         const padded = String(p).padStart(3, "0");
         bookPageImg.src = `pages/book1/page_${padded}.jpg`;
 
-        // Preload next page for instant flip
         if (p < DATA.totalPages) {
           const preloadImg = new Image();
           preloadImg.src = `pages/book1/page_${String(p + 1).padStart(3, "0")}.jpg`;
@@ -1699,7 +2071,6 @@
         prevPageBtn.disabled = p <= 1;
         nextPageBtn.disabled = p >= DATA.totalPages;
 
-        // Highlight active section pill
         const unit = getCurrentUnit();
         let activeSecIdx = -1;
         unit.sections.forEach((sec, idx) => {
@@ -1738,6 +2109,172 @@
         starredCount.textContent = Object.keys(state.starredWords || {}).length;
       }
 
+      // Render PT-PT vs PT-BR comparison card for current unit
+      function renderUnitPtBrDiffs(unit) {
+        const diffs = unit.ptBrDiffs || (PT_BR.unitDiffs && PT_BR.unitDiffs[unit.id]) || [];
+        if (!diffs || diffs.length === 0) {
+          ptBrDiffCard.style.display = "none";
+          return;
+        }
+        ptBrDiffCard.style.display = "block";
+        ptBrDiffList.innerHTML = "";
+
+        diffs.forEach(d => {
+          const isWarn = d.tag && (d.tag.includes("警告") || d.tag.includes("高危"));
+          const item = document.createElement("div");
+          item.className = "diff-item";
+          item.innerHTML = `
+            <div class="diff-item-head">
+              <span class="diff-tag ${isWarn ? "warn" : ""}">${d.tag || "葡巴对比"}</span>
+              <span class="diff-title">${d.title}</span>
+              <button class="diff-vs-btn" title="连续播放葡葡与巴葡读音对比">🆚 双音连读</button>
+            </div>
+            <div class="diff-cols">
+              <div class="diff-box pt-box" title="点击用 🇵🇹 葡葡朗读">
+                <div>
+                  <span class="diff-box-label">🇵🇹 葡葡 (课本说法)</span>
+                  <div class="diff-box-text">${d.pt}</div>
+                </div>
+                <span style="font-size:15px;">🔊</span>
+              </div>
+              <div class="diff-box br-box" title="点击用 🇧🇷 巴葡朗读">
+                <div>
+                  <span class="diff-box-label">🇧🇷 巴葡 (巴西说法)</span>
+                  <div class="diff-box-text">${d.br}</div>
+                </div>
+                <span style="font-size:15px;">🔊</span>
+              </div>
+            </div>
+            <div class="diff-note">💡 ${d.note}</div>
+          `;
+
+          const ptBox = item.querySelector(".pt-box");
+          const brBox = item.querySelector(".br-box");
+          const vsBtn = item.querySelector(".diff-vs-btn");
+
+          const cleanForSpeech = (str) => str.replace(/\[.*?\]/g, "").replace(/\(.*?\)/g, "").split("/")[0].trim();
+
+          ptBox.addEventListener("click", () => {
+            const txt = cleanForSpeech(d.pt);
+            dramaCustomInput.value = txt;
+            speakPortuguese(txt, ptBox, { lang: "pt-PT" });
+          });
+
+          brBox.addEventListener("click", () => {
+            const txt = cleanForSpeech(d.br);
+            dramaCustomInput.value = txt;
+            speakPortuguese(txt, brBox, { lang: "pt-BR" });
+          });
+
+          vsBtn.addEventListener("click", () => {
+            speakPtVsBrComparison(cleanForSpeech(d.pt), cleanForSpeech(d.br), item);
+          });
+
+          ptBrDiffList.appendChild(item);
+        });
+      }
+
+      // Render Brazilian TV Series Real-Audio Clips matched to current unit
+      function renderBrTvClips(unit) {
+        const allClipsMap = window.BR_CLIPS_DATA || {};
+        const clips = allClipsMap[unit.id] || [];
+        brTvClipsCard.style.display = "block";
+        brTvClipsList.innerHTML = "";
+
+        const realFileCount = clips.filter(c => c.audioFile).length;
+        if (realFileCount > 0) {
+          brClipsCountBadge.textContent = `已匹配 ${clips.length} 段巴剧台词 (${realFileCount} 段实景原声)`;
+        } else {
+          brClipsCountBadge.textContent = `台词库 ${clips.length} 段 · 支持一键提取本地巴剧`;
+        }
+
+        clips.forEach((clip) => {
+          const card = document.createElement("div");
+          card.className = "diff-item";
+          card.style.background = "linear-gradient(135deg, #f0fdf4 0%, #eff6ff 100%)";
+          card.style.borderColor = "#93c5fd";
+
+          const keywordsHtml = (clip.matchedWords || []).map(w =>
+            `<span style="background:#dbeafe;color:#1e40af;padding:1px 6px;border-radius:5px;font-size:11px;font-weight:700;">命中词汇: ${w}</span>`
+          ).join(" ");
+
+          card.innerHTML = `
+            <div class="diff-item-head">
+              <span class="diff-tag" style="background:#dcfce7;color:#166534;">🎬 ${clip.series || "巴西剧集"} ${clip.episode ? "· " + clip.episode : ""}</span>
+              <span style="font-size:11.5px;color:#475569;font-variant-numeric:tabular-nums;">⏱ ${clip.timeRange || "原声台词"}</span>
+              <div class="mini-accent-btns">
+                <button class="diff-vs-btn clip-play-btn" style="background:${clip.audioFile ? "#059669" : "#2563eb"};">
+                  ${clip.audioFile ? "▶ 播放巴剧原声" : "🇧🇷 巴葡朗读台词"}
+                </button>
+              </div>
+            </div>
+            <div class="pt-sentence" style="margin:6px 0 4px;font-size:15.5px;">${renderClickableWordsHtml(clip.pt)}</div>
+            <div class="zh-sentence" style="margin-bottom:6px;">${clip.zh || ""}</div>
+            <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px;">
+              <div style="display:flex;gap:4px;flex-wrap:wrap;">${keywordsHtml}</div>
+              ${clip.note ? `<span style="font-size:11.5px;color:#0369a1;">💬 ${clip.note}</span>` : ""}
+            </div>
+          `;
+
+          // Clickable words inside TV clip sentence
+          card.addEventListener("click", (e) => {
+            const wordSpan = e.target.closest(".pt-word");
+            if (wordSpan && wordSpan.dataset.word) {
+              e.stopPropagation();
+              dramaCustomInput.value = wordSpan.dataset.word;
+              speakPortuguese(wordSpan.dataset.word, wordSpan, { lang: "pt-BR" });
+            }
+          });
+
+          const playBtn = card.querySelector(".clip-play-btn");
+          playBtn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            if (clip.audioFile) {
+              // Play extracted real Brazilian TV audio clip via bottom player or dramaTtsAudio
+              if (!audio.paused) audio.pause();
+              if ("speechSynthesis" in window) window.speechSynthesis.cancel();
+              clearSpeakingHighlights();
+              card.classList.add("speaking");
+              showDramaToast(
+                `🎬 巴剧原声 (${clip.series}): "${clip.pt}"`,
+                `⏱ ${clip.timeRange || ""} · 真实演员原声切片 (${clip.audioFile})`,
+                clip.audioFile
+              );
+              dramaTtsAudio.src = clip.audioFile;
+              dramaTtsAudio.currentTime = 0;
+              dramaTtsAudio.onended = () => card.classList.remove("speaking");
+              dramaTtsAudio.onerror = () => {
+                card.classList.remove("speaking");
+                speakPortuguese(clip.pt, card, { lang: "pt-BR" });
+              };
+              dramaTtsAudio.play().catch(() => {
+                speakPortuguese(clip.pt, card, { lang: "pt-BR" });
+              });
+            } else {
+              speakPortuguese(clip.pt, card, { lang: "pt-BR" });
+            }
+          });
+
+          brTvClipsList.appendChild(card);
+        });
+
+        // Collapsible guide box showing how to add own Brazilian TV series episodes
+        const guideBox = document.createElement("details");
+        guideBox.style.cssText = "margin-top:10px;background:#f8fafc;border:1px dashed #94a3b8;border-radius:10px;padding:9px 12px;font-size:12.5px;color:#334155;";
+        guideBox.innerHTML = `
+          <summary style="cursor:pointer;font-weight:700;color:#0f172a;">
+            📥 如何用你自己下载的巴西电视剧/电影自动切片并匹配到本课？（点击展开）
+          </summary>
+          <div style="margin-top:8px;line-height:1.6;">
+            <div>1️⃣ 把下载好的<strong>巴剧视频/音频</strong>（如 <code>.mp4</code> / <code>.mkv</code> / <code>.mp3</code>）和<strong>葡语字幕</strong>（<code>.srt</code> / <code>.vtt</code>，或无字幕直接用 Whisper 识别）放进项目目录下的 <code>videos/</code> 文件夹。</div>
+            <div>2️⃣ 在终端运行自动切片与单元匹配脚本：</div>
+            <pre style="background:#0f172a;color:#38bdf8;padding:8px 10px;border-radius:8px;overflow-x:auto;margin:6px 0;font-size:11.5px;">python3 process_br_series.py --series "Coisa Mais Linda"</pre>
+            <div>3️⃣ 脚本会自动分析全剧台词，按《大学葡萄牙语 1》14 个单元的核心词汇与句型打分匹配，用 <code>ffmpeg</code> 切出前后带缓冲的真实演员原声 <code>audio/br_clips/*.mp3</code>，刷新网页即可直接点播！</div>
+          </div>
+        `;
+        brTvClipsList.appendChild(guideBox);
+      }
+
       // Render full unit
       function renderUnit(resetPage = false) {
         const unit = getCurrentUnit();
@@ -1764,13 +2301,18 @@
             chip.addEventListener("click", () => loadTrack(t, true));
             unitTracksStrip.appendChild(chip);
           });
-          // Pre-select first track if nothing loaded yet
           if (!currentTrackId) {
             loadTrack(unit.tracks[0], false);
           }
         } else {
           unitTracksStrip.innerHTML = `<span style="font-size:12px;color:var(--text-muted);padding:2px 4px;">本单元为综合测验/词表，无单独配套录音</span>`;
         }
+
+        // Render PT-PT vs PT-BR comparison section
+        renderUnitPtBrDiffs(unit);
+
+        // Render Brazilian TV Series Real-Audio Clips section
+        renderBrTvClips(unit);
 
         // Render Dialogues
         if (unit.dialogues && unit.dialogues.length > 0) {
@@ -1787,14 +2329,33 @@
               lineEl.className = "dialogue-line";
               lineEl.innerHTML = `
                 <div class="line-top">
-                  <div>
+                  <div style="flex:1;min-width:0;">
                     <span class="speaker-tag">${line.speaker}</span>
                     <div class="pt-sentence">${renderClickableWordsHtml(line.pt)}</div>
                   </div>
-                  <button class="tts-btn" title="用 Drama-3 朗读整句">🔊 整句</button>
+                  <div class="mini-accent-btns">
+                    <button class="mini-flag-btn pt" title="用 🇵🇹 欧洲葡语朗读整句">🇵🇹 葡</button>
+                    <button class="mini-flag-btn br" title="用 🇧🇷 巴西葡语朗读整句">🇧🇷 巴</button>
+                  </div>
                 </div>
                 <div class="zh-sentence">${line.zh}</div>
               `;
+
+              const ptBtn = lineEl.querySelector(".mini-flag-btn.pt");
+              const brBtn = lineEl.querySelector(".mini-flag-btn.br");
+
+              ptBtn.addEventListener("click", (e) => {
+                e.stopPropagation();
+                dramaCustomInput.value = line.pt;
+                speakPortuguese(line.pt, lineEl, { lang: "pt-PT" });
+              });
+
+              brBtn.addEventListener("click", (e) => {
+                e.stopPropagation();
+                dramaCustomInput.value = line.pt;
+                speakPortuguese(line.pt, lineEl, { lang: "pt-BR" });
+              });
+
               lineEl.addEventListener("click", (e) => {
                 const wordSpan = e.target.closest(".pt-word");
                 if (wordSpan && wordSpan.dataset.word) {
@@ -1813,34 +2374,76 @@
           dialogueCard.style.display = "none";
         }
 
-        // Render Vocab
+        // Render Vocab (with PT-BR equivalents & dual accent buttons)
         if (unit.vocab && unit.vocab.length > 0) {
           vocabCard.style.display = "block";
           vocabList.innerHTML = "";
           unit.vocab.forEach(v => {
             const key = `${unit.id}:${v.pt}`;
             const isStarred = !!state.starredWords[key];
+            const cleanPtWord = v.pt.replace(/\(.*?\)/g, "").split("/")[0].trim();
+            const brInfo = v.br || (PT_BR.vocabBrMap && (PT_BR.vocabBrMap[v.pt] || PT_BR.vocabBrMap[cleanPtWord]));
+            const cleanBrWord = brInfo ? brInfo.word.replace(/\(.*?\)/g, "").split("/")[0].trim() : cleanPtWord;
+
             const item = document.createElement("div");
             item.className = "vocab-item";
+            item.style.alignItems = "flex-start";
             item.innerHTML = `
               <div style="flex:1;min-width:0;">
                 <div>
-                  <span class="vocab-pt">${v.pt}</span>
+                  <span class="vocab-pt">🇵🇹 ${v.pt}</span>
                   <span class="vocab-pos">${v.pos}</span>
                 </div>
                 <div class="vocab-zh">${v.zh}</div>
+                ${brInfo ? `
+                  <div class="vocab-br-box" title="点击直接用 🇧🇷 巴葡朗读: ${brInfo.word}">
+                    <div class="vocab-br-top">
+                      <span>🇧🇷 巴葡: ${brInfo.word}</span>
+                      <span>🔊</span>
+                    </div>
+                    <div class="vocab-br-note">${brInfo.note}</div>
+                  </div>
+                ` : ""}
               </div>
-              <div style="display:flex;align-items:center;gap:4px;">
-                <span style="font-size:13px;color:var(--primary);" title="点击用 Drama-3 朗读此单词">🔊</span>
+              <div style="display:flex;flex-direction:column;align-items:flex-end;gap:5px;">
+                <div class="mini-accent-btns">
+                  <button class="mini-flag-btn pt" title="🇵🇹 葡葡发音">${brInfo ? "🇵🇹" : "🇵🇹 读"}</button>
+                  <button class="mini-flag-btn br" title="🇧🇷 巴葡发音">${brInfo ? "🇧🇷" : "🇧🇷 读"}</button>
+                </div>
                 <button class="star-btn ${isStarred ? "starred" : ""}" title="收藏到生词本">★</button>
               </div>
             `;
+
+            const ptBtn = item.querySelector(".mini-flag-btn.pt");
+            const brBtn = item.querySelector(".mini-flag-btn.br");
+            const brBox = item.querySelector(".vocab-br-box");
+
+            ptBtn.addEventListener("click", (e) => {
+              e.stopPropagation();
+              dramaCustomInput.value = cleanPtWord;
+              speakPortuguese(cleanPtWord, item, { lang: "pt-PT" });
+            });
+
+            brBtn.addEventListener("click", (e) => {
+              e.stopPropagation();
+              dramaCustomInput.value = cleanBrWord;
+              speakPortuguese(cleanBrWord, item, { lang: "pt-BR" });
+            });
+
+            if (brBox) {
+              brBox.addEventListener("click", (e) => {
+                e.stopPropagation();
+                dramaCustomInput.value = cleanBrWord;
+                speakPortuguese(cleanBrWord, item, { lang: "pt-BR" });
+              });
+            }
+
             item.addEventListener("click", (e) => {
               if (e.target.classList.contains("star-btn")) return;
-              const cleanWord = v.pt.replace(/\(.*?\)/g, "").split("/")[0].trim();
-              dramaCustomInput.value = cleanWord;
-              speakPortuguese(cleanWord, item);
+              dramaCustomInput.value = cleanPtWord;
+              speakPortuguese(cleanPtWord, item, { brText: cleanBrWord });
             });
+
             const starBtn = item.querySelector(".star-btn");
             starBtn.addEventListener("click", (e) => {
               e.stopPropagation();
@@ -1848,7 +2451,13 @@
                 delete state.starredWords[key];
                 starBtn.classList.remove("starred");
               } else {
-                state.starredWords[key] = { unitBadge: unit.badge, pt: v.pt, pos: v.pos, zh: v.zh };
+                state.starredWords[key] = {
+                  unitBadge: unit.badge,
+                  pt: v.pt,
+                  pos: v.pos,
+                  zh: v.zh,
+                  brWord: brInfo ? brInfo.word : ""
+                };
                 starBtn.classList.add("starred");
               }
               updateStarredCount();
@@ -1885,6 +2494,105 @@
         updateStarredCount();
         saveState();
       }
+
+      // Full-Book PT-PT vs PT-BR Guide Modal Drawer
+      const ptBrGuideDrawer = document.getElementById("ptBrGuideDrawer");
+      const ptBrGuideBody = document.getElementById("ptBrGuideBody");
+
+      function openPtBrGuideModal() {
+        ptBrGuideBody.innerHTML = "";
+
+        // 1. Phonetics Rules Overview
+        const phonTitle = document.createElement("div");
+        phonTitle.style.cssText = "font-weight:800;font-size:15px;color:#0f172a;margin:4px 0 6px;";
+        phonTitle.textContent = "一、🇵🇹 欧洲葡语 vs 🇧🇷 巴西葡语 5 大核心发音差异";
+        ptBrGuideBody.appendChild(phonTitle);
+
+        (PT_BR.phoneticsOverview || []).forEach(rule => {
+          const box = document.createElement("div");
+          box.className = "diff-item";
+          box.innerHTML = `
+            <div class="diff-item-head">
+              <span class="diff-tag">发音规律</span>
+              <span class="diff-title">${rule.title}</span>
+              <button class="diff-vs-btn">🆚 听示范词对比 (${rule.sampleWord})</button>
+            </div>
+            <div class="diff-cols">
+              <div class="diff-box pt-box">
+                <div>
+                  <span class="diff-box-label">🇵🇹 欧洲葡语 (里斯本)</span>
+                  <div class="diff-box-text" style="font-size:13px;">${rule.pt}</div>
+                </div>
+                <span>🔊</span>
+              </div>
+              <div class="diff-box br-box">
+                <div>
+                  <span class="diff-box-label">🇧🇷 巴西葡语 (圣保罗/里约)</span>
+                  <div class="diff-box-text" style="font-size:13px;">${rule.br}</div>
+                </div>
+                <span>🔊</span>
+              </div>
+            </div>
+          `;
+          box.querySelector(".pt-box").addEventListener("click", () => speakPortuguese(rule.sampleWord, box, { lang: "pt-PT" }));
+          box.querySelector(".br-box").addEventListener("click", () => speakPortuguese(rule.sampleWord, box, { lang: "pt-BR" }));
+          box.querySelector(".diff-vs-btn").addEventListener("click", () => speakPtVsBrComparison(rule.sampleWord, rule.sampleWord, box));
+          ptBrGuideBody.appendChild(box);
+        });
+
+        // 2. Full Vocabulary Comparison Table
+        const vocabTitle = document.createElement("div");
+        vocabTitle.style.cssText = "font-weight:800;font-size:15px;color:#0f172a;margin:14px 0 6px;";
+        vocabTitle.textContent = "二、《大学葡萄牙语 1》高频异形词对照总表（点击即读）";
+        ptBrGuideBody.appendChild(vocabTitle);
+
+        Object.entries(PT_BR.vocabBrMap || {}).forEach(([ptWord, brObj]) => {
+          const cleanPt = ptWord.replace(/\(.*?\)/g, "").split("/")[0].trim();
+          const cleanBr = brObj.word.replace(/\(.*?\)/g, "").split("/")[0].trim();
+          const row = document.createElement("div");
+          row.className = "diff-item";
+          row.innerHTML = `
+            <div class="diff-item-head">
+              <span class="diff-title">🇵🇹 ${ptWord}  ⇄  🇧🇷 ${brObj.word}</span>
+              <button class="diff-vs-btn">🆚 双音连读</button>
+            </div>
+            <div class="diff-cols">
+              <div class="diff-box pt-box">
+                <div>
+                  <span class="diff-box-label">🇵🇹 葡葡</span>
+                  <div class="diff-box-text">${ptWord}</div>
+                </div>
+                <span>🔊</span>
+              </div>
+              <div class="diff-box br-box">
+                <div>
+                  <span class="diff-box-label">🇧🇷 巴葡</span>
+                  <div class="diff-box-text">${brObj.word}</div>
+                </div>
+                <span>🔊</span>
+              </div>
+            </div>
+            <div class="diff-note">${brObj.note}</div>
+          `;
+          row.querySelector(".pt-box").addEventListener("click", () => speakPortuguese(cleanPt, row, { lang: "pt-PT" }));
+          row.querySelector(".br-box").addEventListener("click", () => speakPortuguese(cleanBr, row, { lang: "pt-BR" }));
+          row.querySelector(".diff-vs-btn").addEventListener("click", () => speakPtVsBrComparison(cleanPt, cleanBr, row));
+          ptBrGuideBody.appendChild(row);
+        });
+
+        ptBrGuideDrawer.classList.add("open");
+      }
+
+      ["openPtBrGuideBtn", "openPtBrGuideBtn2", "openPtBrGuideBtn3"].forEach(id => {
+        const btn = document.getElementById(id);
+        if (btn) btn.addEventListener("click", openPtBrGuideModal);
+      });
+      document.getElementById("closePtBrGuideBtn").addEventListener("click", () => {
+        ptBrGuideDrawer.classList.remove("open");
+      });
+      ptBrGuideDrawer.addEventListener("click", (e) => {
+        if (e.target === ptBrGuideDrawer) ptBrGuideDrawer.classList.remove("open");
+      });
 
       // Event Bindings
       document.querySelectorAll(".mode-btn").forEach(btn => {
@@ -2111,7 +2819,8 @@
               <div style="flex:1;">
                 <div>
                   <span class="unit-badge" style="font-size:10px;margin-right:5px;">${w.unitBadge}</span>
-                  <span class="vocab-pt">${w.pt}</span>
+                  <span class="vocab-pt">🇵🇹 ${w.pt}</span>
+                  ${w.brWord ? `<span class="vocab-pos" style="background:#dbeafe;color:#1e40af;">🇧🇷 ${w.brWord}</span>` : ""}
                   <span class="vocab-pos">${w.pos}</span>
                 </div>
                 <div class="vocab-zh">${w.zh}</div>
@@ -2143,6 +2852,12 @@
       starredDrawer.addEventListener("click", (e) => {
         if (e.target === starredDrawer) starredDrawer.classList.remove("open");
       });
+
+      // Pre-warm speechSynthesis voices on load
+      if ("speechSynthesis" in window) {
+        window.speechSynthesis.getVoices();
+        window.speechSynthesis.onvoiceschanged = () => window.speechSynthesis.getVoices();
+      }
 
       // Initialize
       renderUnit(false);

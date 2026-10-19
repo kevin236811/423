@@ -963,3 +963,317 @@ window.COURSE_DATA = {
     }
   ]
 };
+
+// 🇵🇹 欧洲葡语 (pt-PT) vs 🇧🇷 巴西葡语 (pt-BR) 全书语音、词汇、句法与跨文化避坑对比库
+window.PT_BR_DATA = {
+  phoneticsOverview: [
+    {
+      rule: "词尾及非重读元音 e / o",
+      pt: "读音极短促闭口：-e 读 [ɨ]（常听感近似吞音），-o 读 [u]",
+      br: "发音清晰饱满：词尾 -e 读 [i]，词尾 -o 读 [u]，绝不吞音",
+      examplePt: "tarde [ˈtardɨ] · estudante [ʃtuˈdɐ̃tɨ]",
+      exampleBr: "tarde [ˈtardʒi] · estudante [istuˈdɐ̃tʃi]",
+      sampleWordPt: "Boa tarde, estudante.",
+      sampleWordBr: "Boa tarde, estudante."
+    },
+    {
+      rule: "辅音 t / d 在元音 e / i 前（颚化现象）",
+      pt: "保持舌尖齿龈塞音 [t] 和 [d]，不发生颚化",
+      br: "发生强烈颚化：ti/te 读作 [tʃi]（如“奇”），di/de 读作 [dʒi]（如“吉”）",
+      examplePt: "Bom dia [bõ ˈdiɐ] · de [dɨ] · noite [ˈnojtɨ]",
+      exampleBr: "Bom dia [bõ ˈdʒiɐ] · de [dʒi] · noite [ˈnojtʃi]",
+      sampleWordPt: "Bom dia! De onde és?",
+      sampleWordBr: "Bom dia! De onde você é?"
+    },
+    {
+      rule: "音节尾及词尾的 s / z（翘舌音 vs 平舌音）",
+      pt: "一律读翘舌摩擦音 [ʃ] 或浊音 [ʒ]（听感充满“sh”沙沙声）",
+      br: "圣保罗/巴西南方主流读平舌 [s] / [z]（仅里约口音读 [ʃ]）",
+      examplePt: "português [purtuˈɣeʃ] · estás [ʃˈtaʃ] · dois [dojʃ]",
+      exampleBr: "português [portuˈɡes] · está [isˈta] · dois [dojs]",
+      sampleWordPt: "Falas português?",
+      sampleWordBr: "Você fala português?"
+    },
+    {
+      rule: "词尾辅音 l（舌边音 vs 半元音化）",
+      pt: "保留舌尖抵上齿龈的暗 l 音 [ɫ]",
+      br: "完全元音化为 [w]（所以 Brasil 听起来像 Braziu，papel 像 papéu）",
+      examplePt: "Brasil [brɐˈziɫ] · jornal [ʒurˈnaɫ]",
+      exampleBr: "Brasil [braˈziw] · jornal [ʒorˈnaw]",
+      sampleWordPt: "Sou do Brasil.",
+      sampleWordBr: "Eu sou do Brasil."
+    },
+    {
+      rule: "鼻音前的重读 e / o（开音 vs 闭音）",
+      pt: "保留开口度对比：gémeos [ˈʒɛmjuʃ]、ténis [ˈtɛniʃ] 用尖音符表开音",
+      br: "一律闭化并鼻化：gêmeos [ˈʒẽmjus]、tênis [ˈtẽnis] 用抑扬符 ^",
+      examplePt: "gémeos · ténis de mesa · António",
+      exampleBr: "gêmeos · tênis de mesa · Antônio",
+      sampleWordPt: "O António joga ténis de mesa.",
+      sampleWordBr: "O Antônio joga tênis de mesa."
+    }
+  ],
+
+  // 词汇表词条自动匹配巴葡对照 (key 为课本 vocab.pt 子串或完整词)
+  vocabBrMap: {
+    "chamar-se": { br: "chamar-se (Eu me chamo...)", note: "巴葡代词置动词前：Eu me chamo / Como você se chama?" },
+    "donde": { br: "de onde", note: "巴葡日常口语几乎分开写为 de onde" },
+    "tu / ela": { br: "você / ela", note: "巴西绝大部分地区日常对朋友/同辈用 você 代替 tu" },
+    "óptimo / óptima": { br: "ótimo / ótima", note: "巴葡及新正字法去掉不发音的字母 p" },
+    "moço / moça": { br: "garoto / garota / moço / moça", note: "巴葡日常更常说 garoto/garota 或 menino/menina" },
+    "estar a + inf.": { br: "estar + 副动词 (-ndo)", note: "如：🇵🇹 estou a estudar vs 🇧🇷 estou estudando" },
+    "loiro / moreno / negro": { br: "loiro (louro) / moreno / negro", note: "巴葡中 loiro 与 louro 均常用" },
+    "cara (oval / comprida / redonda)": { br: "rosto (oval / comprido / redondo)", note: "巴葡描述面容更倾向用 o rosto，cara 偏口语" },
+    "leitor / aula / aluno": { br: "professor visitante / aula / aluno", note: "葡葡 leitor 专指大学语言外教" },
+    "branco / preto / cinzento / escuro": { br: "branco / preto / cinza / escuro", note: "灰色：🇵🇹 cinzento vs 🇧🇷 cinza" },
+    "camisa / blusa / camisola / casaco": { br: "camisa / blusa / suéter (blusa de frio) / casaco", note: "⚠️ 巴葡中 camisola 指“女士睡裙”，毛衣说 suéter！" },
+    "fato / vestido / saia / calças": { br: "terno / vestido / saia / calça", note: "西装：🇵🇹 fato vs 🇧🇷 terno；裤子巴葡常单数 a calça" },
+    "rapariga / rapaz": { br: "menina (garota) / rapaz (garoto)", note: "⚠️ 避坑：rapariga 在巴西部分地区有贬义，巴葡请用 menina/garota！" },
+    "telefone fixo / telemóvel": { br: "telefone fixo / celular", note: "手机：🇵🇹 o telemóvel vs 🇧🇷 o celular" },
+    "dormitório / pensão / casa": { br: "alojamento (república) / pensão / casa", note: "大学宿舍巴葡常称 alojamento estudantil 或 república" },
+    "campo de jogos / sala de aula": { br: "quadra (campo) / sala de aula", note: "运动球场巴葡常称 a quadra" },
+    "secretaria / secretária": { br: "secretaria / escrivaninha (书桌)", note: "书桌写字台：🇵🇹 secretária vs 🇧🇷 escrivaninha" },
+    "director-geral / gerente / sócio / técnico": { br: "diretor-geral / gerente / sócio / técnico", note: "巴葡无不发音的字母 c (diretor)" },
+    "Eng.º (engenheiro) / Arq.º (arquitecto)": { br: "engenheiro / arquiteto", note: "巴葡拼写为 arquiteto（去掉不发音 c）" },
+    "tio / tia / neto / gémeos / filho único": { br: "tio / tia / neto / gêmeos / filho único", note: "双胞胎：🇵🇹 gémeos (开音) vs 🇧🇷 gêmeos (闭音)" },
+    "trabalhos domésticos / ralhar com / bater em": { br: "tarefas domésticas / dar bronca em / bater em", note: "责备某人：🇵🇹 ralhar com vs 🇧🇷 dar uma bronca em" },
+    "cozinha / casa de banho / varanda": { br: "cozinha / banheiro / varanda (sacada)", note: "卫生间：🇵🇹 a casa de banho vs 🇧🇷 o banheiro" },
+    "computador portátil / candeeiro / banda larga": { br: "notebook (laptop) / abajur (luminária) / banda larga", note: "笔记本电脑：🇵🇹 portátil vs 🇧🇷 notebook；台灯：🇵🇹 candeeiro vs 🇧🇷 abajur" },
+    "andar / espaçoso / Que giro!": { br: "andar / espaçoso / Que legal! (Que bacana!)", note: "真棒/真酷：🇵🇹 Que giro! vs 🇧🇷 Que legal!" },
+    "pequeno-almoço / almoço / jantar / sesta": { br: "café da manhã / almoço / jantar / cochilo", note: "早餐：🇵🇹 pequeno-almoço vs 🇧🇷 café da manhã" },
+    "cantina / biblioteca / campus": { br: "refeitório (bandejão) / biblioteca / campus", note: "大学食堂巴葡常叫 refeitório 或 bandejão" },
+    "arranjar / preferir / dar / leccionar": { br: "conseguir (arrumar) / preferir / dar / lecionar", note: "巴葡拼写为 lecionar（单 c）" },
+    "fim-de-semana / praia / bronzeado": { br: "fim de semana (final de semana) / praia / bronzeado", note: "巴葡不加连字符：fim de semana" },
+    "navegar na Internet / gozar com": { br: "navegar na internet / tirar sarro de (brincar com)", note: "⚠️ 避坑：开玩笑在巴葡用 brincar com / tirar sarro，慎用 gozar！" },
+    "filme (romântico / de acção / de ficção científica)": { br: "filme (romântico / de ação / de ficção científica)", note: "动作片：🇵🇹 acção vs 🇧🇷 ação" },
+    "quente / frio / húmido / seco / ameno": { br: "quente / frio / úmido / seco / ameno", note: "潮湿的：🇵🇹 húmido (带 h) vs 🇧🇷 úmido (无 h)" },
+    "temperatura / grau / aquecimento": { br: "temperatura / grau / aquecedor (calefação)", note: "暖气设备巴葡常称 aquecedor 或 calefação" },
+    "nascer / fazer anos / celebrar": { br: "nascer / fazer aniversário / comemorar", note: "过生日：🇵🇹 fazer anos vs 🇧🇷 fazer aniversário" },
+    "presente / prenda / cartão de aniversário": { br: "presente / lembrancinha / cartão de aniversário", note: "巴葡中“礼物”只用 presente，不用 prenda" }
+  },
+
+  // 各单元专属葡葡 vs 巴葡对比条目
+  unitDiffs: {
+    intro: [
+      {
+        tag: "发音规则",
+        title: "齿龈音 t / d 与词尾元音 -e 的读法差异",
+        pt: "Bom dia! Boa tarde! Boa noite!",
+        br: "Bom dia! Boa tarde! Boa noite!",
+        note: "葡葡中 d 读清晰 [d]，词尾 -e 弱化为极轻的 [ɨ]；巴葡中 dia 读 [ˈdʒiɐ]，tarde 尾音读 [ˈtardʒi]，noite 尾音读 [ˈnojtʃi]。"
+      },
+      {
+        tag: "字母名称",
+        title: "字母 K / Q / X 的称呼与尾音",
+        pt: "K (capa), Q (quê), X (xis)",
+        br: "K (cá), Q (quê), X (xis)",
+        note: "字母 K 在葡萄牙常读作 capa，在巴西常读作 cá。"
+      }
+    ],
+    u1: [
+      {
+        tag: "句型与代词",
+        title: "询问对方名字（tu vs você 与代词位置）",
+        pt: "Como te chamas? — Chamo-me Wang Gang.",
+        br: "Como você se chama? — Eu me chamo Wang Gang.",
+        note: "葡葡日常对同龄人用 tu，反身代词置于动词后并用连字符连接（chamo-me）；巴葡普遍用 você，反身代词放在动词前（me chamo），或直接问 Qual é o seu nome?"
+      },
+      {
+        tag: "词汇缩合",
+        title: "询问来自哪里（Donde vs De onde）",
+        pt: "Donde é? — Sou de Pequim.",
+        br: "De onde você é? — Eu sou de Pequim.",
+        note: "葡葡习惯将 de + onde 缩合为 donde 且常省略主语代词；巴葡分开说 De onde，且通常保留主语 você / eu。"
+      }
+    ],
+    u2: [
+      {
+        tag: "日常问候",
+        title: "熟人见面问好（Estás bom/boa vs Tudo bem/bom）",
+        pt: "Olá! Estás bom? / Estás boa?",
+        br: "Oi! Tudo bom? / Tudo bem com você?",
+        note: "葡葡对男性问 Estás bom?，对女性问 Estás boa?；巴葡最爱用 Oi!（嗨）和 Tudo bom?（男女通用，不随性别变化）。"
+      },
+      {
+        tag: "正字拼写",
+        title: "“太棒了”拼写差异（óptimo vs ótimo）",
+        pt: "Estou óptimo, obrigado.",
+        br: "Estou ótimo, obrigado.",
+        note: "课本采用葡语旧正字法保留不发音的 p（óptimo），巴葡及 1990 新正字法写作 ótimo，两者里的 p 都不发音。"
+      },
+      {
+        tag: "冠词习惯",
+        title: "人名前是否加定冠词 o / a",
+        pt: "Tu és o Nuno? Esta é a Sofia.",
+        br: "Você é o Nuno? Esta é Sofia.",
+        note: "葡葡在熟人名字前几乎必加定冠词 o / a；巴西南部/圣保罗也常加，但巴西东北部及正式场合常省略。"
+      }
+    ],
+    u3: [
+      {
+        tag: "核心语法",
+        title: "现在进行时（estar a + 动词原形 vs estar + 副动词 -ndo）",
+        pt: "O que é que estão a fazer? Estão a estudar chinês.",
+        br: "O que estão fazendo? Estão estudando chinês.",
+        note: "这是葡葡与巴葡最著名的语法标志！葡葡用「estar a + 不定式 (a estudar)」，巴葡用「estar + 副动词 (estudando)」。"
+      },
+      {
+        tag: "高频词汇",
+        title: "小伙子与姑娘的说法",
+        pt: "O moço e as moças / O rapaz e a rapariga",
+        br: "O garoto e as garotas / O menino e as meninas",
+        note: "巴葡日常指年轻男女最常用 garoto/garota 或 menino/menina，moço/moça 在巴西多用于礼貌招呼服务员或陌生年轻人。"
+      }
+    ],
+    u4: [
+      {
+        tag: "词汇差异",
+        title: "描述“脸型”与“大学外教”",
+        pt: "Tem a cara oval. / O nosso leitor de português.",
+        br: "Tem o rosto oval. / O nosso professor de português.",
+        note: "葡葡中 cara 是完全中性的“脸”，而巴葡描述外貌更常用 o rosto（cara 在巴葡口语中还常作“家伙/老兄”讲，如 Esse cara é legal）。"
+      }
+    ],
+    u5: [
+      {
+        tag: "⚠️ 跨文化避坑",
+        title: "“姑娘/女孩”：rapariga 在葡巴两国的巨大反差",
+        pt: "Quem é aquela rapariga de vermelho?",
+        br: "Quem é aquela garota (menina) de vermelho?",
+        note: "在葡萄牙，rapariga 是最纯正、最普通的“女孩子/姑娘”；但在巴西部分地区该词带有贬义（指不正经的女人），对巴西人请务必改用 menina、garota 或 moça！"
+      },
+      {
+        tag: "⚠️ 同词异义",
+        title: "衣着词汇大不同：camisola、fato 与 equipa",
+        pt: "Uma camisola cor-de-rosa, um fato escuro e a equipa de futebol.",
+        br: "Um suéter rosa, um terno escuro e o time de futebol.",
+        note: "① 葡葡 camisola 是“毛衣/套头衫”，而在巴葡中 camisola 是“女士吊带睡裙”（毛衣叫 suéter / blusa de frio）！② 西装：葡葡 fato vs 巴葡 terno；③ 足球队：葡葡 a equipa vs 巴葡 o time。"
+      },
+      {
+        tag: "颜色词汇",
+        title: "灰色与棕色的不同用词",
+        pt: "Este casaco é cinzento e os sapatos são castanhos.",
+        br: "Este casaco é cinza e os sapatos são marrons.",
+        note: "灰色：葡葡 cinzento vs 巴葡 cinza；棕色：葡葡 castanho vs 巴葡 marrom（但指眼睛/头发褐色时两国都可用 castanho）。"
+      }
+    ],
+    u6: [
+      {
+        tag: "高频词汇",
+        title: "“手机”与“书桌”：telemóvel vs celular",
+        pt: "Qual é o número do teu telemóvel?",
+        br: "Qual é o número do seu celular?",
+        note: "手机在葡萄牙叫 o telemóvel（号码以 9 开头，共 9 位），在巴西叫 o celular！"
+      },
+      {
+        tag: "校园词汇",
+        title: "大学宿舍与球场",
+        pt: "Moro no dormitório. Estão no campo de jogos.",
+        br: "Moro no alojamento (na república). Estão na quadra.",
+        note: "巴西大学生合租宿舍常称作 república，学校宿舍称 alojamento；运动场常称 quadra。"
+      }
+    ],
+    u7: [
+      {
+        tag: "正字拼写",
+        title: "不发音辅音字母 c 的去留（director / arquitecto）",
+        pt: "O director-geral e a arquitecta.",
+        br: "O diretor-geral e a arquiteta.",
+        note: "课本遵循旧葡葡拼写保留 c（director, arquitecto），巴葡写作 diretor, arquiteto；注意两者的 c 都不发音。"
+      }
+    ],
+    u8: [
+      {
+        tag: "重音与发音",
+        title: "双胞胎（gémeos vs gêmeos）与日常责备",
+        pt: "Somos gémeos. Os pais ralham com ele.",
+        br: "Somos gêmeos. Os pais dão uma bronca nele.",
+        note: "葡葡用尖音符 gémeos（读开音 [ɛ]），巴葡用抑扬符 gêmeos（读闭音 [ẽ]）。“训斥/责备”葡葡常用 ralhar com，巴葡口语常说 dar uma bronca em。"
+      }
+    ],
+    u9: [
+      {
+        tag: "高频生活词",
+        title: "卫生间、笔记本电脑、书桌与台灯（四大高频差异词）",
+        pt: "Na casa de banho · um computador portátil na secretária · um candeeiro.",
+        br: "No banheiro · um notebook na escrivaninha · um abajur.",
+        note: "卫生间：🇵🇹 casa de banho vs 🇧🇷 banheiro；笔记本电脑：🇵🇹 portátil vs 🇧🇷 notebook；书桌：🇵🇹 secretária vs 🇧🇷 escrivaninha；台灯：🇵🇹 candeeiro vs 🇧🇷 abajur。"
+      },
+      {
+        tag: "口语感叹与存在句",
+        title: "“太酷了！”（Que giro vs Que legal）与存在句（há vs tem）",
+        pt: "Que giro! Na sala de estar há três sofás.",
+        br: "Que legal! Na sala de estar tem três sofás.",
+        note: "葡葡口语夸赞“真酷/真棒/真可爱”最爱用 Que giro! 或 Fixe!；巴葡最经典的是 Que legal! 或 Que bacana! 此外巴葡口语常用 tem 代替无人称动词 há。"
+      }
+    ],
+    u10: [
+      {
+        tag: "餐饮与运动",
+        title: "早餐、食堂、运动与乒乓球",
+        pt: "Tomar o pequeno-almoço na cantina e fazer desporto (ténis de mesa).",
+        br: "Tomar o café da manhã no refeitório e praticar esporte (tênis de mesa).",
+        note: "早餐：🇵🇹 pequeno-almoço vs 🇧🇷 café da manhã；体育运动：🇵🇹 desporto vs 🇧🇷 esporte；乒乓球：🇵🇹 ténis de mesa vs 🇧🇷 tênis de mesa / pingue-pongue。"
+      }
+    ],
+    u11: [
+      {
+        tag: "语法与拼写",
+        title: "委婉愿望（gostava vs gostaria）与授课（leccionar vs lecionar）",
+        pt: "Eu gostava de aprender outra língua. Os professores leccionam.",
+        br: "Eu gostaria de aprender outra língua. Os professores lecionam.",
+        note: "葡葡口语习惯用过去未完成时（Eu gostava de...）表达礼貌愿望，而巴葡多用条件式（Eu gostaria de...）。"
+      }
+    ],
+    u12: [
+      {
+        tag: "⚠️ 跨文化避坑",
+        title: "“开玩笑/逗某人”：gozar com vs brincar com / tirar sarro",
+        pt: "Não estejas aí a gozar comigo!",
+        br: "Não fique aí tirando sarro de mim! (Não brinque comigo!)",
+        note: "在葡萄牙 gozar com alguém 是完全正常的“拿某人开玩笑/打趣”；但在巴西口语中 gozar 极易引发性暗示歧义，对巴西人请用 brincar com 或 tirar sarro de！"
+      },
+      {
+        tag: "动词变位与代词",
+        title: "过去时第一人称复数重音（ficámos vs ficamos）与宾格位置",
+        pt: "Ontem ficámos lá o dia todo. Convido-te para jantar.",
+        br: "Ontem ficamos lá o dia todo. Eu te convido para jantar.",
+        note: "葡葡为了区分现在时（ficamos）与过去完成时（ficámos），在过去时加开音重音符 á；巴葡两者拼写与读音完全相同（均写为 ficamos）。"
+      }
+    ],
+    u13: [
+      {
+        tag: "拼写与气候",
+        title: "“潮湿的”（húmido vs úmido）与暖气",
+        pt: "O Verão é quente e húmido. Temos aquecimento em casa.",
+        br: "O verão é quente e úmido. Temos aquecedor em casa.",
+        note: "“潮湿的”在葡葡中保留首字母 h（húmido），在巴葡中无 h（úmido）；此外四季名称在葡葡旧正字法中首字母大写（Verão, Inverno），巴葡小写。"
+      }
+    ],
+    u14: [
+      {
+        tag: "文化与词汇",
+        title: "“过生日”（fazer anos vs fazer aniversário）与“礼物”（prenda vs presente）",
+        pt: "Em que dia é que fazes anos? Ofereceram-lhe as prendas.",
+        br: "Quando você faz aniversário? Deram os presentes para ele.",
+        note: "葡葡说“过生日”是 fazer anos，礼物常用 prenda 或 presente；巴葡说 fazer aniversário，礼物只用 presente。"
+      }
+    ]
+  }
+};
+
+// 自动将葡巴对照数据注入各个单元与词条
+(function enrichCourseDataWithPtBr() {
+  const map = window.PT_BR_DATA.vocabBrMap;
+  const diffs = window.PT_BR_DATA.unitDiffs;
+  window.COURSE_DATA.units.forEach(u => {
+    u.ptBrDiffs = diffs[u.id] || [];
+    (u.vocab || []).forEach(v => {
+      if (map[v.pt]) {
+        v.br = map[v.pt].br;
+        v.brNote = map[v.pt].note;
+      }
+    });
+  });
+})();
+

@@ -1,8 +1,9 @@
-const CACHE_NAME = "pt-univ-vol1-v2";
+const CACHE_NAME = "pt-univ-vol1-v3";
 const CORE_ASSETS = [
   "./",
   "./index.html",
   "./course_data.js",
+  "./br_clips_data.js",
   "./manifest.json"
 ];
 
