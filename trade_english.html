@@ -1007,6 +1007,7 @@
         <span class="stat-pill success" id="masteredStats">已掌握 0</span>
       </div>
       <div class="mask-toggles">
+        <button class="toggle-chip active" id="btnSpeakZh" onclick="toggleSpeakZh()">🗣️ 中文伴读: 开启</button>
         <button class="toggle-chip active" id="btnShowVisuals" onclick="toggleVisuals()">🖼️ 名词动画/配图: 开启</button>
         <button class="toggle-chip active" id="btnShowRoots" onclick="toggleRootsInline()">🌱 词根拆解: 开启</button>
         <button class="toggle-chip active" id="btnSinglePause" onclick="toggleSingleWordPause()">🎯 单句即停: 开启</button>
@@ -1283,6 +1284,10 @@
       searchQuery: '',
       showVisuals: true,
       showRoots: true,
+      speakZhAfterEn: true,
+      isContinuousSession: false,
+      isSpeakingZh: false,
+      zhTimer: null,
       maskEn: false,
       maskZh: false,
       singleWordPause: true,
@@ -1329,7 +1334,12 @@
         document.getElementById('globalStatsText').textContent = '未检测到词库数据';
         return;
       }
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.getVoices();
+        window.speechSynthesis.onvoiceschanged = () => window.speechSynthesis.getVoices();
+      }
       updateHeaderStats();
+      updateLoopIndicator();
       renderPartTabs();
       renderSectionSelect();
       renderTracksStrip();
@@ -1406,6 +1416,7 @@
     }
 
     function selectTrack(idx, autoPlay = false) {
+      cancelZhSpeech();
       state.trackIdx = idx;
       state.activeWordIdx = -1;
       state.fcIndex = 0;
@@ -1413,10 +1424,14 @@
       state.stopAtTime = null;
       state.loopRange = null;
       renderTracksStrip();
-      loadTrackAudio(autoPlay);
+      loadTrackAudio(false);
       renderMainView();
       const chip = document.getElementById(`trackChip_${idx}`);
       if (chip) chip.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+      if (autoPlay) {
+        state.isContinuousSession = true;
+        playWordSegment(0, null, null, null, true);
+      }
     }
 
     function loadTrackAudio(autoPlay = false) {
@@ -1446,6 +1461,97 @@
     function onSearchInput(q) {
       state.searchQuery = q.trim().toLowerCase();
       renderMainView();
+    }
+
+    function toggleSpeakZh() {
+      state.speakZhAfterEn = !state.speakZhAfterEn;
+      const btn = document.getElementById('btnSpeakZh');
+      btn.textContent = `🗣️ 中文伴读: ${state.speakZhAfterEn ? '开启' : '关闭'}`;
+      btn.classList.toggle('active', state.speakZhAfterEn);
+      if (!state.speakZhAfterEn) {
+        cancelZhSpeech();
+      }
+      updateLoopIndicator();
+    }
+
+    function updateLoopIndicator() {
+      const el = document.getElementById('loopModeIndicator');
+      if (!el) return;
+      if (state.wordLoop) {
+        el.textContent = state.speakZhAfterEn ? '🔁 英+中复读中' : '🔁 单词复读中';
+      } else if (state.speakZhAfterEn) {
+        el.textContent = '🗣️ 英+中双语盲听';
+      } else {
+        el.textContent = '顺序播放';
+      }
+    }
+
+    function cancelZhSpeech() {
+      if (state.zhTimer) {
+        clearTimeout(state.zhTimer);
+        state.zhTimer = null;
+      }
+      state.isSpeakingZh = false;
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+      }
+    }
+
+    function cleanZhForSpeech(rawZh) {
+      if (!rawZh) return '';
+      // Take first 2 meanings so speech is concise and clear for blind listening
+      const parts = rawZh
+        .replace(/（[^）]*）/g, '')
+        .replace(/\([^)]*\)/g, '')
+        .split(/[；·]/)
+        .map(s => s.trim())
+        .filter(Boolean);
+      return parts.slice(0, 2).join('，');
+    }
+
+    function speakChineseMeaning(wordObj, onFinished) {
+      cancelZhSpeech();
+      const text = cleanZhForSpeech(wordObj?.zh || '');
+      if (!state.speakZhAfterEn || !text || !('speechSynthesis' in window)) {
+        if (onFinished) onFinished();
+        return;
+      }
+
+      state.isSpeakingZh = true;
+      document.getElementById('btnPlayPause').textContent = '⏸ 暂停';
+
+      const utter = new SpeechSynthesisUtterance(text);
+      utter.lang = 'zh-CN';
+      const spd = state.speeds[state.speedIdx] || 1.0;
+      utter.rate = Math.min(1.6, Math.max(0.85, spd * 1.05));
+
+      const voices = window.speechSynthesis.getVoices();
+      const zhVoice =
+        voices.find(v => v.lang === 'zh-CN' && /Tingting|Meijia|Xiaoxiao|Yunxi|Siri/i.test(v.name)) ||
+        voices.find(v => v.lang === 'zh-CN' || v.lang === 'zh_CN') ||
+        voices.find(v => v.lang.startsWith('zh'));
+      if (zhVoice) utter.voice = zhVoice;
+
+      let finished = false;
+      const done = () => {
+        if (finished) return;
+        finished = true;
+        if (state.zhTimer) {
+          clearTimeout(state.zhTimer);
+          state.zhTimer = null;
+        }
+        state.isSpeakingZh = false;
+        if (onFinished) onFinished();
+      };
+
+      utter.onend = done;
+      utter.onerror = done;
+
+      // Safety fallback timeout in case mobile browser TTS callback doesn't fire
+      const maxWaitMs = Math.max(2200, text.length * 420);
+      state.zhTimer = setTimeout(done, maxWaitMs);
+
+      window.speechSynthesis.speak(utter);
     }
 
     function toggleVisuals() {
@@ -1487,7 +1593,7 @@
       state.wordLoop = !state.wordLoop;
       const btn = document.getElementById('btnWordLoop');
       btn.classList.toggle('active', state.wordLoop);
-      document.getElementById('loopModeIndicator').textContent = state.wordLoop ? '🔁 单词复读中' : '顺序播放';
+      updateLoopIndicator();
       if (!state.wordLoop) state.loopRange = null;
     }
 
@@ -1569,7 +1675,11 @@
       document.getElementById('visualModal').classList.remove('open');
     }
 
-    function playWordSegment(wIdx, customTrackPath = null, customStart = null, customEnd = null) {
+    function playWordSegment(wIdx, customTrackPath = null, customStart = null, customEnd = null, keepContinuous = false) {
+      cancelZhSpeech();
+      if (!keepContinuous) {
+        state.isContinuousSession = !state.singleWordPause;
+      }
       const t = getCurrentTrack();
       if (!t && !customTrackPath) return;
 
@@ -1601,22 +1711,23 @@
       state.activeWordIdx = wIdx;
       highlightActiveCard(wIdx);
 
+      const cardEl = document.querySelector(`.word-card[data-idx="${wIdx}"]`);
+      if (cardEl && state.isContinuousSession) {
+        cardEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+
       if (w) {
         document.getElementById('nowWordEn').textContent = w.en;
         document.getElementById('nowWordZh').textContent = `${w.pos ? w.pos + ' ' : ''}${w.zh || ''}`;
       }
 
       audio.currentTime = Math.max(0, startSec - 0.08);
-      if (state.wordLoop && endSec > startSec) {
-        state.loopRange = [Math.max(0, startSec - 0.08), endSec + 0.25];
-        state.stopAtTime = null;
-      } else if (state.singleWordPause && endSec > startSec) {
-        state.stopAtTime = endSec + 0.22;
-        state.loopRange = null;
+      if (endSec > startSec) {
+        state.stopAtTime = endSec + 0.2;
       } else {
         state.stopAtTime = null;
-        state.loopRange = null;
       }
+      state.loopRange = null;
 
       audio.play().catch(() => {});
     }
@@ -1984,11 +2095,18 @@
 
     /* Audio Player Events */
     function togglePlay() {
-      if (audio.paused) {
+      if (!audio.paused || state.isSpeakingZh || state.isContinuousSession) {
+        state.isContinuousSession = false;
         state.stopAtTime = null;
-        audio.play().catch(() => {});
-      } else {
+        cancelZhSpeech();
         audio.pause();
+        document.getElementById('btnPlayPause').textContent = '▶ 播放本节';
+      } else {
+        const t = getCurrentTrack();
+        if (!t || !t.words.length) return;
+        state.isContinuousSession = true;
+        const startIdx = state.activeWordIdx >= 0 && state.activeWordIdx < t.words.length ? state.activeWordIdx : 0;
+        playWordSegment(startIdx, null, null, null, true);
       }
     }
 
@@ -1996,14 +2114,14 @@
       const t = getCurrentTrack();
       if (!t || !t.words.length) return;
       const nextIdx = Math.max(0, (state.activeWordIdx <= 0 ? 0 : state.activeWordIdx - 1));
-      playWordSegment(nextIdx);
+      playWordSegment(nextIdx, null, null, null, state.isContinuousSession);
     }
 
     function nextWord() {
       const t = getCurrentTrack();
       if (!t || !t.words.length) return;
       const nextIdx = Math.min(t.words.length - 1, state.activeWordIdx + 1);
-      playWordSegment(nextIdx);
+      playWordSegment(nextIdx, null, null, null, state.isContinuousSession);
     }
 
     function prevTrack() {
@@ -2031,6 +2149,7 @@
 
     function onSeek(val) {
       if (!audio.duration) return;
+      cancelZhSpeech();
       state.stopAtTime = null;
       audio.currentTime = (parseFloat(val) / 100) * audio.duration;
     }
@@ -2040,14 +2159,51 @@
     });
 
     audio.addEventListener('pause', () => {
-      document.getElementById('btnPlayPause').textContent = '▶ 播放本节';
+      if (!state.isSpeakingZh && !state.isContinuousSession) {
+        document.getElementById('btnPlayPause').textContent = '▶ 播放本节';
+      }
     });
 
     audio.addEventListener('ended', () => {
       if (state.autoNextTrack) {
         nextTrack();
+      } else {
+        state.isContinuousSession = false;
+        document.getElementById('btnPlayPause').textContent = '▶ 播放本节';
       }
     });
+
+    function onEnglishWordFinished() {
+      const t = getCurrentTrack();
+      const curIdx = state.activeWordIdx;
+      const w = t?.words?.[curIdx];
+
+      speakChineseMeaning(w, () => {
+        if (state.wordLoop) {
+          state.zhTimer = setTimeout(() => {
+            playWordSegment(curIdx, null, null, null, state.isContinuousSession);
+          }, 320);
+          return;
+        }
+        if (state.isContinuousSession && t && t.words) {
+          if (curIdx + 1 < t.words.length) {
+            state.zhTimer = setTimeout(() => {
+              if (state.isContinuousSession) {
+                playWordSegment(curIdx + 1, null, null, null, true);
+              }
+            }, 260);
+          } else {
+            state.isContinuousSession = false;
+            document.getElementById('btnPlayPause').textContent = '▶ 播放本节';
+            if (state.autoNextTrack) {
+              nextTrack();
+            }
+          }
+        } else {
+          document.getElementById('btnPlayPause').textContent = '▶ 播放本节';
+        }
+      });
+    }
 
     audio.addEventListener('timeupdate', () => {
       const cur = audio.currentTime;
@@ -2058,14 +2214,10 @@
         document.getElementById('audioProgress').value = ((cur / dur) * 100).toFixed(1);
       }
 
-      if (state.loopRange && cur >= state.loopRange[1]) {
-        audio.currentTime = state.loopRange[0];
-        return;
-      }
-
       if (state.stopAtTime !== null && cur >= state.stopAtTime) {
-        audio.pause();
         state.stopAtTime = null;
+        audio.pause();
+        onEnglishWordFinished();
         return;
       }
 
