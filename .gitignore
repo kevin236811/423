@@ -1,7 +1,9 @@
 # Ignore large raw source PDFs and temporary scripts (only deploy web app assets)
 *.pdf
+*.zip
 download_audio.py
 tracks_meta.json
 .DS_Store
 dist.zip
 portuguese-web-deploy.zip
+trade_vocab_cache.json

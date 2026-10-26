@@ -1,0 +1,1441 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#1e3a8a" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <title>高频8000外贸商务英语词汇 · 随身点读与闯关背词</title>
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --surface: #ffffff;
+      --surface-alt: #f1f5f9;
+      --text: #0f172a;
+      --text-muted: #64748b;
+      --primary: #1d4ed8;
+      --primary-dark: #1e3a8a;
+      --primary-light: #eff6ff;
+      --primary-border: #bfdbfe;
+      --accent: #d97706;
+      --accent-light: #fffbeb;
+      --success: #059669;
+      --success-light: #ecfdf5;
+      --danger: #dc2626;
+      --border: #e2e8f0;
+      --shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.08);
+      --radius: 16px;
+      --safe-bottom: env(safe-area-inset-bottom, 0px);
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      padding-bottom: calc(165px + var(--safe-bottom));
+    }
+
+    /* Sticky Header */
+    .app-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      padding: 10px 16px 8px;
+    }
+
+    .header-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .header-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .brand-box {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-badge {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: #fff;
+      font-weight: 800;
+      font-size: 13px;
+      padding: 5px 10px;
+      border-radius: 10px;
+      letter-spacing: 0.5px;
+    }
+
+    .brand-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text);
+      margin: 0;
+    }
+
+    .brand-sub {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .mode-switch {
+      display: flex;
+      background: var(--surface-alt);
+      padding: 3px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      gap: 2px;
+    }
+
+    .mode-btn {
+      border: none;
+      background: transparent;
+      padding: 6px 12px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-muted);
+      border-radius: 9px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .mode-btn.active {
+      background: var(--surface);
+      color: var(--primary);
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+    }
+
+    /* Controls Bar */
+    .controls-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .part-tabs {
+      display: flex;
+      gap: 6px;
+    }
+
+    .part-tab {
+      border: 1px solid var(--border);
+      background: var(--surface);
+      padding: 6px 12px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      color: var(--text-muted);
+      transition: all 0.15s;
+    }
+
+    .part-tab.active {
+      background: var(--primary-light);
+      color: var(--primary);
+      border-color: var(--primary-border);
+    }
+
+    .section-select {
+      flex: 1;
+      min-width: 180px;
+      padding: 7px 12px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .search-box {
+      position: relative;
+      flex: 1;
+      min-width: 180px;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 7px 30px 7px 12px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--surface-alt);
+      font-size: 13px;
+      color: var(--text);
+      outline: none;
+    }
+
+    .search-input:focus {
+      background: var(--surface);
+      border-color: var(--primary);
+    }
+
+    /* Sub-bar: Track chips */
+    .tracks-strip {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding: 4px 0 2px;
+      scrollbar-width: none;
+    }
+    .tracks-strip::-webkit-scrollbar { display: none; }
+
+    .track-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 12.5px;
+      font-weight: 600;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.15s;
+    }
+
+    .track-chip.active {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+      box-shadow: 0 2px 8px rgba(29, 78, 216, 0.25);
+    }
+
+    .track-chip .cnt {
+      font-size: 11px;
+      opacity: 0.8;
+      background: rgba(0, 0, 0, 0.08);
+      padding: 1px 6px;
+      border-radius: 99px;
+    }
+    .track-chip.active .cnt {
+      background: rgba(255, 255, 255, 0.22);
+    }
+
+    /* Main Container */
+    .main-container {
+      max-width: 960px;
+      margin: 14px auto;
+      padding: 0 16px;
+    }
+
+    /* Info & Filter Banner */
+    .status-banner {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 12px 16px;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+      box-shadow: var(--shadow);
+    }
+
+    .status-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .topic-title {
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      margin: 0;
+    }
+
+    .stat-pill {
+      font-size: 12px;
+      font-weight: 600;
+      padding: 3px 9px;
+      border-radius: 99px;
+      background: var(--surface-alt);
+      color: var(--text-muted);
+    }
+
+    .stat-pill.primary {
+      background: var(--primary-light);
+      color: var(--primary);
+    }
+
+    .stat-pill.success {
+      background: var(--success-light);
+      color: var(--success);
+    }
+
+    .mask-toggles {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .toggle-chip {
+      border: 1px solid var(--border);
+      background: var(--surface-alt);
+      color: var(--text-muted);
+      font-size: 12px;
+      font-weight: 600;
+      padding: 5px 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .toggle-chip.active {
+      background: var(--primary-light);
+      color: var(--primary);
+      border-color: var(--primary-border);
+    }
+
+    /* Word Grid / List */
+    .word-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+      gap: 12px;
+    }
+
+    .word-card {
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: 14px;
+      padding: 13px 15px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      cursor: pointer;
+      transition: all 0.16s ease;
+      position: relative;
+    }
+
+    .word-card:hover {
+      border-color: var(--primary-border);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 16px -4px rgba(15, 23, 42, 0.08);
+    }
+
+    .word-card.playing {
+      border-color: var(--primary);
+      background: var(--primary-light);
+      box-shadow: 0 0 0 3px rgba(29, 78, 216, 0.15);
+    }
+
+    .word-card.mastered {
+      opacity: 0.68;
+      background: #f8fafc;
+    }
+
+    .word-top {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .word-index {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-muted);
+      background: var(--surface-alt);
+      padding: 1px 6px;
+      border-radius: 6px;
+      margin-right: 4px;
+    }
+
+    .word-en {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--primary-dark);
+      letter-spacing: 0.2px;
+      transition: filter 0.15s;
+    }
+
+    .word-ipa {
+      font-size: 12.5px;
+      color: var(--text-muted);
+      font-family: "Lucida Sans Unicode", "Arial Unicode MS", sans-serif;
+    }
+
+    .word-actions {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin-left: auto;
+    }
+
+    .icon-btn {
+      border: none;
+      background: transparent;
+      font-size: 15px;
+      padding: 4px 6px;
+      border-radius: 7px;
+      cursor: pointer;
+      color: var(--text-muted);
+      transition: background 0.15s;
+    }
+    .icon-btn:hover {
+      background: rgba(0, 0, 0, 0.06);
+    }
+    .icon-btn.starred {
+      color: #f59e0b;
+    }
+    .icon-btn.checked {
+      color: var(--success);
+    }
+
+    .word-bottom {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .word-zh-box {
+      font-size: 13.5px;
+      color: var(--text);
+      line-height: 1.45;
+      flex: 1;
+      transition: filter 0.15s;
+    }
+
+    .word-pos {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: var(--primary);
+      background: var(--primary-light);
+      padding: 1px 6px;
+      border-radius: 5px;
+      margin-right: 5px;
+    }
+
+    .word-time {
+      font-size: 11px;
+      color: var(--text-muted);
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+    }
+
+    .masked .word-en-maskable,
+    .masked-zh .word-zh-maskable {
+      filter: blur(6px);
+      user-select: none;
+    }
+    .word-card:hover .word-en-maskable,
+    .word-card:hover .word-zh-maskable {
+      filter: none;
+    }
+
+    /* Flashcard Mode */
+    .flashcard-stage {
+      max-width: 540px;
+      margin: 24px auto;
+      text-align: center;
+    }
+
+    .flashcard-box {
+      background: var(--surface);
+      border: 2px solid var(--border);
+      border-radius: 22px;
+      padding: 38px 28px;
+      min-height: 290px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      box-shadow: var(--shadow);
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.2s;
+    }
+
+    .flashcard-box:hover {
+      border-color: var(--primary-border);
+    }
+
+    .fc-en {
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--primary-dark);
+    }
+
+    .fc-ipa {
+      font-size: 16px;
+      color: var(--text-muted);
+    }
+
+    .fc-zh {
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--text);
+      margin-top: 10px;
+      padding-top: 14px;
+      border-top: 1px dashed var(--border);
+      width: 100%;
+    }
+
+    .fc-controls {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 18px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary, .btn-secondary {
+      border: none;
+      padding: 10px 18px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    .btn-secondary {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+
+    /* Dictation Mode */
+    .dictation-stage {
+      max-width: 540px;
+      margin: 24px auto;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 28px 24px;
+      box-shadow: var(--shadow);
+      text-align: center;
+    }
+
+    .dictation-input {
+      width: 100%;
+      font-size: 22px;
+      font-weight: 700;
+      text-align: center;
+      padding: 12px 16px;
+      border-radius: 12px;
+      border: 2px solid var(--border);
+      margin: 16px 0 12px;
+      outline: none;
+    }
+    .dictation-input:focus {
+      border-color: var(--primary);
+    }
+
+    /* Bottom Sticky Player */
+    .player-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 60;
+      background: rgba(15, 23, 42, 0.95);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      color: #fff;
+      padding: 10px 16px calc(12px + var(--safe-bottom));
+      box-shadow: 0 -6px 24px rgba(0, 0, 0, 0.2);
+    }
+
+    .player-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .player-now {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      font-size: 13px;
+    }
+
+    .now-word-pill {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .now-word-en {
+      font-weight: 800;
+      font-size: 15px;
+      color: #60a5fa;
+    }
+
+    .now-word-zh {
+      color: #cbd5e1;
+      font-size: 13px;
+    }
+
+    .progress-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .time-label {
+      font-size: 11.5px;
+      color: #94a3b8;
+      font-variant-numeric: tabular-nums;
+      min-width: 38px;
+    }
+
+    .progress-slider {
+      flex: 1;
+      accent-color: #3b82f6;
+      cursor: pointer;
+      height: 5px;
+    }
+
+    .player-controls {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .ctrl-group {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .p-btn {
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      background: rgba(255, 255, 255, 0.08);
+      color: #fff;
+      padding: 6px 11px;
+      border-radius: 10px;
+      font-size: 12.5px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .p-btn:hover {
+      background: rgba(255, 255, 255, 0.18);
+    }
+
+    .p-btn.play-main {
+      background: #2563eb;
+      border-color: #3b82f6;
+      padding: 7px 16px;
+      font-size: 13.5px;
+    }
+
+    .p-btn.active {
+      background: #1d4ed8;
+      border-color: #60a5fa;
+      color: #fff;
+    }
+
+    @media (max-width: 640px) {
+      .word-grid {
+        grid-template-columns: 1fr;
+      }
+      .brand-title {
+        font-size: 14.5px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="app-header">
+    <div class="header-inner">
+      <div class="header-top">
+        <div class="brand-box">
+          <span class="brand-badge">外贸8000词</span>
+          <div>
+            <h1 class="brand-title">高频8000外贸商务英语词汇随身袋</h1>
+            <div class="brand-sub" id="globalStatsText">正在加载音频与词库数据...</div>
+          </div>
+        </div>
+        <div class="mode-switch">
+          <button class="mode-btn active" data-mode="list" onclick="setMode('list')">📖 精听点读</button>
+          <button class="mode-btn" data-mode="flashcard" onclick="setMode('flashcard')">🗂️ 闪卡背词</button>
+          <button class="mode-btn" data-mode="dictation" onclick="setMode('dictation')">✍️ 听写挑战</button>
+          <button class="mode-btn" data-mode="notebook" onclick="setMode('notebook')">⭐ 生词本 <span id="starCountBadge">0</span></button>
+          <a href="index.html" class="mode-btn" style="text-decoration:none;color:#047857;font-weight:700;">🇵🇹 葡语主页</a>
+        </div>
+      </div>
+
+      <div class="controls-row" id="navControlsRow">
+        <div class="part-tabs" id="partTabs"></div>
+        <select class="section-select" id="sectionSelect" onchange="onSectionChange(this.value)"></select>
+        <div class="search-box">
+          <input type="text" class="search-input" id="searchInput" placeholder="🔍 搜索英文单词、中文释义或小节名称..." oninput="onSearchInput(this.value)" />
+        </div>
+      </div>
+
+      <div class="tracks-strip" id="tracksStrip"></div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main-container">
+    <div class="status-banner" id="statusBanner">
+      <div class="status-left">
+        <h2 class="topic-title" id="currentTopicTitle">加载中...</h2>
+        <span class="stat-pill primary" id="currentTrackStats">0 词</span>
+        <span class="stat-pill success" id="masteredStats">已掌握 0</span>
+      </div>
+      <div class="mask-toggles">
+        <button class="toggle-chip" id="btnSinglePause" onclick="toggleSingleWordPause()">🎯 点读单句即停: 开启</button>
+        <button class="toggle-chip" id="btnWordLoop" onclick="toggleWordLoop()">🔁 单词循环: 关闭</button>
+        <button class="toggle-chip" id="btnMaskEn" onclick="toggleMask('en')">👁️ 遮蔽英文</button>
+        <button class="toggle-chip" id="btnMaskZh" onclick="toggleMask('zh')">👁️ 遮蔽中文</button>
+      </div>
+    </div>
+
+    <div id="viewContainer"></div>
+  </main>
+
+  <!-- Bottom Sticky Audio Bar -->
+  <footer class="player-bar">
+    <div class="player-inner">
+      <div class="player-now">
+        <div class="now-word-pill">
+          <span id="nowTrackTitle" style="color:#94a3b8;font-weight:600;">未播放</span>
+          <span>·</span>
+          <span class="now-word-en" id="nowWordEn">点击任意单词卡片点读发音</span>
+          <span class="now-word-zh" id="nowWordZh"></span>
+        </div>
+        <div style="font-size:12px;color:#94a3b8;" id="loopModeIndicator">顺序播放</div>
+      </div>
+
+      <div class="progress-row">
+        <span class="time-label" id="curTimeLabel">00:00</span>
+        <input type="range" class="progress-slider" id="audioProgress" min="0" max="100" step="0.1" value="0" oninput="onSeek(this.value)" />
+        <span class="time-label" id="durTimeLabel">00:00</span>
+      </div>
+
+      <div class="player-controls">
+        <div class="ctrl-group">
+          <button class="p-btn" onclick="prevWord()" title="上一个单词 (左方向键)">⏮ 上一词</button>
+          <button class="p-btn play-main" id="btnPlayPause" onclick="togglePlay()">▶ 播放本节</button>
+          <button class="p-btn" onclick="nextWord()" title="下一个单词 (右方向键)">下一词 ⏭</button>
+        </div>
+        <div class="ctrl-group">
+          <button class="p-btn" onclick="prevTrack()">⬅ 上一节</button>
+          <button class="p-btn" onclick="nextTrack()">下一节 ➡</button>
+          <button class="p-btn" id="btnAutoNextTrack" onclick="toggleAutoNextTrack()">🔄 跨节连播</button>
+          <button class="p-btn" id="btnSpeed" onclick="cycleSpeed()">1.0x</button>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <audio id="audioPlayer" preload="metadata"></audio>
+  <script src="trade_vocab_data.js"></script>
+  <script>
+    const state = {
+      mode: 'list', // list | flashcard | dictation | notebook
+      partIdx: 0,
+      secIdx: 0,
+      trackIdx: 0,
+      activeWordIdx: -1,
+      fcIndex: 0,
+      fcShowBack: false,
+      dictIndex: 0,
+      dictFeedback: '',
+      searchQuery: '',
+      maskEn: false,
+      maskZh: false,
+      singleWordPause: true,
+      wordLoop: false,
+      autoNextTrack: false,
+      stopAtTime: null,
+      loopRange: null,
+      speedIdx: 1,
+      speeds: [0.75, 1.0, 1.15, 1.25, 1.5],
+      starred: JSON.parse(localStorage.getItem('trade8000_starred') || '{}'),
+      mastered: JSON.parse(localStorage.getItem('trade8000_mastered') || '{}')
+    };
+
+    const audio = document.getElementById('audioPlayer');
+
+    function getData() {
+      return window.TRADE_VOCAB_DATA || { parts: [] };
+    }
+
+    function getCurrentPart() {
+      const d = getData();
+      return d.parts[state.partIdx] || d.parts[0];
+    }
+
+    function getCurrentSection() {
+      const p = getCurrentPart();
+      if (!p) return null;
+      return p.sections[state.secIdx] || p.sections[0];
+    }
+
+    function getCurrentTrack() {
+      const s = getCurrentSection();
+      if (!s) return null;
+      return s.tracks[state.trackIdx] || s.tracks[0];
+    }
+
+    function wordKey(trackPath, wordIdx) {
+      return `${trackPath}#${wordIdx}`;
+    }
+
+    function initApp() {
+      const d = getData();
+      if (!d.parts || !d.parts.length) {
+        document.getElementById('globalStatsText').textContent = '未检测到词库数据，请先运行 build_trade_vocab.py';
+        return;
+      }
+      updateHeaderStats();
+      renderPartTabs();
+      renderSectionSelect();
+      renderTracksStrip();
+      loadTrackAudio(false);
+      renderMainView();
+    }
+
+    function updateHeaderStats() {
+      const d = getData();
+      const starCnt = Object.keys(state.starred).length;
+      const masterCnt = Object.keys(state.mastered).length;
+      document.getElementById('starCountBadge').textContent = starCnt;
+      document.getElementById('masteredStats').textContent = `已掌握 ${masterCnt}`;
+      const recPct = d.totalTracks ? Math.round((d.recognizedTracks / d.totalTracks) * 100) : 100;
+      document.getElementById('globalStatsText').textContent =
+        `共 2 大篇 · 38 个外贸专题 · ${d.totalTracks} 段原声音频 · ${d.totalWords} 个核心词条 (离线识别进度: ${d.recognizedTracks}/${d.totalTracks} · ${recPct}%)`;
+    }
+
+    function renderPartTabs() {
+      const d = getData();
+      const container = document.getElementById('partTabs');
+      container.innerHTML = d.parts.map((p, idx) => `
+        <button class="part-tab ${idx === state.partIdx ? 'active' : ''}" onclick="selectPart(${idx})">
+          ${p.title} (${p.sectionCount}章)
+        </button>
+      `).join('');
+    }
+
+    function selectPart(idx) {
+      state.partIdx = idx;
+      state.secIdx = 0;
+      state.trackIdx = 0;
+      state.activeWordIdx = -1;
+      state.fcIndex = 0;
+      state.dictIndex = 0;
+      renderPartTabs();
+      renderSectionSelect();
+      renderTracksStrip();
+      loadTrackAudio(false);
+      renderMainView();
+    }
+
+    function renderSectionSelect() {
+      const p = getCurrentPart();
+      const sel = document.getElementById('sectionSelect');
+      if (!p) return;
+      sel.innerHTML = p.sections.map((s, idx) => `
+        <option value="${idx}" ${idx === state.secIdx ? 'selected' : ''}>
+          ${s.title} (${s.trackCount}节 · ${s.wordCount}词)
+        </option>
+      `).join('');
+    }
+
+    function onSectionChange(val) {
+      state.secIdx = parseInt(val, 10) || 0;
+      state.trackIdx = 0;
+      state.activeWordIdx = -1;
+      state.fcIndex = 0;
+      state.dictIndex = 0;
+      renderTracksStrip();
+      loadTrackAudio(false);
+      renderMainView();
+    }
+
+    function renderTracksStrip() {
+      const s = getCurrentSection();
+      const strip = document.getElementById('tracksStrip');
+      if (!s) return;
+      strip.innerHTML = s.tracks.map((t, idx) => `
+        <button class="track-chip ${idx === state.trackIdx ? 'active' : ''}" id="trackChip_${idx}" onclick="selectTrack(${idx})">
+          <span>🎧 ${t.title}</span>
+          <span class="cnt">${t.words.length}词</span>
+        </button>
+      `).join('');
+    }
+
+    function selectTrack(idx, autoPlay = false) {
+      state.trackIdx = idx;
+      state.activeWordIdx = -1;
+      state.fcIndex = 0;
+      state.dictIndex = 0;
+      state.stopAtTime = null;
+      state.loopRange = null;
+      renderTracksStrip();
+      loadTrackAudio(autoPlay);
+      renderMainView();
+      const chip = document.getElementById(`trackChip_${idx}`);
+      if (chip) chip.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+    }
+
+    function loadTrackAudio(autoPlay = false) {
+      const t = getCurrentTrack();
+      if (!t) return;
+      const encodedPath = t.path.split('/').map(encodeURIComponent).join('/');
+      if (audio.dataset.currentPath !== t.path) {
+        audio.src = encodedPath;
+        audio.dataset.currentPath = t.path;
+        audio.playbackRate = state.speeds[state.speedIdx];
+      }
+      document.getElementById('nowTrackTitle').textContent = t.title;
+      document.getElementById('durTimeLabel').textContent = formatSec(t.duration || 0);
+      if (autoPlay) {
+        audio.play().catch(() => {});
+      }
+    }
+
+    function setMode(m) {
+      state.mode = m;
+      document.querySelectorAll('.mode-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.mode === m);
+      });
+      renderMainView();
+    }
+
+    function onSearchInput(q) {
+      state.searchQuery = q.trim().toLowerCase();
+      renderMainView();
+    }
+
+    function toggleMask(type) {
+      if (type === 'en') {
+        state.maskEn = !state.maskEn;
+        document.getElementById('btnMaskEn').classList.toggle('active', state.maskEn);
+      } else {
+        state.maskZh = !state.maskZh;
+        document.getElementById('btnMaskZh').classList.toggle('active', state.maskZh);
+      }
+      renderMainView();
+    }
+
+    function toggleSingleWordPause() {
+      state.singleWordPause = !state.singleWordPause;
+      const btn = document.getElementById('btnSinglePause');
+      btn.textContent = `🎯 点读单句即停: ${state.singleWordPause ? '开启' : '关闭'}`;
+      btn.classList.toggle('active', state.singleWordPause);
+      if (!state.singleWordPause) state.stopAtTime = null;
+    }
+
+    function toggleWordLoop() {
+      state.wordLoop = !state.wordLoop;
+      const btn = document.getElementById('btnWordLoop');
+      btn.textContent = `🔁 单词循环: ${state.wordLoop ? '开启' : '关闭'}`;
+      btn.classList.toggle('active', state.wordLoop);
+      document.getElementById('loopModeIndicator').textContent = state.wordLoop ? '🔁 单词复读中' : '顺序播放';
+      if (!state.wordLoop) state.loopRange = null;
+    }
+
+    function toggleAutoNextTrack() {
+      state.autoNextTrack = !state.autoNextTrack;
+      document.getElementById('btnAutoNextTrack').classList.toggle('active', state.autoNextTrack);
+    }
+
+    function toggleStar(e, trackPath, wIdx, wordObj) {
+      e.stopPropagation();
+      const key = wordKey(trackPath, wIdx);
+      if (state.starred[key]) {
+        delete state.starred[key];
+      } else {
+        state.starred[key] = {
+          trackPath,
+          wIdx,
+          en: wordObj.en,
+          ipa: wordObj.ipa,
+          pos: wordObj.pos,
+          zh: wordObj.zh,
+          start: wordObj.start,
+          end: wordObj.end,
+          secTitle: getCurrentSection()?.title || '',
+          trackTitle: getCurrentTrack()?.title || ''
+        };
+      }
+      localStorage.setItem('trade8000_starred', JSON.stringify(state.starred));
+      updateHeaderStats();
+      renderMainView();
+    }
+
+    function toggleMastered(e, trackPath, wIdx) {
+      e.stopPropagation();
+      const key = wordKey(trackPath, wIdx);
+      if (state.mastered[key]) {
+        delete state.mastered[key];
+      } else {
+        state.mastered[key] = true;
+      }
+      localStorage.setItem('trade8000_mastered', JSON.stringify(state.mastered));
+      updateHeaderStats();
+      renderMainView();
+    }
+
+    function playWordSegment(wIdx, customTrackPath = null, customStart = null, customEnd = null) {
+      const t = getCurrentTrack();
+      if (!t && !customTrackPath) return;
+
+      if (customTrackPath && (!t || t.path !== customTrackPath)) {
+        // Find part/sec/track for customTrackPath
+        const d = getData();
+        for (let pi = 0; pi < d.parts.length; pi++) {
+          for (let si = 0; si < d.parts[pi].sections.length; si++) {
+            for (let ti = 0; ti < d.parts[pi].sections[si].tracks.length; ti++) {
+              if (d.parts[pi].sections[si].tracks[ti].path === customTrackPath) {
+                state.partIdx = pi;
+                state.secIdx = si;
+                state.trackIdx = ti;
+                renderPartTabs();
+                renderSectionSelect();
+                renderTracksStrip();
+                loadTrackAudio(false);
+                break;
+              }
+            }
+          }
+        }
+      }
+
+      const activeTrack = getCurrentTrack();
+      const w = activeTrack?.words[wIdx];
+      const startSec = customStart !== null ? customStart : (w ? w.start : 0);
+      const endSec = customEnd !== null ? customEnd : (w ? w.end : 0);
+
+      state.activeWordIdx = wIdx;
+      highlightActiveCard(wIdx);
+
+      if (w) {
+        document.getElementById('nowWordEn').textContent = w.en;
+        document.getElementById('nowWordZh').textContent = `${w.pos ? w.pos + ' ' : ''}${w.zh || ''}`;
+      }
+
+      audio.currentTime = Math.max(0, startSec - 0.08);
+      if (state.wordLoop && endSec > startSec) {
+        state.loopRange = [Math.max(0, startSec - 0.08), endSec + 0.25];
+        state.stopAtTime = null;
+      } else if (state.singleWordPause && endSec > startSec) {
+        state.stopAtTime = endSec + 0.22;
+        state.loopRange = null;
+      } else {
+        state.stopAtTime = null;
+        state.loopRange = null;
+      }
+
+      audio.play().catch(() => {});
+    }
+
+    function highlightActiveCard(wIdx) {
+      document.querySelectorAll('.word-card').forEach(el => {
+        el.classList.toggle('playing', parseInt(el.dataset.idx, 10) === wIdx);
+      });
+    }
+
+    function renderMainView() {
+      const container = document.getElementById('viewContainer');
+      const s = getCurrentSection();
+      const t = getCurrentTrack();
+      if (!s || !t) return;
+
+      document.getElementById('currentTopicTitle').textContent = `${s.title} · ${t.title}`;
+      document.getElementById('currentTrackStats').textContent = `${t.words.length} 个词条`;
+
+      const maskClasses = `${state.maskEn ? 'masked' : ''} ${state.maskZh ? 'masked-zh' : ''}`;
+
+      if (state.mode === 'list') {
+        let wordsToRender = t.words.map((w, i) => ({ ...w, idx: i, trackPath: t.path, trackTitle: t.title, secTitle: s.title }));
+
+        if (state.searchQuery) {
+          // Global search across all parts/sections
+          wordsToRender = [];
+          const d = getData();
+          for (const p of d.parts) {
+            for (const sec of p.sections) {
+              for (const tr of sec.tracks) {
+                tr.words.forEach((w, idx) => {
+                  if (
+                    w.en.toLowerCase().includes(state.searchQuery) ||
+                    (w.zh && w.zh.includes(state.searchQuery)) ||
+                    tr.title.toLowerCase().includes(state.searchQuery) ||
+                    sec.title.toLowerCase().includes(state.searchQuery)
+                  ) {
+                    wordsToRender.push({
+                      ...w,
+                      idx,
+                      trackPath: tr.path,
+                      trackTitle: tr.title,
+                      secTitle: sec.title
+                    });
+                  }
+                });
+              }
+            }
+          }
+          document.getElementById('currentTopicTitle').textContent = `🔍 全书搜索: "${state.searchQuery}"`;
+          document.getElementById('currentTrackStats').textContent = `匹配 ${wordsToRender.length} 个词条`;
+        }
+
+        container.innerHTML = `
+          <div class="word-grid ${maskClasses}">
+            ${wordsToRender.slice(0, 300).map(w => {
+              const key = wordKey(w.trackPath, w.idx);
+              const isStar = !!state.starred[key];
+              const isMaster = !!state.mastered[key];
+              const isPlaying = (w.trackPath === t.path && w.idx === state.activeWordIdx);
+              return `
+                <div class="word-card ${isPlaying ? 'playing' : ''} ${isMaster ? 'mastered' : ''}"
+                     data-idx="${w.idx}"
+                     onclick="playWordSegment(${w.idx}, '${w.trackPath.replace(/'/g, "\\'")}', ${w.start}, ${w.end})">
+                  <div class="word-top">
+                    <div>
+                      <span class="word-index">#${w.idx + 1}</span>
+                      <span class="word-en word-en-maskable">${escapeHtml(w.en)}</span>
+                      ${w.ipa ? `<span class="word-ipa">${escapeHtml(w.ipa)}</span>` : ''}
+                    </div>
+                    <div class="word-actions">
+                      <button class="icon-btn ${isStar ? 'starred' : ''}" title="加入/移出生词本"
+                              onclick='toggleStar(event, ${JSON.stringify(w.trackPath)}, ${w.idx}, ${JSON.stringify({en:w.en,ipa:w.ipa,pos:w.pos,zh:w.zh,start:w.start,end:w.end})})'>
+                        ${isStar ? '★' : '☆'}
+                      </button>
+                      <button class="icon-btn ${isMaster ? 'checked' : ''}" title="标记已掌握"
+                              onclick='toggleMastered(event, ${JSON.stringify(w.trackPath)}, ${w.idx})'>
+                        ✓
+                      </button>
+                    </div>
+                  </div>
+                  <div class="word-bottom">
+                    <div class="word-zh-box word-zh-maskable">
+                      ${w.pos ? `<span class="word-pos">${escapeHtml(w.pos)}</span>` : ''}
+                      <span>${escapeHtml(w.zh || '点击聆听原声发音')}</span>
+                    </div>
+                    <span class="word-time">🔊 ${w.start.toFixed(1)}s</span>
+                  </div>
+                  ${state.searchQuery ? `<div style="font-size:11px;color:#64748b;margin-top:2px;">📍 ${escapeHtml(w.secTitle)} · ${escapeHtml(w.trackTitle)}</div>` : ''}
+                </div>
+              `;
+            }).join('')}
+          </div>
+        `;
+      } else if (state.mode === 'flashcard') {
+        const words = t.words;
+        if (!words.length) {
+          container.innerHTML = `<p style="text-align:center;color:#64748b;">当前小节暂无词条</p>`;
+          return;
+        }
+        const idx = Math.min(state.fcIndex, words.length - 1);
+        const w = words[idx];
+        container.innerHTML = `
+          <div class="flashcard-stage">
+            <div style="font-size:13px;color:#64748b;margin-bottom:10px;">
+              卡片进度: <strong>${idx + 1} / ${words.length}</strong> （点击卡片翻转释义并播放原声）
+            </div>
+            <div class="flashcard-box" onclick="flipFlashcard(${idx})">
+              <div class="fc-en">${escapeHtml(w.en)}</div>
+              ${w.ipa ? `<div class="fc-ipa">${escapeHtml(w.ipa)}</div>` : ''}
+              ${state.fcShowBack ? `
+                <div class="fc-zh">
+                  ${w.pos ? `<span class="word-pos">${escapeHtml(w.pos)}</span>` : ''}
+                  ${escapeHtml(w.zh || '暂无词典释义')}
+                </div>
+              ` : `<div style="font-size:13px;color:#94a3b8;margin-top:16px;">👆 点击显示中文释义并朗读</div>`}
+            </div>
+            <div class="fc-controls">
+              <button class="btn-secondary" onclick="stepFlashcard(-1)">⬅ 上一词</button>
+              <button class="btn-primary" onclick="playWordSegment(${idx})">🔊 播放原声</button>
+              <button class="btn-secondary" onclick="stepFlashcard(1)">下一词 ➡</button>
+            </div>
+          </div>
+        `;
+      } else if (state.mode === 'dictation') {
+        const words = t.words;
+        if (!words.length) return;
+        const idx = Math.min(state.dictIndex, words.length - 1);
+        const w = words[idx];
+        container.innerHTML = `
+          <div class="dictation-stage">
+            <div style="font-size:13px;color:#64748b;">听写挑战 · 第 <strong>${idx + 1} / ${words.length}</strong> 词</div>
+            <div style="margin:14px 0;">
+              <button class="btn-primary" onclick="playWordSegment(${idx})">🔊 播放当前单词原声</button>
+            </div>
+            <div style="font-size:15px;color:#334155;margin-bottom:8px;">
+              提示: ${w.pos ? `<span class="word-pos">${escapeHtml(w.pos)}</span>` : ''}
+              <strong>${escapeHtml(w.zh || '请听录音拼写英文')}</strong>
+              ${w.ipa ? `<span style="color:#64748b;margin-left:6px;">${escapeHtml(w.ipa)}</span>` : ''}
+            </div>
+            <input type="text" class="dictation-input" id="dictInput" placeholder="输入听到的英文单词或短语..."
+                   onkeydown="if(event.key==='Enter') checkDictation()" autocomplete="off" />
+            <div id="dictFeedbackBox" style="min-height:26px;font-weight:700;margin-bottom:12px;">${state.dictFeedback}</div>
+            <div class="fc-controls">
+              <button class="btn-secondary" onclick="stepDictation(-1)">⬅ 上一题</button>
+              <button class="btn-primary" onclick="checkDictation()">✅ 核对答案</button>
+              <button class="btn-secondary" onclick="revealDictation()">💡 看答案</button>
+              <button class="btn-secondary" onclick="stepDictation(1)">下一题 ➡</button>
+            </div>
+          </div>
+        `;
+        setTimeout(() => document.getElementById('dictInput')?.focus(), 50);
+      } else if (state.mode === 'notebook') {
+        const list = Object.values(state.starred);
+        if (!list.length) {
+          container.innerHTML = `
+            <div style="text-align:center;padding:48px 20px;background:#fff;border-radius:16px;border:1px solid var(--border);">
+              <div style="font-size:36px;margin-bottom:8px;">⭐</div>
+              <h3 style="margin:0 0 6px;">生词本还是空的</h3>
+              <p style="color:#64748b;font-size:14px;margin:0;">在「精听点读」列表中点击单词右上角的 ☆ 即可收藏重点外贸词汇。</p>
+            </div>
+          `;
+          return;
+        }
+        container.innerHTML = `
+          <div class="word-grid">
+            ${list.map(w => `
+              <div class="word-card" onclick="playWordSegment(${w.wIdx}, '${w.trackPath.replace(/'/g, "\\'")}', ${w.start}, ${w.end})">
+                <div class="word-top">
+                  <div>
+                    <span class="word-en">${escapeHtml(w.en)}</span>
+                    ${w.ipa ? `<span class="word-ipa">${escapeHtml(w.ipa)}</span>` : ''}
+                  </div>
+                  <button class="icon-btn starred" onclick='toggleStar(event, ${JSON.stringify(w.trackPath)}, ${w.wIdx}, ${JSON.stringify(w)})'>★</button>
+                </div>
+                <div class="word-bottom">
+                  <div class="word-zh-box">
+                    ${w.pos ? `<span class="word-pos">${escapeHtml(w.pos)}</span>` : ''}
+                    <span>${escapeHtml(w.zh || '')}</span>
+                  </div>
+                  <span class="word-time">🔊 ${w.start.toFixed(1)}s</span>
+                </div>
+                <div style="font-size:11px;color:#64748b;">📍 ${escapeHtml(w.secTitle)} · ${escapeHtml(w.trackTitle)}</div>
+              </div>
+            `).join('')}
+          </div>
+        `;
+      }
+    }
+
+    function flipFlashcard(idx) {
+      state.fcShowBack = !state.fcShowBack;
+      playWordSegment(idx);
+      renderMainView();
+    }
+
+    function stepFlashcard(delta) {
+      const t = getCurrentTrack();
+      if (!t || !t.words.length) return;
+      state.fcIndex = (state.fcIndex + delta + t.words.length) % t.words.length;
+      state.fcShowBack = false;
+      playWordSegment(state.fcIndex);
+      renderMainView();
+    }
+
+    function checkDictation() {
+      const t = getCurrentTrack();
+      if (!t || !t.words.length) return;
+      const w = t.words[state.dictIndex];
+      const val = (document.getElementById('dictInput')?.value || '').trim().toLowerCase();
+      const target = w.en.trim().toLowerCase();
+      const fb = document.getElementById('dictFeedbackBox');
+      if (val === target) {
+        fb.innerHTML = `<span style="color:var(--success)">🎉 拼写正确！ ${escapeHtml(w.en)}</span>`;
+        playWordSegment(state.dictIndex);
+      } else {
+        fb.innerHTML = `<span style="color:var(--danger)">❌ 再试一次（首字母提示: ${escapeHtml(w.en.slice(0, 2))}...）</span>`;
+        playWordSegment(state.dictIndex);
+      }
+    }
+
+    function revealDictation() {
+      const t = getCurrentTrack();
+      if (!t || !t.words.length) return;
+      const w = t.words[state.dictIndex];
+      const input = document.getElementById('dictInput');
+      if (input) input.value = w.en;
+      const fb = document.getElementById('dictFeedbackBox');
+      if (fb) fb.innerHTML = `<span style="color:var(--primary)">正确答案: ${escapeHtml(w.en)}</span>`;
+      playWordSegment(state.dictIndex);
+    }
+
+    function stepDictation(delta) {
+      const t = getCurrentTrack();
+      if (!t || !t.words.length) return;
+      state.dictIndex = (state.dictIndex + delta + t.words.length) % t.words.length;
+      state.dictFeedback = '';
+      renderMainView();
+      playWordSegment(state.dictIndex);
+    }
+
+    /* Audio Player Events */
+    function togglePlay() {
+      if (audio.paused) {
+        state.stopAtTime = null;
+        audio.play().catch(() => {});
+      } else {
+        audio.pause();
+      }
+    }
+
+    function prevWord() {
+      const t = getCurrentTrack();
+      if (!t || !t.words.length) return;
+      const nextIdx = Math.max(0, (state.activeWordIdx <= 0 ? 0 : state.activeWordIdx - 1));
+      playWordSegment(nextIdx);
+    }
+
+    function nextWord() {
+      const t = getCurrentTrack();
+      if (!t || !t.words.length) return;
+      const nextIdx = Math.min(t.words.length - 1, state.activeWordIdx + 1);
+      playWordSegment(nextIdx);
+    }
+
+    function prevTrack() {
+      const s = getCurrentSection();
+      if (!s) return;
+      if (state.trackIdx > 0) {
+        selectTrack(state.trackIdx - 1, true);
+      }
+    }
+
+    function nextTrack() {
+      const s = getCurrentSection();
+      if (!s) return;
+      if (state.trackIdx + 1 < s.tracks.length) {
+        selectTrack(state.trackIdx + 1, true);
+      }
+    }
+
+    function cycleSpeed() {
+      state.speedIdx = (state.speedIdx + 1) % state.speeds.length;
+      const spd = state.speeds[state.speedIdx];
+      audio.playbackRate = spd;
+      document.getElementById('btnSpeed').textContent = `${spd}x`;
+    }
+
+    function onSeek(val) {
+      if (!audio.duration) return;
+      state.stopAtTime = null;
+      audio.currentTime = (parseFloat(val) / 100) * audio.duration;
+    }
+
+    audio.addEventListener('play', () => {
+      document.getElementById('btnPlayPause').textContent = '⏸ 暂停';
+    });
+
+    audio.addEventListener('pause', () => {
+      document.getElementById('btnPlayPause').textContent = '▶ 播放本节';
+    });
+
+    audio.addEventListener('ended', () => {
+      if (state.autoNextTrack) {
+        nextTrack();
+      }
+    });
+
+    audio.addEventListener('timeupdate', () => {
+      const cur = audio.currentTime;
+      const dur = audio.duration || 0;
+      document.getElementById('curTimeLabel').textContent = formatSec(cur);
+      if (dur > 0) {
+        document.getElementById('durTimeLabel').textContent = formatSec(dur);
+        document.getElementById('audioProgress').value = ((cur / dur) * 100).toFixed(1);
+      }
+
+      if (state.loopRange && cur >= state.loopRange[1]) {
+        audio.currentTime = state.loopRange[0];
+        return;
+      }
+
+      if (state.stopAtTime !== null && cur >= state.stopAtTime) {
+        audio.pause();
+        state.stopAtTime = null;
+        return;
+      }
+
+      const t = getCurrentTrack();
+      if (!t || !t.words) return;
+      let foundIdx = -1;
+      for (let i = 0; i < t.words.length; i++) {
+        const w = t.words[i];
+        if (cur >= w.start - 0.15 && cur <= w.end + 0.45) {
+          foundIdx = i;
+          break;
+        }
+      }
+      if (foundIdx !== -1 && foundIdx !== state.activeWordIdx) {
+        state.activeWordIdx = foundIdx;
+        const w = t.words[foundIdx];
+        document.getElementById('nowWordEn').textContent = w.en;
+        document.getElementById('nowWordZh').textContent = `${w.pos ? w.pos + ' ' : ''}${w.zh || ''}`;
+        highlightActiveCard(foundIdx);
+      }
+    });
+
+    function formatSec(sec) {
+      sec = Math.max(0, Math.floor(sec || 0));
+      const m = Math.floor(sec / 60);
+      const s = sec % 60;
+      return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+    }
+
+    function escapeHtml(str) {
+      return String(str || '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+
+    window.addEventListener('DOMContentLoaded', initApp);
+  </script>
+</body>
+</html>
