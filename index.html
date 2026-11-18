@@ -1233,10 +1233,10 @@
 
         <!-- One-Tap Accent Mode Switcher -->
         <div class="accent-pill-group">
-          <button class="accent-pill-btn active-pt" data-accent="pt-PT" id="pillPtPt">
+          <button class="accent-pill-btn" data-accent="pt-PT" id="pillPtPt">
             🇵🇹 葡葡发音 (课本原音)
           </button>
-          <button class="accent-pill-btn" data-accent="pt-BR" id="pillPtBr">
+          <button class="accent-pill-btn active-br" data-accent="pt-BR" id="pillPtBr">
             🇧🇷 巴葡发音 (巴西口音)
           </button>
           <button class="accent-pill-btn" data-accent="pt-vs-br" id="pillPtVsBr">
@@ -1246,15 +1246,17 @@
 
         <div class="drama-controls-row">
           <select class="drama-select" id="ttsEngineSelect" title="选择点读语音引擎">
-            <option value="webspeech">⚡ 系统原生葡语语音 (推荐 · 发音纯正零延迟)</option>
+            <option value="edgetts">🎙️ 微软 Edge-TTS 神经网络语音 (推荐 · 巴葡 Francisca / Antonio)</option>
+            <option value="webspeech">⚡ 系统原生葡语语音 (离线零延迟)</option>
             <option value="drama3">🎭 Drama-3 大模型 (实验性 · 偏英语戏剧腔)</option>
           </select>
 
-          <select class="drama-select" id="dramaVoiceSelect" title="选择发音人/口音">
-            <option value="pt-PT">🇵🇹 里斯本标准音 (pt-PT)</option>
-            <option value="pt-BR">🇧🇷 圣保罗/里约标准音 (pt-BR)</option>
-            <option value="clone1">🎙️ Drama-3 Clone 1</option>
-            <option value="surprise">🎲 Drama-3 Surprise</option>
+          <select class="drama-select" id="dramaVoiceSelect" title="选择微软 Edge-TTS 发音人/口音">
+            <option value="pt-BR-FranciscaNeural">🇧🇷 巴葡女声 · FranciscaNeural (推荐 · 自然亲切)</option>
+            <option value="pt-BR-AntonioNeural">🇧🇷 巴葡男声 · AntonioNeural (稳重清晰)</option>
+            <option value="pt-BR-ThalitaMultilingualNeural">🇧🇷 巴葡女声 · ThalitaMultilingual (新一代大模型)</option>
+            <option value="pt-PT-RaquelNeural">🇵🇹 葡葡女声 · RaquelNeural (里斯本标准音)</option>
+            <option value="pt-PT-DuarteNeural">🇵🇹 葡葡男声 · DuarteNeural (里斯本标准音)</option>
           </select>
         </div>
 
@@ -1429,6 +1431,43 @@
       const PT_BR = window.PT_BR_DATA || {};
       const STORAGE_KEY = "pt_univ_vol1_state_v1";
       const DRAMA3_SPACE_HOST = "https://fishaudio-drama-3.hf.space";
+      const EDGE_TTS_SPACE_HOST = "https://innoai-edge-tts-text-to-speech.hf.space";
+      const LOCAL_EDGE_TTS_URL = (location.protocol.startsWith("http") && location.port === "8765")
+        ? `${location.origin}/tts`
+        : "http://127.0.0.1:8765/tts";
+
+      const EDGE_VOICE_META = {
+        "pt-BR-FranciscaNeural": {
+          shortName: "pt-BR-FranciscaNeural",
+          gradioLabel: "pt-BR-FranciscaNeural - pt-BR (Female)",
+          lang: "pt-BR",
+          displayLabel: "🇧🇷 巴葡 · FranciscaNeural"
+        },
+        "pt-BR-AntonioNeural": {
+          shortName: "pt-BR-AntonioNeural",
+          gradioLabel: "pt-BR-AntonioNeural - pt-BR (Male)",
+          lang: "pt-BR",
+          displayLabel: "🇧🇷 巴葡 · AntonioNeural"
+        },
+        "pt-BR-ThalitaMultilingualNeural": {
+          shortName: "pt-BR-ThalitaMultilingualNeural",
+          gradioLabel: "pt-BR-ThalitaMultilingualNeural - pt-BR (Female)",
+          lang: "pt-BR",
+          displayLabel: "🇧🇷 巴葡 · ThalitaMultilingual"
+        },
+        "pt-PT-RaquelNeural": {
+          shortName: "pt-PT-RaquelNeural",
+          gradioLabel: "pt-PT-RaquelNeural - pt-PT (Female)",
+          lang: "pt-PT",
+          displayLabel: "🇵🇹 葡葡 · RaquelNeural"
+        },
+        "pt-PT-DuarteNeural": {
+          shortName: "pt-PT-DuarteNeural",
+          gradioLabel: "pt-PT-DuarteNeural - pt-PT (Male)",
+          lang: "pt-PT",
+          displayLabel: "🇵🇹 葡葡 · DuarteNeural"
+        }
+      };
 
       // Load persisted state
       let state = {
@@ -1441,23 +1480,26 @@
         notes: {},
         playbackRate: 1.0,
         loopSingle: false,
-        ttsEngine: "webspeech", // Default to native Portuguese voices (fast & natural)
-        dramaVoice: "pt-PT",    // "pt-PT" | "pt-BR" | "clone1" | "surprise"
-        accentMode: "pt-PT",    // "pt-PT" | "pt-BR" | "pt-vs-br"
-        migratedNativeTtsV2: true
+        ttsEngine: "edgetts", // Default to Microsoft Edge-TTS Brazilian/European Neural voices
+        dramaVoice: "pt-BR-FranciscaNeural",
+        accentMode: "pt-BR",  // "pt-PT" | "pt-BR" | "pt-vs-br"
+        migratedNativeTtsV2: true,
+        migratedEdgeTtsBrV1: true
       };
 
       try {
         const saved = localStorage.getItem(STORAGE_KEY);
         if (saved) {
           const parsed = JSON.parse(saved);
-          // Migrate old default "drama3" to "webspeech" so user doesn't get weird English-accented TTS by default
-          if (!parsed.migratedNativeTtsV2) {
-            parsed.ttsEngine = "webspeech";
-            parsed.migratedNativeTtsV2 = true;
+          // Migrate to Microsoft Edge-TTS pt-BR-FranciscaNeural by default
+          if (!parsed.migratedEdgeTtsBrV1) {
+            parsed.ttsEngine = "edgetts";
+            parsed.dramaVoice = "pt-BR-FranciscaNeural";
+            parsed.accentMode = "pt-BR";
+            parsed.migratedEdgeTtsBrV1 = true;
           }
-          if (!parsed.accentMode) {
-            parsed.accentMode = parsed.dramaVoice === "pt-BR" ? "pt-BR" : "pt-PT";
+          if (!EDGE_VOICE_META[parsed.dramaVoice]) {
+            parsed.dramaVoice = parsed.accentMode === "pt-PT" ? "pt-PT-RaquelNeural" : "pt-BR-FranciscaNeural";
           }
           state = Object.assign(state, parsed);
         }
@@ -1534,34 +1576,55 @@
       let currentTrackId = null;
       let abState = { mode: 0, a: 0, b: 0 }; // 0: off, 1: A set, 2: A-B active
 
+      // Resolve Edge-TTS voice shortName for a target language ("pt-BR" | "pt-PT")
+      function resolveEdgeVoice(langOrVoice) {
+        if (EDGE_VOICE_META[langOrVoice]) return langOrVoice;
+        const currentMeta = EDGE_VOICE_META[state.dramaVoice];
+        if (langOrVoice === "pt-PT") {
+          return (currentMeta && currentMeta.lang === "pt-PT") ? state.dramaVoice : "pt-PT-RaquelNeural";
+        }
+        if (langOrVoice === "pt-BR") {
+          return (currentMeta && currentMeta.lang === "pt-BR") ? state.dramaVoice : "pt-BR-FranciscaNeural";
+        }
+        return state.dramaVoice && EDGE_VOICE_META[state.dramaVoice] ? state.dramaVoice : "pt-BR-FranciscaNeural";
+      }
+
       // Sync Accent Pills & Selects
       function syncAccentUI() {
-        ttsEngineSelect.value = state.ttsEngine || "webspeech";
-        dramaVoiceSelect.value = state.dramaVoice || "pt-PT";
+        ttsEngineSelect.value = state.ttsEngine || "edgetts";
+        if (!EDGE_VOICE_META[state.dramaVoice]) {
+          state.dramaVoice = state.accentMode === "pt-PT" ? "pt-PT-RaquelNeural" : "pt-BR-FranciscaNeural";
+        }
+        dramaVoiceSelect.value = state.dramaVoice;
 
         pillPtPt.className = "accent-pill-btn" + (state.accentMode === "pt-PT" ? " active-pt" : "");
         pillPtBr.className = "accent-pill-btn" + (state.accentMode === "pt-BR" ? " active-br" : "");
         pillPtVsBr.className = "accent-pill-btn" + (state.accentMode === "pt-vs-br" ? " active-vs" : "");
 
+        const vMeta = EDGE_VOICE_META[state.dramaVoice];
         if (state.accentMode === "pt-BR") {
-          currentAccentBadge.textContent = "当前：🇧🇷 巴西葡语";
+          currentAccentBadge.textContent = `当前：${vMeta && vMeta.lang === "pt-BR" ? vMeta.displayLabel : "🇧🇷 巴西葡语"}`;
         } else if (state.accentMode === "pt-vs-br") {
           currentAccentBadge.textContent = "当前：🆚 葡巴双音连读";
         } else {
-          currentAccentBadge.textContent = "当前：🇵🇹 欧洲葡语";
+          currentAccentBadge.textContent = `当前：${vMeta && vMeta.lang === "pt-PT" ? vMeta.displayLabel : "🇵🇹 欧洲葡语"}`;
         }
       }
 
       pillPtPt.addEventListener("click", () => {
         state.accentMode = "pt-PT";
-        state.dramaVoice = "pt-PT";
+        if (!EDGE_VOICE_META[state.dramaVoice] || EDGE_VOICE_META[state.dramaVoice].lang !== "pt-PT") {
+          state.dramaVoice = "pt-PT-RaquelNeural";
+        }
         syncAccentUI();
         saveState();
       });
 
       pillPtBr.addEventListener("click", () => {
         state.accentMode = "pt-BR";
-        state.dramaVoice = "pt-BR";
+        if (!EDGE_VOICE_META[state.dramaVoice] || EDGE_VOICE_META[state.dramaVoice].lang !== "pt-BR") {
+          state.dramaVoice = "pt-BR-FranciscaNeural";
+        }
         syncAccentUI();
         saveState();
       });
@@ -1579,8 +1642,9 @@
 
       dramaVoiceSelect.addEventListener("change", () => {
         state.dramaVoice = dramaVoiceSelect.value;
-        if (state.dramaVoice === "pt-PT" || state.dramaVoice === "pt-BR") {
-          state.accentMode = state.dramaVoice;
+        const meta = EDGE_VOICE_META[state.dramaVoice];
+        if (meta && state.accentMode !== "pt-vs-br") {
+          state.accentMode = meta.lang;
         }
         syncAccentUI();
         saveState();
@@ -1605,26 +1669,40 @@
         });
       }
 
-      // Find best system voice for pt-PT or pt-BR
-      function pickPortugueseVoice(langCode) {
+      // Find best system voice for pt-PT or pt-BR, prioritizing Microsoft Edge Natural & Apple Premium voices
+      function pickPortugueseVoice(langCode, preferredShortName) {
         if (!("speechSynthesis" in window)) return null;
         const voices = window.speechSynthesis.getVoices() || [];
         const isBr = langCode === "pt-BR";
-        const exact = voices.find(v => {
+        const targetLang = isBr ? "pt-br" : "pt-pt";
+
+        const matchingLang = voices.filter(v => {
           const l = (v.lang || "").replace("_", "-").toLowerCase();
-          return isBr ? l === "pt-br" : l === "pt-pt";
+          return l === targetLang || (isBr ? (l.startsWith("pt") && l.includes("br")) : l.includes("pt-pt"));
         });
-        if (exact) return exact;
-        const partial = voices.find(v => {
-          const l = (v.lang || "").replace("_", "-").toLowerCase();
-          return isBr ? l.includes("br") && l.startsWith("pt") : l.includes("pt-pt");
-        });
-        if (partial) return partial;
+
+        if (matchingLang.length > 0) {
+          // 1. Check if the exact requested Edge voice is natively available in the browser (e.g. Microsoft Edge)
+          if (preferredShortName) {
+            const coreName = preferredShortName.replace(/^pt-(BR|PT)-/i, "").replace(/Neural$/i, "").toLowerCase();
+            const exactEdge = matchingLang.find(v => (v.name || "").toLowerCase().includes(coreName));
+            if (exactEdge) return exactEdge;
+          }
+          // 2. Prioritize Microsoft Natural/Online or Apple Premium/Enhanced voices
+          const highQualityKeywords = isBr
+            ? ["francisca", "antonio", "thalita", "natural", "online", "luciana", "felipe", "premium", "enhanced"]
+            : ["raquel", "duarte", "natural", "online", "joana", "catarina", "premium", "enhanced"];
+          for (const kw of highQualityKeywords) {
+            const best = matchingLang.find(v => (v.name || "").toLowerCase().includes(kw));
+            if (best) return best;
+          }
+          return matchingLang[0];
+        }
         return voices.find(v => (v.lang || "").toLowerCase().startsWith("pt")) || null;
       }
 
       // Speak Portuguese phrase via Web Speech API (returns a Promise for sequential dual-accent playback)
-      function speakWebSpeechAsync(text, langCode, targetEl) {
+      function speakWebSpeechAsync(text, langCode, targetEl, preferredShortName) {
         return new Promise((resolve) => {
           if (!("speechSynthesis" in window)) {
             resolve();
@@ -1633,9 +1711,10 @@
           window.speechSynthesis.cancel();
           dramaTtsAudio.pause();
           const utter = new SpeechSynthesisUtterance(text);
-          const chosenVoice = pickPortugueseVoice(langCode);
+          const effectiveLang = langCode || (state.accentMode === "pt-BR" ? "pt-BR" : "pt-PT");
+          const chosenVoice = pickPortugueseVoice(effectiveLang, preferredShortName);
           if (chosenVoice) utter.voice = chosenVoice;
-          utter.lang = langCode || (state.dramaVoice === "pt-BR" ? "pt-BR" : "pt-PT");
+          utter.lang = effectiveLang;
           utter.rate = 0.92;
 
           clearSpeakingHighlights();
@@ -1656,15 +1735,226 @@
           };
           utter.onend = finish;
           utter.onerror = finish;
-          // Safety timeout in case mobile browser doesn't fire onend
           setTimeout(finish, Math.max(2500, text.length * 140));
           window.speechSynthesis.speak(utter);
         });
       }
 
       function speakWebSpeech(text, targetEl, forcedLang) {
-        const lang = forcedLang || (state.dramaVoice === "pt-BR" ? "pt-BR" : "pt-PT");
+        const lang = forcedLang || (state.accentMode === "pt-BR" ? "pt-BR" : "pt-PT");
         return speakWebSpeechAsync(text, lang, targetEl);
+      }
+
+      // ─── Microsoft Edge-TTS Neural Voice Client (Local Server + Cloud HF Space + Native Edge) ───
+      const edgeTtsCache = new Map(); // key: `${voiceShortName}::${text.toLowerCase()}` -> { url, source }
+      let localEdgeServerStatus = "unknown"; // "unknown" | "online" | "offline"
+
+      async function callCloudEdgeTtsGradio(text, voiceShortName, signal) {
+        const meta = EDGE_VOICE_META[voiceShortName] || EDGE_VOICE_META["pt-BR-FranciscaNeural"];
+        const endpoints = ["tts_interface", "predict"];
+        let lastErr = null;
+
+        for (const ep of endpoints) {
+          const timeoutCtrl = new AbortController();
+          const timeoutId = setTimeout(() => timeoutCtrl.abort(), 3500);
+          if (signal) {
+            signal.addEventListener("abort", () => timeoutCtrl.abort(), { once: true });
+          }
+          try {
+            const postRes = await fetch(`${EDGE_TTS_SPACE_HOST}/gradio_api/call/${ep}`, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                data: [text.trim(), meta.gradioLabel, -5, 0]
+              }),
+              signal: timeoutCtrl.signal
+            });
+            clearTimeout(timeoutId);
+            if (!postRes.ok) continue;
+            const { event_id } = await postRes.json();
+            if (!event_id) continue;
+
+            const streamRes = await fetch(`${EDGE_TTS_SPACE_HOST}/gradio_api/call/${ep}/${event_id}`, { signal });
+            if (!streamRes.ok || !streamRes.body) continue;
+
+            const reader = streamRes.body.getReader();
+            const decoder = new TextDecoder();
+            let buffer = "";
+
+            while (true) {
+              const { value, done } = await reader.read();
+              if (done) break;
+              buffer += decoder.decode(value, { stream: true });
+
+              while (buffer.includes("\n\n")) {
+                const idx = buffer.indexOf("\n\n");
+                const rawEvent = buffer.slice(0, idx);
+                buffer = buffer.slice(idx + 2);
+
+                let eventType = "message";
+                let dataStr = "";
+                for (const line of rawEvent.split("\n")) {
+                  if (line.startsWith("event:")) eventType = line.slice(6).trim();
+                  else if (line.startsWith("data:")) dataStr += line.slice(5).trim();
+                }
+                if (!dataStr || dataStr === "null") continue;
+                if (eventType === "error") {
+                  throw new Error(dataStr);
+                }
+                if (eventType === "complete") {
+                  const parsed = JSON.parse(dataStr);
+                  if (Array.isArray(parsed) && parsed[0]) {
+                    const audioObj = parsed[0];
+                    const rawUrl = typeof audioObj === "string" ? audioObj : (audioObj.url || audioObj.path);
+                    if (rawUrl) {
+                      const fullUrl = rawUrl.startsWith("http")
+                        ? rawUrl
+                        : `${EDGE_TTS_SPACE_HOST}${rawUrl.startsWith("/") ? "" : "/gradio_api/file="}${rawUrl}`;
+                      const audioRes = await fetch(fullUrl, { signal });
+                      if (audioRes.ok) {
+                        const blob = await audioRes.blob();
+                        return {
+                          url: URL.createObjectURL(blob),
+                          source: "☁️ 微软 Edge-TTS 云端神经网络"
+                        };
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          } catch (e) {
+            if (signal && signal.aborted) throw e;
+            lastErr = e;
+          }
+        }
+        throw lastErr || new Error("Edge-TTS 云端合成超时");
+      }
+
+      async function synthesizeEdgeTtsAudio(text, voiceShortName, signal) {
+        const cacheKey = `${voiceShortName}::${text.trim().toLowerCase()}`;
+        if (edgeTtsCache.has(cacheKey)) {
+          return { ...edgeTtsCache.get(cacheKey), cached: true };
+        }
+
+        // 1. Try local edge_tts_server.py first (ultra-low latency ~200ms + permanent disk cache)
+        if (localEdgeServerStatus !== "offline") {
+          try {
+            const localCtrl = new AbortController();
+            const timer = setTimeout(() => localCtrl.abort(), localEdgeServerStatus === "online" ? 6000 : 1200);
+            if (signal) {
+              signal.addEventListener("abort", () => localCtrl.abort(), { once: true });
+            }
+            const url = `${LOCAL_EDGE_TTS_URL}?voice=${encodeURIComponent(voiceShortName)}&rate=-5%25&text=${encodeURIComponent(text.trim())}`;
+            const res = await fetch(url, { signal: localCtrl.signal });
+            clearTimeout(timer);
+            if (res.ok) {
+              localEdgeServerStatus = "online";
+              const blob = await res.blob();
+              const objUrl = URL.createObjectURL(blob);
+              const entry = { url: objUrl, source: "🎙️ 微软 Edge-TTS 直连神经网络" };
+              edgeTtsCache.set(cacheKey, entry);
+              return entry;
+            }
+          } catch (e) {
+            if (signal && signal.aborted) throw e;
+            if (localEdgeServerStatus === "unknown") {
+              localEdgeServerStatus = "offline";
+            }
+          }
+        }
+
+        // 2. Fallback to Cloud Edge-TTS HuggingFace Space (works everywhere without local server)
+        const cloudEntry = await callCloudEdgeTtsGradio(text, voiceShortName, signal);
+        edgeTtsCache.set(cacheKey, cloudEntry);
+        return cloudEntry;
+      }
+
+      async function speakEdgeTtsAsync(text, langOrVoice, targetEl) {
+        const cleanText = (text || "").replace(/\s+/g, " ").trim();
+        if (!cleanText) return;
+
+        const voiceShortName = resolveEdgeVoice(langOrVoice);
+        const meta = EDGE_VOICE_META[voiceShortName] || EDGE_VOICE_META["pt-BR-FranciscaNeural"];
+
+        // If user is on Microsoft Edge browser where the exact Neural voice is natively built into speechSynthesis, use it directly with zero latency
+        if ("speechSynthesis" in window) {
+          const voices = window.speechSynthesis.getVoices() || [];
+          const coreName = voiceShortName.replace(/^pt-(BR|PT)-/i, "").replace(/Neural$/i, "").toLowerCase();
+          const nativeEdgeMatch = voices.find(v => {
+            const n = (v.name || "").toLowerCase();
+            return n.includes("microsoft") && n.includes(coreName) && (n.includes("natural") || n.includes("online"));
+          });
+          if (nativeEdgeMatch) {
+            await speakWebSpeechAsync(cleanText, meta.lang, targetEl, voiceShortName);
+            return;
+          }
+        }
+
+        if (activeDramaAbort) {
+          activeDramaAbort.abort();
+          activeDramaAbort = null;
+        }
+        if ("speechSynthesis" in window) window.speechSynthesis.cancel();
+        dramaTtsAudio.pause();
+        clearSpeakingHighlights();
+
+        const isWordEl = targetEl && targetEl.classList && targetEl.classList.contains("pt-word");
+        const abortCtrl = new AbortController();
+        activeDramaAbort = abortCtrl;
+
+        if (targetEl) {
+          targetEl.classList.add(isWordEl ? "word-loading" : "loading-tts");
+        }
+        dramaCustomBtn.disabled = true;
+        showDramaToast(
+          `🎙️ 正在合成 (${meta.displayLabel}): "${cleanText}"`,
+          `正在调用微软 Edge-TTS 神经网络语音…`,
+          ""
+        );
+
+        const t0 = performance.now();
+        try {
+          const result = await synthesizeEdgeTtsAudio(cleanText, voiceShortName, abortCtrl.signal);
+          if (abortCtrl.signal.aborted) return;
+
+          const elapsed = ((performance.now() - t0) / 1000).toFixed(2);
+          const subLabel = result.cached
+            ? `⚡ 缓存秒播 · ${meta.displayLabel}`
+            : `${result.source} · ${meta.displayLabel} (${elapsed}s)`;
+
+          if (!audio.paused) audio.pause();
+          if (targetEl) {
+            targetEl.classList.remove("loading-tts", "word-loading");
+            targetEl.classList.add(isWordEl ? "word-speaking" : "speaking");
+          }
+          showDramaToast(`🔊 "${cleanText}"`, subLabel, result.url);
+
+          await new Promise((resolve) => {
+            let settled = false;
+            const done = () => {
+              if (settled) return;
+              settled = true;
+              if (targetEl) targetEl.classList.remove("speaking", "word-speaking");
+              resolve();
+            };
+            dramaTtsAudio.src = result.url;
+            dramaTtsAudio.currentTime = 0;
+            dramaTtsAudio.playbackRate = 1.0;
+            dramaTtsAudio.onended = done;
+            dramaTtsAudio.onerror = done;
+            dramaTtsAudio.play().catch(done);
+          });
+        } catch (err) {
+          if (abortCtrl.signal.aborted) return;
+          if (targetEl) targetEl.classList.remove("loading-tts", "word-loading");
+          await speakWebSpeechAsync(cleanText, meta.lang, targetEl, voiceShortName);
+        } finally {
+          if (activeDramaAbort === abortCtrl) {
+            activeDramaAbort = null;
+            dramaCustomBtn.disabled = false;
+          }
+        }
       }
 
       // Sequential comparison playback: plays PT-PT first, pauses 350ms, then plays PT-BR
@@ -1672,6 +1962,15 @@
         const cleanPt = (ptText || "").split("/")[0].replace(/\(.*?\)/g, "").trim();
         const cleanBr = (brText || cleanPt).split("/")[0].replace(/\(.*?\)/g, "").trim();
         if (!cleanPt) return;
+
+        if (state.ttsEngine === "edgetts") {
+          showDramaToast(`🆚 葡巴对比 (1/2) 🇵🇹: "${cleanPt}"`, `先读 🇵🇹 RaquelNeural，随后自动读 🇧🇷 FranciscaNeural…`, "");
+          await speakEdgeTtsAsync(cleanPt, "pt-PT-RaquelNeural", targetEl);
+          await new Promise(r => setTimeout(r, 320));
+          showDramaToast(`🆚 葡巴对比 (2/2) 🇧🇷: "${cleanBr}"`, `🇵🇹 "${cleanPt}"  ➔  🇧🇷 "${cleanBr}"`, "");
+          await speakEdgeTtsAsync(cleanBr, "pt-BR-FranciscaNeural", targetEl);
+          return;
+        }
 
         showDramaToast(`🆚 葡巴对比 (1/2) 🇵🇹: "${cleanPt}"`, `正在先读 🇵🇹 欧洲葡语，随后自动读 🇧🇷 巴西葡语…`, "");
         await speakWebSpeechAsync(cleanPt, "pt-PT", targetEl);
@@ -1927,13 +2226,20 @@
 
         const effectiveLang = forcedLang || (state.accentMode === "pt-BR" ? "pt-BR" : "pt-PT");
 
-        // If user selected local Web Speech API (default), speak immediately with native Portuguese voice
+        // 1. Microsoft Edge-TTS Neural Voice (Default)
+        if (state.ttsEngine === "edgetts" || (!state.ttsEngine)) {
+          const targetVoiceOrLang = forcedLang || (state.accentMode === "pt-BR" ? resolveEdgeVoice("pt-BR") : resolveEdgeVoice("pt-PT"));
+          await speakEdgeTtsAsync(cleanText, targetVoiceOrLang, targetEl);
+          return;
+        }
+
+        // 2. Local Web Speech API
         if (state.ttsEngine === "webspeech") {
           await speakWebSpeechAsync(cleanText, effectiveLang, targetEl);
           return;
         }
 
-        // Otherwise use Drama-3
+        // 3. Otherwise use Drama-3
         if (activeDramaAbort) {
           activeDramaAbort.abort();
           activeDramaAbort = null;
@@ -2860,6 +3166,9 @@
         window.speechSynthesis.onvoiceschanged = () => window.speechSynthesis.getVoices();
       }
 
+      // Expose speak helper for Pronunciation Coach Agent
+      window.PT_APP_SPEAK = (txt, opts) => speakPortuguese(txt, null, opts);
+
       // Initialize
       renderUnit(false);
 
@@ -2868,5 +3177,6 @@
       }
     })();
   </script>
+  <script src="pronunciation_coach.js"></script>
 </body>
 </html>

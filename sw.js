@@ -1,4 +1,4 @@
-const CACHE_NAME = "pt-univ-vol1-v4";
+const CACHE_NAME = "pt-univ-vol1-v6";
 const CORE_ASSETS = [
   "./",
   "./index.html",
@@ -6,6 +6,7 @@ const CORE_ASSETS = [
   "./course_data.js",
   "./trade_vocab_data.js",
   "./br_clips_data.js",
+  "./pronunciation_coach.js",
   "./manifest.json"
 ];
 
@@ -47,6 +48,11 @@ self.addEventListener("fetch", (event) => {
         })
         .catch(() => caches.match(event.request))
     );
+    return;
+  }
+
+  // Never cache dynamic API endpoints or live microphone recordings
+  if (event.request.url.includes("/api/") || event.request.url.includes("/audio/my_recordings/")) {
     return;
   }
 

@@ -7,3 +7,5 @@ tracks_meta.json
 dist.zip
 portuguese-web-deploy.zip
 trade_vocab_cache.json
+audio/my_recordings/
+audio/tts_cache/
