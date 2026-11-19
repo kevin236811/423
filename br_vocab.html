@@ -1,0 +1,1347 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#047857" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <title>🇧🇷 巴西生意葡语 · 零基础单词本（点读·慢读·单字测发音·闪卡）</title>
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --surface: #ffffff;
+      --surface-alt: #f1f5f9;
+      --text: #0f172a;
+      --text-muted: #64748b;
+      --primary: #047857;
+      --primary-dark: #065f46;
+      --primary-light: #ecfdf5;
+      --primary-border: #a7f3d0;
+      --blue: #1d4ed8;
+      --blue-light: #eff6ff;
+      --accent: #d97706;
+      --accent-light: #fffbeb;
+      --danger: #dc2626;
+      --border: #e2e8f0;
+      --shadow: 0 4px 18px -2px rgba(15, 23, 42, 0.08);
+      --radius: 16px;
+      --safe-bottom: env(safe-area-inset-bottom, 0px);
+    }
+
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      padding-bottom: calc(90px + var(--safe-bottom));
+    }
+
+    /* Sticky Header */
+    .app-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      padding: 10px 14px 8px;
+    }
+
+    .header-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .header-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .brand-box {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .brand-badge {
+      background: linear-gradient(135deg, #059669, #1d4ed8);
+      color: #fff;
+      font-weight: 800;
+      font-size: 12px;
+      padding: 4px 9px;
+      border-radius: 9px;
+    }
+
+    .brand-title {
+      font-size: 15.5px;
+      font-weight: 800;
+      margin: 0;
+      color: var(--text);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .nav-pill {
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 5px 10px;
+      border-radius: 9px;
+      border: 1px solid var(--border);
+      background: var(--surface-alt);
+      color: var(--text);
+      cursor: pointer;
+    }
+    .nav-pill:hover { background: #e2e8f0; }
+
+    .mode-switch {
+      display: flex;
+      background: var(--surface-alt);
+      padding: 3px;
+      border-radius: 11px;
+      border: 1px solid var(--border);
+      gap: 3px;
+    }
+
+    .mode-btn {
+      border: none;
+      background: transparent;
+      padding: 6px 12px;
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--text-muted);
+      border-radius: 8px;
+      cursor: pointer;
+      white-space: nowrap;
+      flex: 1;
+      transition: all 0.15s;
+    }
+    .mode-btn.active {
+      background: var(--surface);
+      color: var(--primary);
+      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.08);
+    }
+
+    /* Main Container */
+    .main-wrap {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 14px;
+    }
+
+    /* Progress Hero */
+    .hero-card {
+      background: linear-gradient(135deg, #064e3b 0%, #047857 55%, #1e40af 100%);
+      color: #fff;
+      border-radius: 18px;
+      padding: 16px 18px;
+      margin-bottom: 14px;
+      box-shadow: 0 10px 26px -6px rgba(4, 120, 87, 0.35);
+    }
+
+    .hero-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .hero-title {
+      font-size: 18px;
+      font-weight: 900;
+      margin: 0 0 4px;
+    }
+
+    .hero-sub {
+      font-size: 12.5px;
+      opacity: 0.9;
+      margin: 0;
+    }
+
+    .stats-row {
+      display: flex;
+      gap: 8px;
+      margin-top: 12px;
+      flex-wrap: wrap;
+    }
+
+    .stat-pill {
+      background: rgba(255, 255, 255, 0.14);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 10px;
+      padding: 5px 11px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    /* Category Tabs */
+    .cat-strip {
+      display: flex;
+      gap: 7px;
+      overflow-x: auto;
+      padding: 2px 0 10px;
+      scrollbar-width: none;
+    }
+    .cat-strip::-webkit-scrollbar { display: none; }
+
+    .cat-pill {
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: #334155;
+      padding: 6px 12px;
+      border-radius: 99px;
+      font-size: 12.5px;
+      font-weight: 700;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .cat-pill.active {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+
+    /* Toolbar */
+    .toolbar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+
+    .search-input {
+      flex: 1;
+      min-width: 180px;
+      padding: 8px 12px;
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      font-size: 13.5px;
+      background: var(--surface);
+      color: var(--text);
+      font-family: inherit;
+    }
+    .search-input:focus { outline: none; border-color: var(--primary); }
+
+    .tool-btn {
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+      padding: 7px 11px;
+      border-radius: 10px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      white-space: nowrap;
+    }
+    .tool-btn.active {
+      background: var(--primary-light);
+      color: var(--primary);
+      border-color: var(--primary-border);
+    }
+    .tool-btn.playing-auto {
+      background: #fef3c7;
+      color: #92400e;
+      border-color: #fde68a;
+    }
+
+    .cat-banner {
+      background: var(--primary-light);
+      border: 1px solid var(--primary-border);
+      border-radius: 12px;
+      padding: 9px 13px;
+      margin-bottom: 12px;
+      font-size: 12.5px;
+      color: #065f46;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    /* Word Grid */
+    .word-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+      gap: 12px;
+    }
+
+    .word-card {
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      transition: transform 0.12s, border-color 0.15s;
+    }
+    .word-card.speaking {
+      border-color: var(--primary);
+      background: #f0fdf4;
+    }
+    .word-card.mastered {
+      border-color: #86efac;
+      background: linear-gradient(180deg, #ffffff 0%, #f0fdf4 100%);
+    }
+
+    .card-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .word-main {
+      cursor: pointer;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .word-pt-row {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .art-tag {
+      font-size: 12px;
+      font-weight: 800;
+      padding: 1px 6px;
+      border-radius: 6px;
+    }
+    .art-m { background: #dbeafe; color: #1e40af; }
+    .art-f { background: #fce7f3; color: #be185d; }
+    .art-v { background: #dcfce7; color: #166534; }
+    .art-o { background: #f1f5f9; color: #475569; }
+
+    .word-pt {
+      font-size: 22px;
+      font-weight: 900;
+      color: var(--text);
+      letter-spacing: -0.2px;
+    }
+
+    .word-pos {
+      font-size: 11px;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .word-syl-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 3px;
+    }
+
+    .syl-badge {
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 12.5px;
+      font-weight: 700;
+      color: #047857;
+      background: #ecfdf5;
+      padding: 1px 7px;
+      border-radius: 6px;
+      border: 1px solid #a7f3d0;
+    }
+
+    .ipa-text {
+      font-size: 12px;
+      color: #475569;
+    }
+
+    .word-zh {
+      font-size: 15px;
+      font-weight: 700;
+      color: #1e293b;
+      padding-top: 2px;
+    }
+
+    .word-tip {
+      font-size: 12px;
+      color: #475569;
+      background: #fffbeb;
+      border-left: 3px solid #f59e0b;
+      padding: 5px 8px;
+      border-radius: 6px;
+      line-height: 1.45;
+    }
+
+    .card-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-top: 2px;
+      padding-top: 8px;
+      border-top: 1px dashed var(--border);
+    }
+
+    .act-btn {
+      border: 1px solid var(--border);
+      background: var(--surface-alt);
+      color: var(--text);
+      border-radius: 9px;
+      padding: 5px 9px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+    }
+    .act-btn:hover { background: #e2e8f0; }
+    .act-btn.speak { background: #ecfdf5; border-color: #a7f3d0; color: #047857; }
+    .act-btn.slow  { background: #eff6ff; border-color: #bfdbfe; color: #1d4ed8; }
+    .act-btn.mic   { background: #f5f3ff; border-color: #ddd6fe; color: #6d28d9; }
+    .act-btn.mic.recording {
+      background: #dc2626;
+      color: #fff;
+      border-color: #dc2626;
+      animation: pulseRec 1.1s infinite;
+    }
+    @keyframes pulseRec {
+      0% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.5); }
+      70% { box-shadow: 0 0 0 8px rgba(220, 38, 38, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0); }
+    }
+
+    .icon-btn {
+      border: none;
+      background: transparent;
+      font-size: 18px;
+      cursor: pointer;
+      padding: 2px 4px;
+      color: #cbd5e1;
+      line-height: 1;
+    }
+    .icon-btn.starred { color: #f59e0b; }
+    .icon-btn.done-btn {
+      font-size: 12px;
+      font-weight: 700;
+      padding: 4px 8px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      background: var(--surface);
+      margin-left: auto;
+    }
+    .icon-btn.done-btn.mastered {
+      background: #dcfce7;
+      color: #166534;
+      border-color: #86efac;
+    }
+
+    .mic-feedback {
+      font-size: 12px;
+      font-weight: 700;
+      padding: 6px 9px;
+      border-radius: 8px;
+      display: none;
+    }
+    .mic-feedback.show { display: block; }
+    .mic-feedback.good { background: #dcfce7; color: #166534; }
+    .mic-feedback.warn { background: #fef3c7; color: #92400e; }
+    .mic-feedback.bad  { background: #fee2e2; color: #991b1b; }
+
+    /* Masking */
+    body.mask-zh .maskable-zh {
+      filter: blur(7px);
+      user-select: none;
+      transition: filter 0.15s;
+    }
+    body.mask-pt .maskable-pt {
+      filter: blur(7px);
+      user-select: none;
+      transition: filter 0.15s;
+    }
+    .word-card:hover .maskable-zh,
+    .word-card:hover .maskable-pt,
+    .word-card.revealed .maskable-zh,
+    .word-card.revealed .maskable-pt {
+      filter: none;
+    }
+
+    /* Flashcard Mode */
+    .flash-wrap {
+      max-width: 560px;
+      margin: 10px auto;
+      display: none;
+    }
+    .flash-wrap.active { display: block; }
+
+    .flash-card {
+      background: var(--surface);
+      border: 2px solid var(--primary-border);
+      border-radius: 22px;
+      padding: 26px 20px;
+      box-shadow: 0 12px 30px -8px rgba(4, 120, 87, 0.18);
+      text-align: center;
+      cursor: pointer;
+      min-height: 280px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .flash-word {
+      font-size: 38px;
+      font-weight: 900;
+      color: var(--text);
+      line-height: 1.2;
+    }
+
+    .flash-back {
+      width: 100%;
+      margin-top: 10px;
+      padding-top: 14px;
+      border-top: 1.5px dashed var(--border);
+      display: none;
+    }
+    .flash-card.flipped .flash-back { display: block; }
+
+    .flash-controls {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 14px;
+    }
+
+    .flash-rate-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .rate-btn {
+      border: none;
+      border-radius: 12px;
+      padding: 11px 8px;
+      font-size: 13.5px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+    .rate-btn.hard { background: #fee2e2; color: #991b1b; }
+    .rate-btn.mid  { background: #fef3c7; color: #92400e; }
+    .rate-btn.easy { background: #dcfce7; color: #166534; }
+
+    .toast-bar {
+      position: fixed;
+      bottom: calc(14px + var(--safe-bottom));
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(15, 23, 42, 0.94);
+      color: #fff;
+      padding: 8px 16px;
+      border-radius: 99px;
+      font-size: 12.5px;
+      font-weight: 600;
+      z-index: 90;
+      display: none;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+      max-width: 92vw;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .toast-bar.show { display: block; }
+  </style>
+</head>
+<body>
+  <header class="app-header">
+    <div class="header-inner">
+      <div class="header-top">
+        <div class="brand-box">
+          <span class="brand-badge">🇧🇷 巴葡单词本</span>
+          <h1 class="brand-title">巴西生意 · 零基础高频词汇</h1>
+        </div>
+        <div class="nav-links">
+          <a href="index.html" class="nav-pill">📖 大学葡语 1</a>
+          <a href="trade_english.html" class="nav-pill" style="color:#1d4ed8;">🇬🇧 外贸英语</a>
+        </div>
+      </div>
+
+      <div class="mode-switch">
+        <button class="mode-btn active" data-mode="list">📇 词表点读</button>
+        <button class="mode-btn" data-mode="flash">🃏 闪卡背词</button>
+        <button class="mode-btn" data-mode="review">⭐ 生词 / 未掌握 (<span id="reviewCountBadge">0</span>)</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-wrap">
+    <!-- Hero Progress -->
+    <section class="hero-card">
+      <div class="hero-top">
+        <div>
+          <h2 class="hero-title">从单个词开始开口：听标准音 → 慢速拆音节 → 单字测发音</h2>
+          <p class="hero-sub">专为做巴西生意、还没法读整句的初学者整理。每词自带 🔵阳性/🔴阴性冠词、重音大写与巴葡口音避坑提示。</p>
+        </div>
+      </div>
+      <div class="stats-row">
+        <span class="stat-pill" id="statTotal">📚 总词数：0</span>
+        <span class="stat-pill" id="statMastered">✅ 已掌握：0</span>
+        <span class="stat-pill" id="statStarred">⭐ 生词本：0</span>
+        <span class="stat-pill" id="statVoiceEngine">🎙️ 巴葡神经语音就绪</span>
+      </div>
+    </section>
+
+    <!-- Category Pills -->
+    <div class="cat-strip" id="catStrip"></div>
+
+    <!-- Search & Action Toolbar -->
+    <div class="toolbar">
+      <input type="text" class="search-input" id="searchInput" placeholder="搜索葡语或中文（如：报价、样品、frete、obrigado）…" />
+      <button class="tool-btn" id="maskZhBtn">👁️ 遮中文</button>
+      <button class="tool-btn" id="maskPtBtn">🙈 遮葡语</button>
+      <button class="tool-btn" id="autoPlayBtn">🎧 连播磨耳朵</button>
+    </div>
+
+    <div class="cat-banner" id="catBanner"></div>
+
+    <!-- List View -->
+    <section class="word-grid" id="wordGrid"></section>
+
+    <!-- Flashcard View -->
+    <section class="flash-wrap" id="flashWrap">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;font-size:12.5px;color:var(--text-muted);">
+        <span id="flashCounter">第 1 / 1 词</span>
+        <span>👆 点击卡片翻转看中文与口型提示</span>
+      </div>
+
+      <div class="flash-card" id="flashCard">
+        <div id="flashArtBadge"></div>
+        <div class="flash-word" id="flashWordPt">oi</div>
+        <div class="word-syl-row" style="justify-content:center;">
+          <span class="syl-badge" id="flashSyl">OI</span>
+          <span class="ipa-text" id="flashIpa">[oj] 欧衣</span>
+        </div>
+        <div class="flash-back" id="flashBack">
+          <div style="font-size:20px;font-weight:800;color:#0f172a;margin-bottom:8px;" id="flashZh">嗨 / 你好</div>
+          <div class="word-tip" style="text-align:left;" id="flashTip"></div>
+        </div>
+      </div>
+
+      <div class="flash-controls">
+        <button class="act-btn speak" id="flashSpeakBtn" style="padding:8px 14px;font-size:13.5px;">🔊 巴葡标准读</button>
+        <button class="act-btn slow" id="flashSlowBtn" style="padding:8px 14px;font-size:13.5px;">🐢 慢速拆解</button>
+        <button class="act-btn mic" id="flashMicBtn" style="padding:8px 14px;font-size:13.5px;">🎙️ 跟读测单字</button>
+        <button class="act-btn" id="flashStarBtn" style="padding:8px 12px;font-size:13.5px;">☆ 收藏</button>
+      </div>
+      <div class="mic-feedback" id="flashMicFeedback" style="margin-top:8px;text-align:center;"></div>
+
+      <div class="flash-rate-row">
+        <button class="rate-btn hard" id="rateHardBtn">🔴 没记住 (收藏)</button>
+        <button class="rate-btn mid" id="rateMidBtn">🟡 下一个 ➡</button>
+        <button class="rate-btn easy" id="rateEasyBtn">🟢 已掌握 ✓</button>
+      </div>
+    </section>
+  </main>
+
+  <div class="toast-bar" id="toastBar"></div>
+
+  <script src="br_vocab_data.js"></script>
+  <script src="course_data.js" onerror="window.COURSE_DATA = null"></script>
+  <script>
+    (function () {
+      const STORAGE_KEY = "br_vocab_book_state_v1";
+      const LOCAL_API_BASE =
+        location.protocol.startsWith("http") && location.port === "8765"
+          ? location.origin
+          : "http://127.0.0.1:8765";
+      const EDGE_TTS_SPACE = "https://innoai-edge-tts-text-to-speech.hf.space";
+
+      // Build unified categories (10 Brazil Business Packs + Textbook Vol.1 BR-adapted Vocab)
+      const CATEGORIES = (window.BR_VOCAB_CATEGORIES || []).map((c) => ({
+        ...c,
+        words: c.words.map((w) => ({ ...w, catId: c.id, key: `${c.id}::${w.pt}` }))
+      }));
+
+      // Append 《大学葡萄牙语 1》 textbook vocabulary mapped to Brazilian Portuguese
+      if (window.COURSE_DATA && Array.isArray(window.COURSE_DATA.units)) {
+        const brMap = (window.PT_BR_DATA && window.PT_BR_DATA.vocabBrMap) || {};
+        const seenPt = new Set();
+        CATEGORIES.forEach((c) => c.words.forEach((w) => seenPt.add(w.pt.toLowerCase())));
+        const bookWords = [];
+        window.COURSE_DATA.units.forEach((u) => {
+          (u.vocab || []).forEach((v) => {
+            if (!v.pt || v.pos === "缩略语") return;
+            const rawClean = v.pt.replace(/\(.*?\)/g, "").split("/")[0].trim();
+            const brObj = v.br || brMap[v.pt] || brMap[rawClean];
+            const finalPt = brObj
+              ? brObj.word.replace(/\(.*?\)/g, "").split("/")[0].trim()
+              : rawClean;
+            if (!finalPt || seenPt.has(finalPt.toLowerCase())) return;
+            seenPt.add(finalPt.toLowerCase());
+            const art = v.pos && v.pos.includes("m.") ? "o" : v.pos && v.pos.includes("f.") ? "a" : "";
+            bookWords.push({
+              pt: finalPt,
+              art,
+              pos: v.pos || "",
+              zh: v.zh || "",
+              syl: guessStressDisplay(finalPt),
+              ipa: brObj ? "🇧🇷 已转为巴葡常用词" : `教材 ${u.badge}`,
+              tip: brObj ? `巴葡对照：${brObj.note}（课本原词：${v.pt}）` : `来自《大学葡萄牙语 1》${u.badge} (${u.titleZh})`,
+              catId: "textbook1",
+              key: `textbook1::${finalPt}`
+            });
+          });
+        });
+
+        if (bookWords.length > 0) {
+          CATEGORIES.push({
+            id: "textbook1",
+            icon: "📚",
+            title: `11 · 《大学葡语1》课本生词 (${bookWords.length}词)`,
+            desc: "已自动把课本里的欧洲葡语词替换成巴西地道说法，可与课本精读同步背诵",
+            words: bookWords
+          });
+        }
+      }
+
+      const ALL_WORDS = CATEGORIES.flatMap((c) => c.words);
+
+      function guessStressDisplay(word) {
+        const w = word.trim();
+        if (w.includes(" ") || w.length <= 3) return w.toUpperCase();
+        const accents = /[áéíóúâêôãõ]/i;
+        if (accents.test(w)) {
+          return w.replace(/([bcdfghjklmnpqrstvwxyz]?[áéíóúâêôãõ][a-z]*)/i, (m) => m.toUpperCase());
+        }
+        return w;
+      }
+
+      // Persisted state
+      let state = {
+        mode: "list",
+        catId: "greetings",
+        search: "",
+        maskZh: false,
+        maskPt: false,
+        starred: {},
+        mastered: {},
+        flashIdx: 0
+      };
+
+      try {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) state = Object.assign(state, JSON.parse(saved));
+      } catch (_) {}
+
+      function saveState() {
+        try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (_) {}
+      }
+
+      // ─── Toast helper ──────────────────────────────────────────────────────
+      const toastBar = document.getElementById("toastBar");
+      let toastTimer = null;
+      function showToast(msg, ms = 2200) {
+        toastBar.textContent = msg;
+        toastBar.classList.add("show");
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => toastBar.classList.remove("show"), ms);
+      }
+
+      // ─── Audio TTS Engine (Local Edge-TTS -> WebSpeech pt-BR fast fallback) ─
+      const player = new Audio();
+      const audioCache = new Map();
+      let localServerOnline = null;
+
+      async function probeLocalServer() {
+        const badge = document.getElementById("statVoiceEngine");
+        try {
+          const ctrl = new AbortController();
+          const t = setTimeout(() => ctrl.abort(), 1400);
+          const res = await fetch(`${LOCAL_API_BASE}/health`, { signal: ctrl.signal });
+          clearTimeout(t);
+          if (res.ok) {
+            localServerOnline = true;
+            badge.textContent = "🟢 本地微软巴葡神经语音在线";
+            return;
+          }
+        } catch (_) {}
+        localServerOnline = false;
+        badge.textContent = "🌐 浏览器巴葡语音（已就绪）";
+      }
+
+      function playAudioPromise(el) {
+        return new Promise((resolve) => {
+          let settled = false;
+          const done = () => { if (!settled) { settled = true; resolve(); } };
+          el.onended = done;
+          el.onerror = done;
+          el.play().catch(done);
+        });
+      }
+
+      async function speakWordPtBr(text, slow = false, cardEl = null) {
+        const clean = (text || "").trim();
+        if (!clean) return;
+        const rateParam = slow ? "-35%" : "-5%";
+        const cacheKey = `${rateParam}::${clean.toLowerCase()}`;
+
+        document.querySelectorAll(".word-card.speaking").forEach((c) => c.classList.remove("speaking"));
+        if (cardEl) cardEl.classList.add("speaking");
+
+        try {
+          if (audioCache.has(cacheKey)) {
+            player.src = audioCache.get(cacheKey);
+            await playAudioPromise(player);
+            return;
+          }
+
+          if (localServerOnline !== false) {
+            try {
+              const ctrl = new AbortController();
+              const timer = setTimeout(() => ctrl.abort(), 2200);
+              const url = `${LOCAL_API_BASE}/tts?text=${encodeURIComponent(clean)}&voice=pt-BR-FranciscaNeural&rate=${encodeURIComponent(rateParam)}`;
+              const res = await fetch(url, { signal: ctrl.signal });
+              clearTimeout(timer);
+              if (res.ok) {
+                localServerOnline = true;
+                const blob = await res.blob();
+                const objUrl = URL.createObjectURL(blob);
+                audioCache.set(cacheKey, objUrl);
+                player.src = objUrl;
+                await playAudioPromise(player);
+                return;
+              }
+            } catch (_) {
+              if (localServerOnline === null) localServerOnline = false;
+            }
+          }
+
+          // Instant Web Speech API pt-BR fallback (zero latency on mobile/GitHub Pages)
+          if ("speechSynthesis" in window) {
+            await new Promise((resolve) => {
+              window.speechSynthesis.cancel();
+              const u = new SpeechSynthesisUtterance(clean);
+              u.lang = "pt-BR";
+              u.rate = slow ? 0.65 : 0.92;
+              const voices = window.speechSynthesis.getVoices() || [];
+              const brVoice =
+                voices.find((v) => /pt[-_]br/i.test(v.lang) && /natural|neural|luciana|francisca|google/i.test(v.name)) ||
+                voices.find((v) => /pt[-_]br/i.test(v.lang)) ||
+                voices.find((v) => /^pt/i.test(v.lang));
+              if (brVoice) u.voice = brVoice;
+              u.onend = resolve;
+              u.onerror = resolve;
+              window.speechSynthesis.speak(u);
+            });
+          }
+        } finally {
+          if (cardEl) cardEl.classList.remove("speaking");
+        }
+      }
+
+      // ─── Single-Word Pronunciation Check (Inline Mic!) ─────────────────────
+      let activeRec = null;
+      let activeRecBtn = null;
+
+      function stripAccents(s) {
+        return (s || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^a-z0-9]/g, "");
+      }
+
+      function editDist(a, b) {
+        const dp = Array.from({ length: a.length + 1 }, (_, i) => [i]);
+        for (let j = 1; j <= b.length; j++) dp[0][j] = j;
+        for (let i = 1; i <= a.length; i++) {
+          for (let j = 1; j <= b.length; j++) {
+            dp[i][j] = Math.min(dp[i - 1][j] + 1, dp[i][j - 1] + 1, dp[i - 1][j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
+          }
+        }
+        return dp[a.length][b.length];
+      }
+
+      function testSingleWordPronunciation(wordObj, btnEl, feedbackEl) {
+        const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+        if (!SR) {
+          feedbackEl.className = "mic-feedback show warn";
+          feedbackEl.textContent = "⚠️ 当前浏览器不支持语音识别，请用 Chrome / Edge / Safari 体验单字测发音。";
+          return;
+        }
+
+        if (activeRec) {
+          try { activeRec.stop(); } catch (_) {}
+          if (activeRecBtn) {
+            activeRecBtn.classList.remove("recording");
+            activeRecBtn.textContent = "🎙️ 测发音";
+          }
+          if (activeRecBtn === btnEl) {
+            activeRec = null;
+            activeRecBtn = null;
+            return;
+          }
+        }
+
+        const rec = new SR();
+        rec.lang = "pt-BR";
+        rec.interimResults = false;
+        rec.maxAlternatives = 5;
+        activeRec = rec;
+        activeRecBtn = btnEl;
+
+        btnEl.classList.add("recording");
+        btnEl.textContent = "⏹ 请读出该词…";
+        feedbackEl.className = "mic-feedback show warn";
+        feedbackEl.textContent = `🎙️ 请大声读出：${wordObj.pt}`;
+
+        let gotResult = false;
+        rec.onresult = (ev) => {
+          gotResult = true;
+          const res = ev.results[0];
+          const targetLower = wordObj.pt.toLowerCase().trim();
+          const targetBase = stripAccents(wordObj.pt);
+          let bestTier = "bad";
+          let bestHeard = res[0] ? res[0].transcript.trim() : "";
+
+          for (let i = 0; i < res.length; i++) {
+            const heard = (res[i].transcript || "").trim();
+            const heardLow = heard.toLowerCase();
+            const heardBase = stripAccents(heard);
+
+            if (heardLow === targetLower || heardLow.includes(targetLower)) {
+              bestTier = "good";
+              bestHeard = heard;
+              break;
+            }
+            if (heardBase === targetBase || (targetBase.length >= 3 && heardBase.includes(targetBase))) {
+              if (bestTier !== "good") { bestTier = "good"; bestHeard = heard; }
+            } else {
+              const sim = 1 - editDist(targetBase, heardBase) / Math.max(targetBase.length, heardBase.length, 1);
+              if (sim >= 0.6 && bestTier === "bad") {
+                bestTier = "warn";
+                bestHeard = heard;
+              }
+            }
+          }
+
+          if (bestTier === "good") {
+            feedbackEl.className = "mic-feedback show good";
+            feedbackEl.textContent = `🟢 读准了！巴西耳朵听出：“${bestHeard}”`;
+          } else if (bestTier === "warn") {
+            feedbackEl.className = "mic-feedback show warn";
+            feedbackEl.textContent = `🟡 很接近（听成“${bestHeard}”），点 🐢 慢 听清重音 ${wordObj.syl} 再试一次！`;
+          } else {
+            feedbackEl.className = "mic-feedback show bad";
+            feedbackEl.textContent = `🔴 听成“${bestHeard || "无"}”——参考提示：${wordObj.ipa}`;
+          }
+        };
+
+        rec.onerror = (e) => {
+          if (!gotResult) {
+            feedbackEl.className = "mic-feedback show bad";
+            feedbackEl.textContent = e.error === "not-allowed"
+              ? "⚠️ 请允许浏览器麦克风权限后再试。"
+              : "🎤 没听清，请靠近麦克风大声读一遍。";
+          }
+        };
+
+        rec.onend = () => {
+          btnEl.classList.remove("recording");
+          btnEl.textContent = btnEl.id === "flashMicBtn" ? "🎙️ 跟读测单字" : "🎙️ 测发音";
+          if (activeRec === rec) {
+            activeRec = null;
+            activeRecBtn = null;
+          }
+        };
+
+        try {
+          rec.start();
+        } catch (_) {
+          btnEl.classList.remove("recording");
+        }
+      }
+
+      // ─── Filter & Render ───────────────────────────────────────────────────
+      function getFilteredWords() {
+        let list = [];
+        if (state.mode === "review") {
+          list = ALL_WORDS.filter((w) => state.starred[w.key] || !state.mastered[w.key]);
+          const starredFirst = list.filter((w) => state.starred[w.key]);
+          if (starredFirst.length > 0) list = starredFirst;
+        } else if (state.catId === "all") {
+          list = ALL_WORDS;
+        } else {
+          const cat = CATEGORIES.find((c) => c.id === state.catId) || CATEGORIES[0];
+          list = cat ? cat.words : [];
+        }
+
+        const q = (state.search || "").trim().toLowerCase();
+        if (q) {
+          list = ALL_WORDS.filter(
+            (w) =>
+              w.pt.toLowerCase().includes(q) ||
+              stripAccents(w.pt).includes(stripAccents(q)) ||
+              (w.zh || "").toLowerCase().includes(q)
+          );
+        }
+        return list;
+      }
+
+      function updateStats() {
+        const masteredCount = Object.keys(state.mastered).filter((k) => state.mastered[k]).length;
+        const starredCount = Object.keys(state.starred).filter((k) => state.starred[k]).length;
+        document.getElementById("statTotal").textContent = `📚 总词数：${ALL_WORDS.length}`;
+        document.getElementById("statMastered").textContent = `✅ 已掌握：${masteredCount}`;
+        document.getElementById("statStarred").textContent = `⭐ 生词本：${starredCount}`;
+        document.getElementById("reviewCountBadge").textContent = starredCount;
+      }
+
+      function renderCategories() {
+        const strip = document.getElementById("catStrip");
+        strip.innerHTML = "";
+        const allBtn = document.createElement("button");
+        allBtn.className = "cat-pill" + (state.catId === "all" ? " active" : "");
+        allBtn.textContent = `🌟 全部词汇 (${ALL_WORDS.length})`;
+        allBtn.addEventListener("click", () => {
+          state.catId = "all";
+          state.flashIdx = 0;
+          if (state.mode === "review") state.mode = "list";
+          saveState();
+          renderAll();
+        });
+        strip.appendChild(allBtn);
+
+        CATEGORIES.forEach((cat) => {
+          const btn = document.createElement("button");
+          btn.className = "cat-pill" + (state.catId === cat.id && state.mode !== "review" ? " active" : "");
+          btn.textContent = `${cat.icon} ${cat.title}`;
+          btn.addEventListener("click", () => {
+            state.catId = cat.id;
+            state.flashIdx = 0;
+            if (state.mode === "review") state.mode = "list";
+            saveState();
+            renderAll();
+          });
+          strip.appendChild(btn);
+        });
+      }
+
+      function artBadgeHtml(w) {
+        if (w.art === "o") return `<span class="art-tag art-m">🔵 阳性 o</span>`;
+        if (w.art === "a") return `<span class="art-tag art-f">🔴 阴性 a</span>`;
+        if (w.art === "o/a") return `<span class="art-tag art-o">🔵🔴 o/a</span>`;
+        if (w.pos === "v.") return `<span class="art-tag art-v">⚡ 动词</span>`;
+        if (w.pos === "num.") return `<span class="art-tag art-o">🔢 数字</span>`;
+        return "";
+      }
+
+      function renderList(words) {
+        const grid = document.getElementById("wordGrid");
+        grid.innerHTML = "";
+
+        if (!words.length) {
+          grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:36px 12px;color:var(--text-muted);">没有匹配的单词，清空搜索框或换个分类试试吧！</div>`;
+          return;
+        }
+
+        words.forEach((w) => {
+          const isStarred = !!state.starred[w.key];
+          const isMastered = !!state.mastered[w.key];
+          const card = document.createElement("article");
+          card.className = "word-card" + (isMastered ? " mastered" : "");
+          card.innerHTML = `
+            <div class="card-top">
+              <div class="word-main" title="点击直接听巴葡标准发音">
+                <div class="word-pt-row">
+                  ${artBadgeHtml(w)}
+                  <span class="word-pt maskable-pt">${w.pt}</span>
+                  <span class="word-pos">${w.pos}</span>
+                </div>
+                <div class="word-syl-row maskable-pt">
+                  <span class="syl-badge">${w.syl}</span>
+                  <span class="ipa-text">${w.ipa}</span>
+                </div>
+              </div>
+              <button class="icon-btn ${isStarred ? "starred" : ""}" title="加入生词本">★</button>
+            </div>
+            <div class="word-zh maskable-zh">${w.zh}</div>
+            ${w.tip ? `<div class="word-tip">💡 ${w.tip}</div>` : ""}
+            <div class="card-actions">
+              <button class="act-btn speak">🔊 读</button>
+              <button class="act-btn slow">🐢 慢</button>
+              <button class="act-btn mic">🎙️ 测发音</button>
+              <button class="icon-btn done-btn ${isMastered ? "mastered" : ""}">${isMastered ? "✓ 已掌握" : "标为已会"}</button>
+            </div>
+            <div class="mic-feedback"></div>
+          `;
+
+          const wordMain = card.querySelector(".word-main");
+          const speakBtn = card.querySelector(".act-btn.speak");
+          const slowBtn = card.querySelector(".act-btn.slow");
+          const micBtn = card.querySelector(".act-btn.mic");
+          const starBtn = card.querySelector(".icon-btn:not(.done-btn)");
+          const doneBtn = card.querySelector(".done-btn");
+          const feedbackEl = card.querySelector(".mic-feedback");
+
+          wordMain.addEventListener("click", () => {
+            card.classList.toggle("revealed");
+            speakWordPtBr(w.pt, false, card);
+          });
+          speakBtn.addEventListener("click", () => speakWordPtBr(w.pt, false, card));
+          slowBtn.addEventListener("click", () => speakWordPtBr(w.pt, true, card));
+          micBtn.addEventListener("click", () => testSingleWordPronunciation(w, micBtn, feedbackEl));
+
+          starBtn.addEventListener("click", () => {
+            state.starred[w.key] = !state.starred[w.key];
+            if (!state.starred[w.key]) delete state.starred[w.key];
+            starBtn.classList.toggle("starred", !!state.starred[w.key]);
+            saveState();
+            updateStats();
+          });
+
+          doneBtn.addEventListener("click", () => {
+            state.mastered[w.key] = !state.mastered[w.key];
+            if (!state.mastered[w.key]) delete state.mastered[w.key];
+            const nowM = !!state.mastered[w.key];
+            card.classList.toggle("mastered", nowM);
+            doneBtn.classList.toggle("mastered", nowM);
+            doneBtn.textContent = nowM ? "✓ 已掌握" : "标为已会";
+            saveState();
+            updateStats();
+          });
+
+          grid.appendChild(card);
+        });
+      }
+
+      // ─── Flashcard Mode ────────────────────────────────────────────────────
+      let currentFlashList = [];
+      function renderFlashcard(words) {
+        currentFlashList = words;
+        const wrap = document.getElementById("flashWrap");
+        if (!words.length) {
+          document.getElementById("flashWordPt").textContent = "🎉 全部完成！";
+          document.getElementById("flashCounter").textContent = "0 / 0";
+          return;
+        }
+        if (state.flashIdx >= words.length) state.flashIdx = 0;
+        const w = words[state.flashIdx];
+        const card = document.getElementById("flashCard");
+        card.classList.remove("flipped");
+
+        document.getElementById("flashCounter").textContent = `第 ${state.flashIdx + 1} / ${words.length} 词`;
+        document.getElementById("flashArtBadge").innerHTML = artBadgeHtml(w);
+        document.getElementById("flashWordPt").textContent = w.art && w.art !== "o/a" ? `${w.art} ${w.pt}` : w.pt;
+        document.getElementById("flashSyl").textContent = w.syl;
+        document.getElementById("flashIpa").textContent = w.ipa;
+        document.getElementById("flashZh").textContent = w.zh;
+        document.getElementById("flashTip").textContent = w.tip ? `💡 ${w.tip}` : "";
+        document.getElementById("flashStarBtn").textContent = state.starred[w.key] ? "★ 已收藏" : "☆ 收藏";
+        const fb = document.getElementById("flashMicFeedback");
+        fb.className = "mic-feedback";
+        fb.textContent = "";
+      }
+
+      function renderAll() {
+        document.querySelectorAll(".mode-btn").forEach((b) => {
+          b.classList.toggle("active", b.dataset.mode === state.mode);
+        });
+        document.body.classList.toggle("mask-zh", !!state.maskZh);
+        document.body.classList.toggle("mask-pt", !!state.maskPt);
+        document.getElementById("maskZhBtn").classList.toggle("active", !!state.maskZh);
+        document.getElementById("maskPtBtn").classList.toggle("active", !!state.maskPt);
+
+        updateStats();
+        renderCategories();
+
+        const words = getFilteredWords();
+        const banner = document.getElementById("catBanner");
+        if (state.mode === "review") {
+          const starLen = Object.keys(state.starred).filter((k) => state.starred[k]).length;
+          banner.innerHTML = starLen > 0
+            ? `<span>⭐ <strong>生词重点复习模式</strong>：当前展示你收藏的 ${words.length} 个词</span>`
+            : `<span>📚 还没有点星收藏生词，当前为你展示尚未掌握的 ${words.length} 个词</span>`;
+        } else if (state.search.trim()) {
+          banner.innerHTML = `<span>🔍 搜索“${state.search.trim()}”共找到 <strong>${words.length}</strong> 个词</span>`;
+        } else if (state.catId === "all") {
+          banner.innerHTML = `<span>🌟 全部巴西生意 & 课本巴葡词汇，共 <strong>${words.length}</strong> 词</span>`;
+        } else {
+          const cat = CATEGORIES.find((c) => c.id === state.catId) || CATEGORIES[0];
+          banner.innerHTML = `<span>${cat.icon} <strong>${cat.title}</strong>：${cat.desc}</span><span>共 ${words.length} 词</span>`;
+        }
+
+        const grid = document.getElementById("wordGrid");
+        const flashWrap = document.getElementById("flashWrap");
+        if (state.mode === "flash") {
+          grid.style.display = "none";
+          flashWrap.classList.add("active");
+          renderFlashcard(words);
+        } else {
+          grid.style.display = "grid";
+          flashWrap.classList.remove("active");
+          renderList(words);
+        }
+      }
+
+      // ─── Auto-Play Ear Training (连播磨耳朵) ───────────────────────────────
+      let autoPlaying = false;
+      let autoStopFlag = false;
+
+      async function toggleAutoPlay() {
+        const btn = document.getElementById("autoPlayBtn");
+        if (autoPlaying) {
+          autoStopFlag = true;
+          autoPlaying = false;
+          btn.classList.remove("playing-auto");
+          btn.textContent = "🎧 连播磨耳朵";
+          player.pause();
+          if ("speechSynthesis" in window) window.speechSynthesis.cancel();
+          showToast("⏹ 已停止连播");
+          return;
+        }
+
+        const words = getFilteredWords();
+        if (!words.length) return;
+        autoPlaying = true;
+        autoStopFlag = false;
+        btn.classList.add("playing-auto");
+        btn.textContent = "⏹ 停止连播";
+
+        for (let i = 0; i < words.length; i++) {
+          if (autoStopFlag) break;
+          const w = words[i];
+          showToast(`🎧 (${i + 1}/${words.length}) ${w.pt} — ${w.zh}`, 4000);
+          await speakWordPtBr(w.pt, false);
+          if (autoStopFlag) break;
+          await new Promise((r) => setTimeout(r, 650));
+          if (autoStopFlag) break;
+          await speakWordPtBr(w.pt, true); // Second time slow!
+          if (autoStopFlag) break;
+          await new Promise((r) => setTimeout(r, 1100));
+        }
+
+        autoPlaying = false;
+        btn.classList.remove("playing-auto");
+        btn.textContent = "🎧 连播磨耳朵";
+      }
+
+      // ─── Bind Events ───────────────────────────────────────────────────────
+      document.querySelectorAll(".mode-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          state.mode = btn.dataset.mode;
+          saveState();
+          renderAll();
+        });
+      });
+
+      document.getElementById("searchInput").addEventListener("input", (e) => {
+        state.search = e.target.value;
+        state.flashIdx = 0;
+        renderAll();
+      });
+
+      document.getElementById("maskZhBtn").addEventListener("click", () => {
+        state.maskZh = !state.maskZh;
+        saveState();
+        renderAll();
+      });
+
+      document.getElementById("maskPtBtn").addEventListener("click", () => {
+        state.maskPt = !state.maskPt;
+        saveState();
+        renderAll();
+      });
+
+      document.getElementById("autoPlayBtn").addEventListener("click", toggleAutoPlay);
+
+      // Flashcard events
+      document.getElementById("flashCard").addEventListener("click", () => {
+        document.getElementById("flashCard").classList.toggle("flipped");
+      });
+
+      document.getElementById("flashSpeakBtn").addEventListener("click", () => {
+        const w = currentFlashList[state.flashIdx];
+        if (w) speakWordPtBr(w.pt, false);
+      });
+
+      document.getElementById("flashSlowBtn").addEventListener("click", () => {
+        const w = currentFlashList[state.flashIdx];
+        if (w) speakWordPtBr(w.pt, true);
+      });
+
+      document.getElementById("flashMicBtn").addEventListener("click", () => {
+        const w = currentFlashList[state.flashIdx];
+        if (w) testSingleWordPronunciation(w, document.getElementById("flashMicBtn"), document.getElementById("flashMicFeedback"));
+      });
+
+      document.getElementById("flashStarBtn").addEventListener("click", () => {
+        const w = currentFlashList[state.flashIdx];
+        if (!w) return;
+        state.starred[w.key] = !state.starred[w.key];
+        if (!state.starred[w.key]) delete state.starred[w.key];
+        saveState();
+        updateStats();
+        document.getElementById("flashStarBtn").textContent = state.starred[w.key] ? "★ 已收藏" : "☆ 收藏";
+      });
+
+      document.getElementById("rateHardBtn").addEventListener("click", () => {
+        const w = currentFlashList[state.flashIdx];
+        if (w) {
+          state.starred[w.key] = true;
+          delete state.mastered[w.key];
+        }
+        state.flashIdx = (state.flashIdx + 1) % Math.max(1, currentFlashList.length);
+        saveState();
+        updateStats();
+        renderFlashcard(currentFlashList);
+      });
+
+      document.getElementById("rateMidBtn").addEventListener("click", () => {
+        state.flashIdx = (state.flashIdx + 1) % Math.max(1, currentFlashList.length);
+        saveState();
+        renderFlashcard(currentFlashList);
+      });
+
+      document.getElementById("rateEasyBtn").addEventListener("click", () => {
+        const w = currentFlashList[state.flashIdx];
+        if (w) state.mastered[w.key] = true;
+        state.flashIdx = (state.flashIdx + 1) % Math.max(1, currentFlashList.length);
+        saveState();
+        updateStats();
+        renderFlashcard(currentFlashList);
+      });
+
+      if ("speechSynthesis" in window) {
+        window.speechSynthesis.getVoices();
+        window.speechSynthesis.onvoiceschanged = () => window.speechSynthesis.getVoices();
+      }
+
+      probeLocalServer();
+      renderAll();
+    })();
+  </script>
+</body>
+</html>
