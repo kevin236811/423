@@ -689,45 +689,53 @@
       }));
 
       // Append 《大学葡萄牙语 1》 textbook vocabulary mapped to Brazilian Portuguese
-      if (window.COURSE_DATA && Array.isArray(window.COURSE_DATA.units)) {
-        const brMap = (window.PT_BR_DATA && window.PT_BR_DATA.vocabBrMap) || {};
-        const seenPt = new Set();
-        CATEGORIES.forEach((c) => c.words.forEach((w) => seenPt.add(w.pt.toLowerCase())));
-        const bookWords = [];
-        window.COURSE_DATA.units.forEach((u) => {
-          (u.vocab || []).forEach((v) => {
-            if (!v.pt || v.pos === "缩略语") return;
-            const rawClean = v.pt.replace(/\(.*?\)/g, "").split("/")[0].trim();
-            const brObj = v.br || brMap[v.pt] || brMap[rawClean];
-            const finalPt = brObj
-              ? brObj.word.replace(/\(.*?\)/g, "").split("/")[0].trim()
-              : rawClean;
-            if (!finalPt || seenPt.has(finalPt.toLowerCase())) return;
-            seenPt.add(finalPt.toLowerCase());
-            const art = v.pos && v.pos.includes("m.") ? "o" : v.pos && v.pos.includes("f.") ? "a" : "";
-            bookWords.push({
-              pt: finalPt,
-              art,
-              pos: v.pos || "",
-              zh: v.zh || "",
-              syl: guessStressDisplay(finalPt),
-              ipa: brObj ? "🇧🇷 已转为巴葡常用词" : `教材 ${u.badge}`,
-              tip: brObj ? `巴葡对照：${brObj.note}（课本原词：${v.pt}）` : `来自《大学葡萄牙语 1》${u.badge} (${u.titleZh})`,
-              catId: "textbook1",
-              key: `textbook1::${finalPt}`
+      try {
+        if (window.COURSE_DATA && Array.isArray(window.COURSE_DATA.units)) {
+          const brMap = (window.PT_BR_DATA && window.PT_BR_DATA.vocabBrMap) || {};
+          const seenPt = new Set();
+          CATEGORIES.forEach((c) => c.words.forEach((w) => seenPt.add(w.pt.toLowerCase())));
+          const bookWords = [];
+          window.COURSE_DATA.units.forEach((u) => {
+            (u.vocab || []).forEach((v) => {
+              if (!v || !v.pt || v.pos === "缩略语") return;
+              const rawClean = String(v.pt).replace(/\(.*?\)/g, "").split("/")[0].trim();
+              const brObj = v.br || brMap[v.pt] || brMap[rawClean];
+              const brWordRaw = typeof brObj === "string" ? brObj : (brObj && typeof brObj.word === "string" ? brObj.word : "");
+              const brNoteRaw = brObj && typeof brObj.note === "string" ? brObj.note : "";
+              const finalPt = brWordRaw
+                ? brWordRaw.replace(/\(.*?\)/g, "").split("/")[0].trim()
+                : rawClean;
+              if (!finalPt || seenPt.has(finalPt.toLowerCase())) return;
+              seenPt.add(finalPt.toLowerCase());
+              const art = v.pos && v.pos.includes("m.") ? "o" : v.pos && v.pos.includes("f.") ? "a" : "";
+              bookWords.push({
+                pt: finalPt,
+                art,
+                pos: v.pos || "",
+                zh: v.zh || "",
+                syl: guessStressDisplay(finalPt),
+                ipa: brWordRaw ? "🇧🇷 已转为巴葡常用词" : `教材 ${u.badge}`,
+                tip: brWordRaw
+                  ? `巴葡对照：${brNoteRaw || brWordRaw}（课本原词：${v.pt}）`
+                  : `来自《大学葡萄牙语 1》${u.badge} (${u.titleZh})`,
+                catId: "textbook1",
+                key: `textbook1::${finalPt}`
+              });
             });
           });
-        });
 
-        if (bookWords.length > 0) {
-          CATEGORIES.push({
-            id: "textbook1",
-            icon: "📚",
-            title: `11 · 《大学葡语1》课本生词 (${bookWords.length}词)`,
-            desc: "已自动把课本里的欧洲葡语词替换成巴西地道说法，可与课本精读同步背诵",
-            words: bookWords
-          });
+          if (bookWords.length > 0) {
+            CATEGORIES.push({
+              id: "textbook1",
+              icon: "📚",
+              title: `11 · 《大学葡语1》课本生词 (${bookWords.length}词)`,
+              desc: "已自动把课本里的欧洲葡语词替换成巴西地道说法，可与课本精读同步背诵",
+              words: bookWords
+            });
+          }
         }
+      } catch (e) {
+        console.warn("Skip textbook vocab merge:", e);
       }
 
       const ALL_WORDS = CATEGORIES.flatMap((c) => c.words);

@@ -1,4 +1,4 @@
-const CACHE_NAME = "pt-univ-vol1-v7";
+const CACHE_NAME = "pt-univ-vol1-v8";
 const CORE_ASSETS = [
   "./",
   "./index.html",
